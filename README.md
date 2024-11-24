@@ -123,9 +123,7 @@ npm run test:watch
 This project is licensed under the MIT License 
 ## 👏 Acknowledgments
 
-- Design inspiration from [attribution if applicable]
 - Icons provided by [Heroicons](https://heroicons.com)
-- [Any other acknowledgments]
 
 ## 📞 Support
 
