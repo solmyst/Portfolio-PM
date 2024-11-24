@@ -1,9 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, FileText,ExternalLink, Terminal, Code, Award, BookOpen } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen } from 'lucide-react';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isLoading, setIsLoading] = useState(true);
+
+  
+  const projects = [
+    {
+      title: "E-Commerce Website",
+      description: "A full-stack e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, product catalog, shopping cart, and payment integration.",
+      image: "/api/placeholder/400/300", // Replace with your project image
+      buttons: [
+        { label: "View Live", icon: <ExternalLink size={16} />, link: "https://your-ecommerce-site.com" },
+        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/yourusername/ecommerce" }
+      ]
+    },
+    {
+      title: "Weather Dashboard",
+      description: "A real-time weather application that provides detailed forecasts, interactive maps, and weather alerts using OpenWeatherMap API.",
+      image: "/api/placeholder/400/300", // Replace with your project image
+      buttons: [
+        { label: "Try It", icon: <ExternalLink size={16} />, link: "https://weather-dashboard-demo.com" },
+        { label: "View Code", icon: <Github size={16} />, link: "https://github.com/yourusername/weather-app" }
+      ]
+    },
+    {
+      title: "Task Management App",
+      description: "A Kanban-style project management tool built with React and Firebase. Features include drag-and-drop tasks, team collaboration, and real-time updates.",
+      image: "/api/placeholder/400/300", // Replace with your project image
+      buttons: [
+        { label: "Documentation", icon: <FileText size={16} />, link: "https://docs.your-task-app.com" },
+        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/yourusername/task-manager" }
+      ]
+    }
+  ];
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 2000);
@@ -66,8 +97,8 @@ const Portfolio = () => {
                 <Mail size={24} />
               </a>
               <a href="https://solmyst.github.io/Anush-Gupta---Resume/" className="hover:text-blue-400 transition-colors">
-      <FileText size={24} /> 
-    </a>
+                <FileText size={24} />
+              </a>
             </div>
           </div>
         </div>
@@ -93,6 +124,18 @@ const Portfolio = () => {
               title="Tools"
               skills={['Git', 'VS Code', 'Eclipse', 'Command Line']}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-12 text-center">Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <ProjectCard key={index} {...project} />
+            ))}
           </div>
         </div>
       </section>
@@ -151,6 +194,49 @@ const Portfolio = () => {
           </a>
         </div>
       </section>
+    </div>
+  );
+};
+
+const ProjectCard = ({ title, description, image, buttons }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div 
+      className="relative group rounded-lg overflow-hidden bg-gray-800 transition-all duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Project Image */}
+      <img 
+        src={image} 
+        alt={title} 
+        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      
+      {/* Overlay with project info */}
+      <div className={`absolute inset-0 bg-gray-900 bg-opacity-90 transition-opacity duration-300 flex flex-col justify-center items-center p-6 ${
+        isHovered ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-300 text-center mb-6">{description}</p>
+        
+        {/* Action Buttons */}
+        <div className="flex space-x-4">
+          {buttons.map((button, index) => (
+            <a
+              key={index}
+              href={button.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 transition-colors px-4 py-2 rounded-lg"
+            >
+              {button.icon}
+              <span>{button.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

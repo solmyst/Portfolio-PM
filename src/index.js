@@ -4,10 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Example of configuration object
+const projectConfig = {
+  title: "Your Project Name",
+  description: "Your project description",
+  image: "path/to/your/project-image.jpg",
+  buttons: [
+    {
+      label: "Button Label",
+      icon: null, // Replace with your imported IconComponent or other JSX
+      link: "https://your-link.com"
+    },
+    // Add more button objects as needed
+  ],
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App config={projectConfig} />
   </React.StrictMode>
 );
 
