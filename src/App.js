@@ -81,7 +81,7 @@ const Portfolio = () => {
         <div className="container mx-auto">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-              Hi, I'm Anush Gupta
+              Hi, I'm Anush 
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl animate-slide-up">
               A passionate Software Engineer focused on building innovative solutions and solving complex problems.
