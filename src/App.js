@@ -57,7 +57,7 @@ const Portfolio = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-bold text-blue-500 hover:text-blue-400 transition-colors cursor-pointer">
-              Anush 
+
             </div>
             <div className="hidden md:flex space-x-8">
               {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
