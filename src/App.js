@@ -8,21 +8,12 @@ const Portfolio = () => {
   
   const projects = [
     {
-      title: "E-Commerce Website",
-      description: "A full-stack e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, product catalog, shopping cart, and payment integration.",
+      title: "sand falling",
+      description: "An interactive web-based sand art simulator that allows users to create beautiful, flowing sand patterns with various effects and controls. Built using p5.js, this project simulates particle physics to create a realistic sand-falling effect with customizable properties.",
       image: "/api/placeholder/400/300", // Replace with your project image
       buttons: [
         { label: "View Live", icon: <ExternalLink size={16} />, link: "https://your-ecommerce-site.com" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/yourusername/ecommerce" }
-      ]
-    },
-    {
-      title: "Weather Dashboard",
-      description: "A real-time weather application that provides detailed forecasts, interactive maps, and weather alerts using OpenWeatherMap API.",
-      image: "/api/placeholder/400/300", // Replace with your project image
-      buttons: [
-        { label: "Try It", icon: <ExternalLink size={16} />, link: "https://weather-dashboard-demo.com" },
-        { label: "View Code", icon: <Github size={16} />, link: "https://github.com/yourusername/weather-app" }
       ]
     },
     {
