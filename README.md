@@ -1,74 +1,132 @@
-My Portfolio Website
-Welcome to my portfolio website! This is where I showcase my projects, skills, and accomplishments as a software engineer and developer. Feel free to explore the projects and learn more about my journey!
+# Portfolio Website
 
-Table of Contents
-About
-Technologies Used
-Features
-Installation
-Usage
-Contributing
-License
-Contact
-About
-This portfolio website serves as an online showcase of my work. It highlights some of the projects I’ve worked on and provides insight into my technical expertise. Whether you are a potential employer, collaborator, or someone interested in my work, I hope you find this portfolio helpful!
+A modern, responsive portfolio website built to showcase professional work, projects, and skills.
 
-Features
-Home Page: Overview of who I am and my career highlights.
-Projects: A detailed list of my personal, academic, and professional projects.
-Skills: A list of programming languages, frameworks, and tools that I am proficient in.
-Contact: A contact form to get in touch with me directly.
-Technologies Used
-This portfolio website was built using the following technologies:
+## 🚀 Features
 
-React.js: Frontend framework for building the user interface.
-Tailwind CSS: Utility-first CSS framework for styling.
-Node.js: JavaScript runtime used for the development environment.
-GitHub Pages: Deployed the portfolio to GitHub Pages for easy access and sharing.
-Installation
-To run this project locally, follow these steps:
+- Responsive design that works seamlessly across desktop, tablet, and mobile devices
+- Dark/light mode theme switching
+- Dynamic project showcase with filterable categories
+- Integrated blog section for technical writing and updates
+- Contact form with form validation
+- SEO optimized
+- Fast loading performance with optimized assets
+- Accessible following WCAG guidelines
 
-Clone this repository:
+## 🛠️ Technologies Used
 
-bash
-Copy code
-git clone https://github.com/solmyst/my-portfolio.git
-Navigate into the project directory:
+- **Frontend Framework:** React.js
+- **Styling:** Tailwind CSS
+- **Animation:** Framer Motion
+- **Form Handling:** React Hook Form
+- **Deployment:** Vercel
+- **Content Management:** Markdown
+- **Version Control:** Git
 
-bash
-Copy code
-cd my-portfolio
-Install dependencies:
+## 📦 Installation
 
-bash
-Copy code
+1. Clone the repository:
+```bash
+git clone https://github.com/solmyst/portfolio.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd portfolio
+```
+
+3. Install dependencies:
+```bash
 npm install
-Usage
-After installation, you can run the project locally by running:
+```
 
-bash
-Copy code
-npm start
-This will launch the website in your browser at http://localhost:3000.
+4. Start the development server:
+```bash
+npm run dev
+```
 
-Contributing
-Contributions are always welcome! If you’d like to contribute to this project, feel free to fork the repository, make your changes, and submit a pull request.
+The site will be available at `http://localhost:3000`
 
-Steps for contributing:
+## 🔧 Configuration
 
-Fork the repository.
-Create a new branch for your feature or fix.
-Commit your changes.
-Push your changes to your forked repository.
-Open a pull request to the main repository.
-License
-This project is licensed under the MIT License – see the LICENSE file for details.
+### Environment Variables
 
-Contact
-You can reach me through the following:
+Create a `.env` file in the root directory with the following variables:
 
-Email: your-email@example.com
-LinkedIn: linkedin.com/in/your-profile
-GitHub: github.com/solmyst
-Feel free to explore the website and contact me if you have any questions or if you're interested in collaborating on a project!
+```plaintext
+NEXT_PUBLIC_SITE_URL=your-site-url
+NEXT_PUBLIC_CONTACT_EMAIL=your-email
+```
 
+### Content Management
+
+- Project data is stored in `data/projects.js`
+- Blog posts are stored in `content/blog`
+- Update personal information in `data/profile.js`
+
+## 📝 Project Structure
+
+```
+portfolio-website/
+├── components/        # Reusable React components
+├── pages/            # Next.js pages and API routes
+├── public/           # Static assets
+├── styles/          # Global styles and Tailwind config
+├── content/         # Markdown content
+├── data/            # JSON/JS data files
+├── lib/             # Utility functions
+└── tests/           # Test files
+```
+
+## 🚀 Deployment
+
+1. Push your changes to GitHub
+2. Connect your repository to Vercel
+3. Configure your environment variables
+4. Deploy!
+
+Alternatively, deploy manually:
+```bash
+npm run build
+npm run start
+```
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+npm run test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+## 📱 Performance Optimization
+
+- Images are automatically optimized using Next.js Image component
+- Code splitting and lazy loading implemented for better performance
+- Asset minification in production builds
+- Caching strategies implemented for faster load times
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License 
+## 👏 Acknowledgments
+
+- Design inspiration from [attribution if applicable]
+- Icons provided by [Heroicons](https://heroicons.com)
+- [Any other acknowledgments]
+
+## 📞 Support
+
+For support, email anushgupta105@gmail.com or open an issue in the repository.
