@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen, ArrowUp } from 'lucide-react';
 import './Portfolio.css';
+// import ReactAppImage from '/public/React App-1.png';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -78,7 +79,7 @@ const Portfolio = () => {
     {
       title: "Task Management App",
       description: "A Kanban-style project management tool built with React and Firebase. Features include drag-and-drop tasks, team collaboration, and real-time updates.",
-      image: "\public\image.png",
+      image: "/React App-1.png",
       buttons: [
         { label: "View live", icon: <ExternalLink  size={16} />, link: " https://solmyst.github.io/task-managment/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/task-managment" }

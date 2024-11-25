@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 // Example of configuration object
 const projectConfig = {
-  title: "Your Project Name",
+  title: "Task management",
   description: "Your project description",
-  image: "path/to/your/project-image.jpg",
+  image: "/public/React App-1.png",
   buttons: [
     {
       label: "Button Label",
