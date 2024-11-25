@@ -73,7 +73,7 @@ const Portfolio = () => {
       description: "An interactive web-based sand art simulator that allows users to create beautiful, flowing sand patterns with various effects and controls. Built using p5.js, this project simulates particle physics to create a realistic sand-falling effect with customizable properties.",
       image: ReactAppImage2,
       buttons: [
-        { label: "View Live", icon: <ExternalLink size={16} />, link: " https://solmyst.github.io/Sand-falling-project/" },
+        { label: "View Live", icon: <ExternalLink size={16} />, link: "https://solmyst.github.io/Sand-falling-project/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Sand-falling-project" }
       ]
     },
@@ -82,7 +82,7 @@ const Portfolio = () => {
       description: "A Kanban-style project management tool built with React and Firebase. Features include drag-and-drop tasks, team collaboration, and real-time updates.",
       image: ReactAppImage1,
       buttons: [
-        { label: "View live", icon: <ExternalLink  size={16} />, link: " https://solmyst.github.io/task-managment/" },
+        { label: "View live", icon: <ExternalLink size={16} />, link: "https://solmyst.github.io/task-managment/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/task-managment" }
       ]
     }
@@ -248,6 +248,11 @@ const Portfolio = () => {
 
       {/* Back to Top Button */}
       <BackToTopButton />
+
+      {/* Copyright */}
+      <footer className="mt-0 py-2 bg-gray-800 text-center text-gray-400">
+        Copyright © 2024 Anush Gupta. All Rights Reserved.
+      </footer>
     </div>
   );
 };
