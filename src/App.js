@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen, ArrowUp } from 'lucide-react';
 import './Portfolio.css';
-// import ReactAppImage from '/public/React App-1.png';
+import ReactAppImage1 from './assest/ReactApp.png';
+import ReactAppImage2 from './assest/Enhanced Magical Sand Art Creator-1.png';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -70,7 +71,7 @@ const Portfolio = () => {
     {
       title: "Sand falling",
       description: "An interactive web-based sand art simulator that allows users to create beautiful, flowing sand patterns with various effects and controls. Built using p5.js, this project simulates particle physics to create a realistic sand-falling effect with customizable properties.",
-      image: "/api/placeholder/400/300",
+      image: ReactAppImage2,
       buttons: [
         { label: "View Live", icon: <ExternalLink size={16} />, link: " https://solmyst.github.io/Sand-falling-project/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Sand-falling-project" }
@@ -79,7 +80,7 @@ const Portfolio = () => {
     {
       title: "Task Management App",
       description: "A Kanban-style project management tool built with React and Firebase. Features include drag-and-drop tasks, team collaboration, and real-time updates.",
-      image: "/React App-1.png",
+      image: ReactAppImage1,
       buttons: [
         { label: "View live", icon: <ExternalLink  size={16} />, link: " https://solmyst.github.io/task-managment/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/task-managment" }
@@ -131,10 +132,10 @@ const Portfolio = () => {
         <div className="container mx-auto">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-              Hi, I'm Anush Gupta
+              Hi, I'm Anush Gupta,
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl animate-slide-up">
-              A passionate Software Engineer focused on building innovative solutions and solving complex problems.
+            A Computer Science student at JECRC University with expertise in C++, Java, and JavaScript. Passionate about tech, creative fields like photo/video editing, and continuous learning. I aim to contribute my skills to impactful projects and grow professionally.
             </p>
             <div className="flex space-x-6">
               <a href="https://github.com/solmyst" className="hover:text-blue-400 transition-colors">
@@ -172,7 +173,7 @@ const Portfolio = () => {
             <SkillCard
               icon={<BookOpen size={32} />}
               title="Tools"
-              skills={['Git', 'VS Code', 'Eclipse', 'Command Line']}
+              skills={['Git', 'VS Code', 'Eclipse', 'Command Line', 'Docker']}
             />
           </div>
         </div>
@@ -196,9 +197,9 @@ const Portfolio = () => {
           <h2 className="text-3xl font-bold mb-12 text-center">Experience</h2>
           <div className="max-w-3xl mx-auto">
             <ExperienceCard
-              title="Software Engineering Intern"
+              title="Software Engineering Intern / Product Manager "
               company="Park Plus"
-              date="Duration (Month Year - Month Year)"
+              date="Duration (June 2024 - July 2024)"
               description={[
                 'Developed key features for the Phonebook product',
                 'Implemented contact synchronization functionality',
@@ -256,7 +257,7 @@ const ProjectCard = ({ title, description, image, buttons }) => {
 
   return (
     <div 
-      className="relative group rounded-lg overflow-hidden bg-gray-800 transition-all duration-300"
+      className="relative group rounded-lg overflow-hidden bg-gray-800 transition-all duration-300 flex flex-col h-auto"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -264,7 +265,7 @@ const ProjectCard = ({ title, description, image, buttons }) => {
       <img 
         src={image} 
         alt={title} 
-        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+        className="w-full object-contain transition-transform duration-300 group-hover:scale-105"
       />
       
       {/* Overlay with project info */}
