@@ -1,63 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen, ArrowUp } from 'lucide-react';
+import './Portfolio.css';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isLoading, setIsLoading] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  
+  // References for each section
+  const sectionRefs = {
+    about: useRef(null),
+    experience: useRef(null),
+    skills: useRef(null),
+    projects: useRef(null),
+    achievements: useRef(null),
+    contact: useRef(null)
+  };
+
+  // Scrolling function
+  const scrollToSection = (sectionName) => {
+    const section = sectionRefs[sectionName].current;
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionName);
+    }
+  };
+
+  // Scroll effect and back-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+      
+      // Determine active section
+      const scrollPosition = window.scrollY;
+      Object.keys(sectionRefs).forEach(section => {
+        const element = sectionRefs[section].current;
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(section);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Loading state
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 3000);
+  }, []);
+
+  const BackToTopButton = () => (
+    isScrolled && (
+      <button 
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-10 right-10 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-all z-50 animate-bounce"
+      >
+        <ArrowUp size={24} />
+      </button>
+    )
+  );
+
   const projects = [
     {
-      title: "sand falling",
+      title: "Sand falling",
       description: "An interactive web-based sand art simulator that allows users to create beautiful, flowing sand patterns with various effects and controls. Built using p5.js, this project simulates particle physics to create a realistic sand-falling effect with customizable properties.",
-      image: "/api/placeholder/400/300", // Replace with your project image
+      image: "/api/placeholder/400/300",
       buttons: [
-        { label: "View Live", icon: <ExternalLink size={16} />, link: "https://your-ecommerce-site.com" },
-        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/yourusername/ecommerce" }
+        { label: "View Live", icon: <ExternalLink size={16} />, link: " https://solmyst.github.io/Sand-falling-project/" },
+        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Sand-falling-project" }
       ]
     },
     {
       title: "Task Management App",
       description: "A Kanban-style project management tool built with React and Firebase. Features include drag-and-drop tasks, team collaboration, and real-time updates.",
-      image: "/api/placeholder/400/300", // Replace with your project image
+      image: "\public\image.png",
       buttons: [
-        { label: "Documentation", icon: <FileText size={16} />, link: "https://docs.your-task-app.com" },
-        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/yourusername/task-manager" }
+        { label: "View live", icon: <ExternalLink  size={16} />, link: " https://solmyst.github.io/task-managment/" },
+        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/task-managment" }
       ]
     }
   ];
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
-  }, []);
-
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-gray-900">
-        <div className="text-4xl text-blue-500 font-bold animate-pulse">
-          Loading...
+      <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
+        <div className="flex flex-col items-center">
+          <div className="loader mb-6"></div>
+          <div className="text-2xl text-white font-bold animate-pulse">
+            Loading Portfolio...
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-gray-800 bg-opacity-90 backdrop-blur-sm z-50">
+      <nav className="fixed top-0 w-full bg-black bg-opacity-50 backdrop-blur-md z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-blue-500 hover:text-blue-400 transition-colors cursor-pointer">
+            <div className="text-2xl font-bold text-blue-300 hover:text-blue-200 transition-colors cursor-pointer">
               Anush Gupta
-
             </div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
+              {[ 'About', 'Experience', 'Skills', 'Projects','Achievements', 'Contact'].map((item) => (
                 <button
                   key={item}
-                  onClick={() => setActiveSection(item.toLowerCase())}
-                  className={`hover:text-blue-400 transition-colors ${
-                    activeSection === item.toLowerCase() ? 'text-blue-500' : ''
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className={`hover:text-blue-300 transition-colors ${
+                    activeSection === item.toLowerCase() ? 'text-blue-400 font-semibold' : 'text-gray-300'
                   }`}
                 >
                   {item}
@@ -69,7 +126,7 @@ const Portfolio = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
+      <section ref={sectionRefs.about} className="pt-32 pb-20 px-6">
         <div className="container mx-auto">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
@@ -97,7 +154,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 bg-gray-800">
+      <section ref={sectionRefs.skills} className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Technical Skills</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -121,10 +178,10 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20">
+      <section ref={sectionRefs.projects} className="py-20">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-12 text-center">Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="text-4xl font-bold mb-16 text-center text-blue-300">Featured Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
@@ -133,7 +190,7 @@ const Portfolio = () => {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20">
+      <section ref={sectionRefs.experience} className="py-20">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Experience</h2>
           <div className="max-w-3xl mx-auto">
@@ -153,7 +210,7 @@ const Portfolio = () => {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-gray-800">
+      <section ref={sectionRefs.achievements} className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Achievements</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -172,7 +229,7 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20">
+      <section ref={sectionRefs.contact} className="py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-8">Let's Connect</h2>
           <p className="text-xl text-gray-400 mb-8">
@@ -186,6 +243,9 @@ const Portfolio = () => {
           </a>
         </div>
       </section>
+
+      {/* Back to Top Button */}
+      <BackToTopButton />
     </div>
   );
 };
