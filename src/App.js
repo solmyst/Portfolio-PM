@@ -156,7 +156,7 @@ const Portfolio = () => {
               className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-lg"
             >
               <Download size={16} />
-              <span>Download PDF</span>
+              <span>Download Resume</span>
             </a>
           </div>
           <button
