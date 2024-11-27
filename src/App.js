@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, 
 import './Portfolio.css';
 import ReactAppImage1 from './assest/ReactApp.png';
 import ReactAppImage2 from './assest/Enhanced Magical Sand Art Creator-1.png';
+import MobileNav from './MobileNav';
 // import ReactAppPdf from "/assest/Anush_Gupta_Software_Engineering_Resume.pdf";
 
 const AnimatedTitle = () => {
@@ -47,7 +48,7 @@ const AnimatedTitle = () => {
       
       <div className="relative">
         <span 
-          className={`text-5xl md:text-7xl font-bold inline-block transition-all duration-700 ease-out
+          className={`text-3xl sm:text-5xl md:text-7xl font-bold inline-block transition-all duration-700 ease-out
             ${isAnimating ? getAnimationClasses() : 'opacity-100 translate-x-0 translate-y-0 scale-100'}
             ${titles[titleIndex].color}`}
           onMouseEnter={() => setTitleIndex((prev) => (prev + 1) % titles.length)}
@@ -213,14 +214,15 @@ const Portfolio = () => {
             <div className="text-2xl font-bold text-blue-300 hover:text-blue-200 transition-colors cursor-pointer">
               Anush Gupta
             </div>
-            <div className="hidden md:flex space-x-8">
-              {['About', 'Experience', 'Skills', 'Projects', 'Achievements', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`hover:text-blue-300 transition-colors ${
-                    activeSection === item.toLowerCase() ? 'text-blue-400 font-semibold' : 'text-gray-300'
-                  }`}
+            <MobileNav activeSection={activeSection} scrollToSection={scrollToSection} />
+      <div className="hidden md:flex space-x-8">
+        {['About', 'Experience', 'Skills', 'Projects', 'Achievements', 'Contact'].map((item) => (
+          <button
+            key={item}
+            onClick={() => scrollToSection(item.toLowerCase())}
+            className={`hover:text-blue-300 transition-colors ${
+              activeSection === item.toLowerCase() ? 'text-blue-400 font-semibold' : 'text-gray-300'
+            }`}
                 >
                   {item}
                 </button>
@@ -264,7 +266,7 @@ const Portfolio = () => {
       <section ref={sectionRefs.skills} className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Technical Skills</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <SkillCard
               icon={<Code size={32} />}
               title="Languages"
@@ -288,7 +290,7 @@ const Portfolio = () => {
       <section ref={sectionRefs.projects} className="py-20">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-16 text-center text-blue-300">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
