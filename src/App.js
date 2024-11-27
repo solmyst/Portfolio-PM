@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, BookOpen, ArrowUp, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, 
+  BookOpen, ArrowUp, Download, Database, Palette, LineChart, GitBranch, Layout, Speech 
+} from 'lucide-react';
 import './Portfolio.css';
 import ReactAppImage1 from './assest/ReactApp.png';
 import ReactAppImage2 from './assest/Enhanced Magical Sand Art Creator-1.png';
@@ -65,6 +67,123 @@ const AnimatedTitle = () => {
     </div>
   );
 };
+
+const SkillsSection = () => {
+  const skillCategories = [
+    {
+      title: "Technical Skills",
+      icon: <Code className="w-6 h-6" />,
+      skills: [
+        { name: "C++", level: "Experienced", },
+        { name: "Java", level: "Advanced" },
+        { name: "JavaScript", level: "Intermediate", },
+        { name: "Python", level: "Intermediate", },
+        { name: "React", level: "Intermediate", }
+      ]
+    },
+    {
+      title: "Development Tools",
+      icon: <Terminal className="w-6 h-6" />,
+      skills: [
+        { name: "Git", level: "Experienced", color: "bg-orange-400" },
+        { name: "VS Code", level: "Experienced", color: "bg-blue-500" },
+        { name: "Intellij", level: "Experienced", color: "bg-blue-500" },
+        { name: "Docker", level: "Intermediate", color: "bg-blue-500" },
+        { name: "JIRA", level: "Intermediate", color: "bg-indigo-400" }
+      ]
+    },
+    {
+      title: "Database & Analytics",
+      icon: <Database className="w-6 h-6" />,
+      skills: [
+        { name: "SQL", level: "Experienced", color: "bg-green-400" },
+        { name: "Amplitude", level: "Intermediate", color: "bg-purple-400" },
+        { name: "MoEngage", level: "Intermediate", color: "bg-pink-400" }
+      ]
+    },
+    {
+      title: "Design & Product",
+      icon: <Palette className="w-6 h-6" />,
+      skills: [
+        { name: "UI/UX & Wireframing", level: "Beginner", color: "bg-rose-400" },
+        { name: "UI/UX & Wireframing", level: "Intermediate", color: "bg-rose-400" },
+        { name: "Whimsical", level: "Advanced", color: "bg-teal-400" },
+        { name: "Product Flows", level: "Experienced", color: "bg-violet-400" }
+      ]
+    }
+  ];
+  const getSkillGradient = (level) => {
+    switch (level) {
+      case "Experienced":
+        return "bg-gradient-to-r from-cyan-600 to-indigo-700"; // Expert gradient
+      case "Advanced":
+        return "bg-gradient-to-r from-teal-500 to-cyan-600"; // Advanced gradient
+      case "Intermediate":
+        return "bg-gradient-to-r from-blue-400 to-teal-500"; // Intermediate gradient
+      case "Beginner":
+        return "bg-gradient-to-r from-blue-200 to-blue-400"; // Beginner gradient
+      default:
+        return "bg-gray-700"; // Default fallback gradient
+    }
+  };
+
+  const getSkillWidth = (level) => {
+    switch (level) {
+      case "Experienced":
+        return "90%";
+        case "Advanced":
+      return "75%";
+      case "Intermediate":
+        return "50%";
+      case "Beginner":
+        return "25%";
+      default:
+        return "0%"; // Default fallback
+    }
+  };
+
+  return (
+    <div className="py-20 bg-gray-900 bg-opacity-60 backdrop-blur-lg">
+      <div className="container mx-auto px-6">
+        <h2 className="text-4xl font-bold mb-12 text-center text-white-300 relative">
+          Skills & Expertise
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {skillCategories.map((category, idx) => (
+            <div 
+              key={idx}
+              className="bg-gray-800 rounded-xl p-6 hover:transform hover:scale-[1.02] transition-all duration-300 shadow-xl hover:shadow-2xl border border-gray-700 hover:border-blue-500"
+            >
+              <div className="flex items-center mb-6 text-blue-400">
+                {category.icon}
+                <h3 className="text-xl font-bold ml-3">{category.title}</h3>
+              </div>
+
+              <div className="space-y-4">
+                {category.skills.map((skill, skillIdx) => (
+                  <div key={skillIdx} className="relative">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-gray-200 font-medium">{skill.name}</span>
+                    <span className="text-gray-400 text-sm">{skill.level}</span>
+                  </div>
+                  <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full ${getSkillGradient(skill.level)} rounded-full transition-all duration-500 ease-out`}
+                      style={{ width: getSkillWidth(skill.level) }}
+                    />
+                  </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -216,7 +335,7 @@ const Portfolio = () => {
             </div>
             <MobileNav activeSection={activeSection} scrollToSection={scrollToSection} />
       <div className="hidden md:flex space-x-8">
-        {['About', 'Experience', 'Skills', 'Projects', 'Achievements', 'Contact'].map((item) => (
+        {['About',  'Skills', 'Projects','Experience', 'Achievements', 'Contact'].map((item) => (
           <button
             key={item}
             onClick={() => scrollToSection(item.toLowerCase())}
@@ -263,28 +382,12 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section ref={sectionRefs.skills} className="py-20 bg-gray-800">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-12 text-center">Technical Skills</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <SkillCard
-              icon={<Code size={32} />}
-              title="Languages"
-              skills={['C++', 'Java', 'Python', 'JavaScript', 'C']}
-            />
-            <SkillCard
-              icon={<Terminal size={32} />}
-              title="Development"
-              skills={['Data Structures', 'Algorithms', 'OOP', 'Problem Solving']}
-            />
-            <SkillCard
-              icon={<BookOpen size={32} />}
-              title="Tools"
-              skills={['Git', 'VS Code', 'Eclipse', 'Command Line', 'Docker']}
-            />
-          </div>
-        </div>
-      </section>
+<section ref={sectionRefs.skills} className="py-20 bg-gray-800">
+  <div className="container mx-auto px-6">
+    <SkillsSection />
+  </div>
+</section>
+
 
       {/* Projects Section */}
       <section ref={sectionRefs.projects} className="py-20">
