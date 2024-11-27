@@ -271,7 +271,7 @@ const Portfolio = () => {
               <span>View Resume</span>
             </a>
             <a
-              href= "/Anush_Gupta_Software_Engineering_Resume.pdf"
+              href= "public/Anush_Gupta_Software_Engineering_Resume.pdf"
               download="Anush-Gupta-Resume.pdf"
               className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-lg"
             >
