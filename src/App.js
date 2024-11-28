@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, 
-  BookOpen, ArrowUp, Download, Database, Palette, LineChart, GitBranch, Layout, Speech 
+  BookOpen, ArrowUp, Download, Database, Palette, LineChart, GitBranch, Layout, Speech , Users ,Target 
 } from 'lucide-react';
 import './Portfolio.css';
 import ReactAppImage1 from './assest/ReactApp.png';
@@ -71,87 +71,105 @@ const AnimatedTitle = () => {
 const SkillsSection = () => {
   const skillCategories = [
     {
+      title: "Core Competencies",
+      icon: <Target className="w-6 h-6" />,
+      barColor: "from-purple-600 to-purple-800",
+      skills: [
+        { name: "Data Structures & Algorithms", level: "Experienced" },
+        { name: "Object-Oriented Design", level: "Advanced" },
+        { name: "Problem Solving", level: "Intermediate" },
+        { name: "Web development", level: "Intermediate" },
+        { name: "Team Collaboration", level: "Intermediate" },
+        { name: "Software Development Lifecycle", level: "Intermediate" }
+      ]
+    },
+    {
       title: "Technical Skills",
       icon: <Code className="w-6 h-6" />,
+      barColor: "from-cyan-500 to-blue-500",
       skills: [
-        { name: "C++", level: "Experienced", },
+        { name: "C++", level: "Experienced" },
         { name: "Java", level: "Advanced" },
-        { name: "JavaScript", level: "Intermediate", },
-        { name: "Python", level: "Intermediate", },
-        { name: "React", level: "Intermediate", }
+        { name: "JavaScript", level: "Intermediate" },
+        { name: "Python", level: "Intermediate" },
+        { name: "React", level: "Intermediate" }
       ]
     },
     {
       title: "Development Tools",
       icon: <Terminal className="w-6 h-6" />,
+      barColor: "from-orange-500 to-yellow-600",
       skills: [
-        { name: "Git", level: "Experienced", color: "bg-orange-400" },
-        { name: "VS Code", level: "Experienced", color: "bg-blue-500" },
-        { name: "Intellij", level: "Experienced", color: "bg-blue-500" },
-        { name: "Docker", level: "Intermediate", color: "bg-blue-500" },
-        { name: "JIRA", level: "Intermediate", color: "bg-indigo-400" }
+        { name: "Git", level: "Experienced" },
+        { name: "VS Code", level: "Experienced" },
+        { name: "Intellij", level: "Experienced" },
+        { name: "Docker", level: "Intermediate" },
+        { name: "Postman", level: "Intermediate" },
+        { name: "JIRA", level: "Intermediate" }
       ]
     },
     {
       title: "Database & Analytics",
       icon: <Database className="w-6 h-6" />,
+      barColor: "from-green-500 to-lime-600",
       skills: [
-        { name: "SQL", level: "Experienced", color: "bg-green-400" },
-        { name: "Amplitude", level: "Intermediate", color: "bg-purple-400" },
-        { name: "MoEngage", level: "Intermediate", color: "bg-pink-400" }
+        { name: "SQL", level: "Intermediate" },
+        { name: "MySQL", level: "Intermediate" },
+        { name: "Amplitude", level: "Intermediate" },
+        { name: "MoEngage", level: "Intermediate" }
       ]
     },
     {
       title: "Design & Product",
       icon: <Palette className="w-6 h-6" />,
+      barColor: "from-pink-500 to-red-600",
       skills: [
-        { name: "UI/UX & Wireframing", level: "Beginner", color: "bg-rose-400" },
-        { name: "UI/UX & Wireframing", level: "Intermediate", color: "bg-rose-400" },
-        { name: "Whimsical", level: "Advanced", color: "bg-teal-400" },
-        { name: "Product Flows", level: "Experienced", color: "bg-violet-400" }
+        { name: "Product Flows", level: "Experienced" },
+        { name: "UI/UX & Wireframing", level: "Advanced" },
+        { name: "Whimsical", level: "Advanced" },
+        { name: "Figma", level: "Intermediate" },
+        { name: "Visily", level: "Intermediate" }
+      ]
+    },
+    {
+      title: "Soft Skills",
+      icon: <Users className="w-6 h-6" />,
+      barColor: "from-teal-500 to-blue-500",
+      skills: [
+        { name: "Communication", level: "Experienced" },
+        { name: "Leadership", level: "Experienced" },
+        { name: "Adaptability", level: "Experienced" },
+        { name: "Critical Thinking", level: "Experienced" },
+        { name: "Time Management", level: "Experienced" }
       ]
     }
   ];
-  const getSkillGradient = (level) => {
-    switch (level) {
-      case "Experienced":
-        return "bg-gradient-to-r from-cyan-600 to-indigo-700"; // Expert gradient
-      case "Advanced":
-        return "bg-gradient-to-r from-teal-500 to-cyan-600"; // Advanced gradient
-      case "Intermediate":
-        return "bg-gradient-to-r from-blue-400 to-teal-500"; // Intermediate gradient
-      case "Beginner":
-        return "bg-gradient-to-r from-blue-200 to-blue-400"; // Beginner gradient
-      default:
-        return "bg-gray-700"; // Default fallback gradient
-    }
-  };
 
   const getSkillWidth = (level) => {
     switch (level) {
       case "Experienced":
         return "90%";
-        case "Advanced":
-      return "75%";
+      case "Advanced":
+        return "75%";
       case "Intermediate":
         return "50%";
       case "Beginner":
         return "25%";
       default:
-        return "0%"; // Default fallback
+        return "0%";
     }
   };
 
   return (
-    <div className="py-20 bg-gray-900 bg-opacity-60 backdrop-blur-lg">
+    <div className="py-24 bg-gray-900 bg-opacity-60 backdrop-blur-lg">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-12 text-center text-white-300 relative">
+        <h2 className="text-4xl font-bold mb-16 text-center text-white relative">
           Skills & Expertise
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {skillCategories.map((category, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-gray-800 rounded-xl p-6 hover:transform hover:scale-[1.02] transition-all duration-300 shadow-xl hover:shadow-2xl border border-gray-700 hover:border-blue-500"
             >
@@ -160,19 +178,19 @@ const SkillsSection = () => {
                 <h3 className="text-xl font-bold ml-3">{category.title}</h3>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {category.skills.map((skill, skillIdx) => (
                   <div key={skillIdx} className="relative">
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-200 font-medium">{skill.name}</span>
-                    <span className="text-gray-400 text-sm">{skill.level}</span>
-                  </div>
-                  <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full ${getSkillGradient(skill.level)} rounded-full transition-all duration-500 ease-out`}
-                      style={{ width: getSkillWidth(skill.level) }}
-                    />
-                  </div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-gray-200 font-medium">{skill.name}</span>
+                      <span className="text-gray-400 text-sm">{skill.level}</span>
+                    </div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full bg-gradient-to-r ${category.barColor} rounded-full transition-all duration-500 ease-out`}
+                        style={{ width: getSkillWidth(skill.level) }}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -183,6 +201,7 @@ const SkillsSection = () => {
     </div>
   );
 };
+
 
 
 const Portfolio = () => {
