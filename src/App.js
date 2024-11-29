@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award, 
   BookOpen, ArrowUp, Download, Database, Palette, LineChart, GitBranch, Layout, Speech , Users ,Target 
