@@ -5,6 +5,8 @@ import { Github, Linkedin, Mail, FileText, ExternalLink, Terminal, Code, Award,
 import './Portfolio.css';
 import ReactAppImage1 from './assest/ReactApp.png';
 import ReactAppImage2 from './assest/Enhanced Magical Sand Art Creator-1.png';
+import ReactAppImage3 from './assest/1729408542692.png';
+import ReactApppdf from './assest/Anush_Gupta_Software_Engineering_Resume.pdf';
 import MobileNav from './MobileNav';
 // import ReactAppPdf from "/assest/Anush_Gupta_Software_Engineering_Resume.pdf";
 
@@ -77,6 +79,8 @@ const SkillsSection = () => {
       skills: [
         { name: "Data Structures & Algorithms", level: "Experienced" },
         { name: "Object-Oriented Design", level: "Advanced" },
+        { name: "Artificial Intelligence (AI)", level: "Intermediate" },
+        { name: "Machine Learning", level: "Intermediate" },
         { name: "Problem Solving", level: "Intermediate" },
         { name: "Web development", level: "Intermediate" },
         { name: "Team Collaboration", level: "Intermediate" },
@@ -270,7 +274,7 @@ const Portfolio = () => {
 
   const CurrentPosition = () => (
     <div className="bg-blue-500 text-white px-4 py-2 rounded-full inline-block mb-6">
-      <span className="font-semibold">Current Position:</span> Software Engineering / Product Manager Intern @ Park Plus
+      <span className="font-semibold">Current Position:</span> Software Engineer / Product Manager Intern @ Park+
     </div>
   );
 
@@ -290,7 +294,7 @@ const Portfolio = () => {
               <span>View Resume</span>
             </a>
             <a
-              href= "public/Anush_Gupta_Software_Engineering_Resume.pdf"
+              href = {ReactApppdf}
               download="Anush-Gupta-Resume.pdf"
               className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-lg"
             >
@@ -312,7 +316,7 @@ const Portfolio = () => {
   const projects = [
     {
       title: "Sand falling",
-      description: "An interactive web-based sand art simulator that allows users to create beautiful, flowing sand patterns with various effects and controls. Built using p5.js, this project simulates particle physics to create a realistic sand-falling effect with customizable properties.",
+      description: "An interactive sand art simulator built with p5.js, featuring realistic particle physics and customizable effects for creating flowing sand patterns.",
       image: ReactAppImage2,
       buttons: [
         { label: "View Live", icon: <ExternalLink size={16} />, link: "https://solmyst.github.io/Sand-falling-project/" },
@@ -326,6 +330,15 @@ const Portfolio = () => {
       buttons: [
         { label: "View live", icon: <ExternalLink size={16} />, link: "https://solmyst.github.io/task-managment/" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/task-managment" }
+      ]
+    },
+    {
+      title: "Health I'd Management",
+      description: "A digital healthcare documentation prototype designed to streamline medical record-keeping in India, built with Python, Django, JavaScript, HTML, CSS, and MySQL.",
+      image: ReactAppImage3,
+      buttons: [
+        { label: "View WireFrame", icon: <ExternalLink size={16} />, link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4" },
+        { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Health-I-d-Managment" }
       ]
     }
   ];
@@ -427,7 +440,7 @@ const Portfolio = () => {
           <div className="max-w-3xl mx-auto">
             <ExperienceCard
               title="Software Engineering Intern / Product Manager"
-              company="Park Plus"
+              company="Park+"
               date="Duration (June 2024 - July 2024)"
               description={[
                 'Developed key features for the Phonebook product',
