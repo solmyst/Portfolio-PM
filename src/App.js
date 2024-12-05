@@ -10,6 +10,7 @@ import ReactAppImage3 from './assest/1729408542692.png';
 import ReactAppImage4 from './assest/image4.png';
 import ReactApppdf from './assest/Anush_Gupta_Software_Engineering_Resume.pdf';
 import MobileNav from './MobileNav';
+// import LoadingScreen from './LoadingScreen';
 // import ReactAppPdf from "/assest/Anush_Gupta_Software_Engineering_Resume.pdf";
 
 const AnimatedTitle = () => {
@@ -347,14 +348,16 @@ const Portfolio = () => {
       title: "Anime Dunia - Anime and Manga Streaming Platform",
       description: "Developed Anime Dunia, a full-stack anime and manga streaming platform with features like video playback, a community forum for active discussions, and real-time updates on trending content. The site was built using Vite for fast development, React for dynamic user interfaces, and Tailwind CSS for responsive and modern styling.",
       image: ReactAppImage4,
-      // buttons: [
-      //   { label: "View WireFrame", icon: <ExternalLink size={16} />, link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4" },
-      //   { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Health-I-d-Managment" }
-      // ]
+      buttons: [
+        // { label: "View WireFrame", icon: <ExternalLink size={16} />, link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4" },
+        // { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Health-I-d-Managment" }
+      ]
     }
   ];
 
   if (isLoading) {
+  //   return <LoadingScreen />;
+  // }
     return (
       <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
         <div className="flex flex-col items-center">
