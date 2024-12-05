@@ -7,6 +7,7 @@ import './Portfolio.css';
 import ReactAppImage1 from './assest/ReactApp.png';
 import ReactAppImage2 from './assest/Enhanced Magical Sand Art Creator-1.png';
 import ReactAppImage3 from './assest/1729408542692.png';
+import ReactAppImage4 from './assest/image4.png';
 import ReactApppdf from './assest/Anush_Gupta_Software_Engineering_Resume.pdf';
 import MobileNav from './MobileNav';
 // import ReactAppPdf from "/assest/Anush_Gupta_Software_Engineering_Resume.pdf";
