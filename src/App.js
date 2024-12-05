@@ -341,6 +341,15 @@ const Portfolio = () => {
         { label: "View WireFrame", icon: <ExternalLink size={16} />, link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4" },
         { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Health-I-d-Managment" }
       ]
+    },
+     {
+      title: "Anime Dunia - Anime and Manga Streaming Platform",
+      description: "Developed Anime Dunia, a full-stack anime and manga streaming platform with features like video playback, a community forum for active discussions, and real-time updates on trending content. The site was built using Vite for fast development, React for dynamic user interfaces, and Tailwind CSS for responsive and modern styling.",
+      image: ReactAppImage4,
+      // buttons: [
+      //   { label: "View WireFrame", icon: <ExternalLink size={16} />, link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4" },
+      //   { label: "GitHub", icon: <Github size={16} />, link: "https://github.com/solmyst/Health-I-d-Managment" }
+      // ]
     }
   ];
 
