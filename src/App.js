@@ -863,17 +863,17 @@ const ProjectsSection = () => {
       likes: "124",
       rating: "4.7"
     },
-    {
-      title: "Anime Dunia",
-      description: "A full-stack anime streaming platform featuring video playback, community discussions, and personalized recommendations powered by modern web technologies.",
-      image: ReactAppImage4,
-      tech: ["Vite", "React", "Node.js", "Video Streaming"],
-      link: "#",
-      github: "#",
-      views: "5.2K",
-      likes: "387",
-      rating: "4.9"
-    }
+    // {
+    //   title: "Anime Dunia",
+    //   description: "A full-stack anime streaming platform featuring video playback, community discussions, and personalized recommendations powered by modern web technologies.",
+    //   image: ReactAppImage4,
+    //   tech: ["Vite", "React", "Node.js", "Video Streaming"],
+    //   link: "#",
+    //   github: "#",
+    //   views: "5.2K",
+    //   likes: "387",
+    //   rating: "4.9"
+    // }
   ];
 
   useEffect(() => {
@@ -1050,36 +1050,36 @@ const ExperienceSection = () => {
       technologies: ["Java", "Spring Boot", "MySQL", "REST APIs", "Git"],
       type: "internship"
     },
-    {
-      title: "Competitive Programming",
-      company: "Various Platforms",
-      period: "2022 - Present",
-      location: "Online",
-      description: "Active participant in competitive programming contests on LeetCode, CodeChef, and Codeforces, developing strong problem-solving skills and algorithmic thinking.",
-      achievements: [
-        "Solved 200+ problems across multiple platforms",
-        "Achieved consistent ratings improvement on CodeChef and Codeforces",
-        "Participated in weekly contests and coding challenges",
-        "Developed expertise in data structures and algorithms"
-      ],
-      technologies: ["C++", "Python", "Algorithms", "Data Structures"],
-      type: "continuous"
-    },
-    {
-      title: "Hackathon Participant",
-      company: "Various Events",
-      period: "2023 - 2024",
-      location: "Multiple Venues",
-      description: "Participated in multiple hackathons, securing runner-up position and demonstrating innovation and technical expertise under time constraints.",
-      achievements: [
-        "Secured 2nd place in major hackathon competition",
-        "Built innovative solutions within 24-48 hour timeframes",
-        "Collaborated with diverse teams to solve real-world problems",
-        "Presented technical solutions to industry experts"
-      ],
-      technologies: ["React", "Node.js", "Python", "APIs", "Rapid Prototyping"],
-      type: "achievement"
-    }
+  //   {
+  //     title: "Competitive Programming",
+  //     company: "Various Platforms",
+  //     period: "2022 - Present",
+  //     location: "Online",
+  //     description: "Active participant in competitive programming contests on LeetCode, CodeChef, and Codeforces, developing strong problem-solving skills and algorithmic thinking.",
+  //     achievements: [
+  //       "Solved 200+ problems across multiple platforms",
+  //       "Achieved consistent ratings improvement on CodeChef and Codeforces",
+  //       "Participated in weekly contests and coding challenges",
+  //       "Developed expertise in data structures and algorithms"
+  //     ],
+  //     technologies: ["C++", "Python", "Algorithms", "Data Structures"],
+  //     type: "continuous"
+  //   },
+  //   {
+  //     title: "Hackathon Participant",
+  //     company: "Various Events",
+  //     period: "2023 - 2024",
+  //     location: "Multiple Venues",
+  //     description: "Participated in multiple hackathons, securing runner-up position and demonstrating innovation and technical expertise under time constraints.",
+  //     achievements: [
+  //       "Secured 2nd place in major hackathon competition",
+  //       "Built innovative solutions within 24-48 hour timeframes",
+  //       "Collaborated with diverse teams to solve real-world problems",
+  //       "Presented technical solutions to industry experts"
+  //     ],
+  //     technologies: ["React", "Node.js", "Python", "APIs", "Rapid Prototyping"],
+  //     type: "achievement"
+  //   }
   ];
 
   useEffect(() => {
@@ -1345,40 +1345,40 @@ const TestimonialsSection = () => {
   const titleRef = useRef(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Senior Developer at TechCorp",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-      content: "Anush's work on the sand art simulator is absolutely mesmerizing. The attention to detail and smooth physics implementation shows real talent and dedication to craft.",
-      rating: 5,
-      project: "Sand Art Simulator"
-    },
-    {
-      name: "Michael Rodriguez",
-      role: "Product Manager at StartupXYZ",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-      content: "The task management tool Anush built has incredible UX. The drag-and-drop functionality is smooth and the real-time updates work flawlessly. Impressive work!",
-      rating: 5,
-      project: "Task Management Pro"
-    },
-    {
-      name: "Dr. Priya Sharma",
-      role: "Healthcare IT Consultant",
-      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face",
-      content: "The healthcare management system shows deep understanding of the domain. The wireframes and system design demonstrate both technical skills and user empathy.",
-      rating: 5,
-      project: "Health Guardian"
-    },
-    {
-      name: "Alex Thompson",
-      role: "Full Stack Developer",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-      content: "Anush's portfolio itself is a testament to his skills. The animations are smooth, the design is modern, and the code quality is excellent. Great work!",
-      rating: 5,
-      project: "Portfolio Website"
-    }
-  ];
+  // const testimonials = [
+  //   {
+  //     name: "Sarah Chen",
+  //     role: "Senior Developer at TechCorp",
+  //     image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+  //     content: "Anush's work on the sand art simulator is absolutely mesmerizing. The attention to detail and smooth physics implementation shows real talent and dedication to craft.",
+  //     rating: 5,
+  //     project: "Sand Art Simulator"
+  //   },
+  //   {
+  //     name: "Michael Rodriguez",
+  //     role: "Product Manager at StartupXYZ",
+  //     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+  //     content: "The task management tool Anush built has incredible UX. The drag-and-drop functionality is smooth and the real-time updates work flawlessly. Impressive work!",
+  //     rating: 5,
+  //     project: "Task Management Pro"
+  //   },
+  //   {
+  //     name: "Dr. Priya Sharma",
+  //     role: "Healthcare IT Consultant",
+  //     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face",
+  //     content: "The healthcare management system shows deep understanding of the domain. The wireframes and system design demonstrate both technical skills and user empathy.",
+  //     rating: 5,
+  //     project: "Health Guardian"
+  //   },
+  //   {
+  //     name: "Alex Thompson",
+  //     role: "Full Stack Developer",
+  //     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+  //     content: "Anush's portfolio itself is a testament to his skills. The animations are smooth, the design is modern, and the code quality is excellent. Great work!",
+  //     rating: 5,
+  //     project: "Portfolio Website"
+  //   }
+  // ];
 
   useEffect(() => {
     gsap.fromTo(titleRef.current,
