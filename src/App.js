@@ -636,8 +636,8 @@ const ModernHero = () => {
     });
   }, []);
 
-  const scrollToProjects = () => {
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+  const scrollToSkills = () => {
+    document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -668,18 +668,18 @@ const ModernHero = () => {
 
         <div ref={subtitleRef} className="mb-12">
           <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Product Manager & Strategic Leader driving innovation through 
-            data-driven decisions and user-centered product development
+            Strategic Product Manager transforming ideas into impactful solutions through 
+            user research, data analytics, and cross-functional leadership
           </p>
         </div>
 
         <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button
-            onClick={scrollToProjects}
+            onClick={scrollToSkills}
             className="group relative px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-full hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
           >
             <span className="flex items-center">
-              View My Work
+              View My Experience
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
@@ -829,73 +829,9 @@ const ProjectsSection = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
 
+  // TODO: Add real product management projects data
   const projects = [
-    {
-      title: "AI Resume Tailor - Product Strategy",
-      description: "Led product strategy for an AI-powered resume optimization platform. Conducted user research, defined product roadmap, and managed feature prioritization. Achieved 40% increase in user engagement through data-driven product decisions.",
-      image: ReactAppImage1,
-      tech: ["Product Strategy", "User Research", "A/B Testing", "Analytics", "Roadmap Planning"],
-      link: "https://github.com/solmyst/ai-resume-tailor",
-      github: "https://github.com/solmyst/ai-resume-tailor",
-      views: "1.2K",
-      likes: "89",
-      rating: "4.6"
-    },
-    {
-      title: "AI Interview Coach - Product Development",
-      description: "Managed end-to-end product development for an AI interview coaching platform. Collaborated with engineering teams, defined user stories, and implemented feedback loops. Delivered MVP in 3 months with 85% user satisfaction.",
-      image: ReactAppImage2,
-      tech: ["Product Management", "Agile/Scrum", "User Stories", "MVP Development", "Stakeholder Management"],
-      link: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
-      github: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
-      views: "2.3K",
-      likes: "167",
-      rating: "4.8"
-    },
-    {
-      title: "Health Guardian - Healthcare Product",
-      description: "Product managed a comprehensive healthcare management system for the Indian market. Conducted market research, competitor analysis, and regulatory compliance planning. Designed user-centric workflows for medical professionals.",
-      image: ReactAppImage3,
-      tech: ["Healthcare Domain", "Market Research", "Compliance", "Wireframing", "User Journey Mapping"],
-      link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4",
-      github: "https://github.com/solmyst/Health-I-d-Managment",
-      views: "1.8K",
-      likes: "124",
-      rating: "4.7"
-    },
-    {
-      title: "Task Management Platform",
-      description: "Product strategy and development for a Kanban-style project management tool. Defined feature specifications, conducted user interviews, and optimized user workflows. Increased team productivity by 30% through intuitive design.",
-      image: ReactAppImage1,
-      tech: ["Product Design", "User Interviews", "Feature Specs", "Workflow Optimization", "Team Collaboration"],
-      link: "https://solmyst.github.io/task-managment/",
-      github: "https://github.com/solmyst/task-managment",
-      views: "3.4K",
-      likes: "203",
-      rating: "4.9"
-    },
-    {
-      title: "E-Commerce Product Strategy",
-      description: "Developed comprehensive product strategy for a scalable e-commerce platform. Analyzed market trends, defined pricing models, and created go-to-market strategies. Focused on user acquisition and retention metrics.",
-      image: ReactAppImage4,
-      tech: ["E-commerce Strategy", "Market Analysis", "Pricing Models", "Go-to-Market", "Growth Metrics"],
-      link: "https://github.com/solmyst/ecommerce_golang",
-      github: "https://github.com/solmyst/ecommerce_golang",
-      views: "2.8K",
-      likes: "145",
-      rating: "4.7"
-    },
-    {
-      title: "Travel Product Innovation",
-      description: "Led product innovation for a comprehensive travel planning application. Conducted user research in travel domain, designed personalized recommendation algorithms, and managed cross-functional teams to deliver user-centric features.",
-      image: ReactAppImage3,
-      tech: ["Travel Industry", "Recommendation Systems", "Cross-functional Leadership", "Product Innovation", "User Personalization"],
-      link: "https://github.com/solmyst/Trip_Helper",
-      github: "https://github.com/solmyst/Trip_Helper",
-      views: "1.9K",
-      likes: "112",
-      rating: "4.6"
-    }
+    // Projects will be added here with real PM experience and case studies
   ];
 
   useEffect(() => {
@@ -1072,39 +1008,28 @@ const ExperienceSection = () => {
       ],
       technologies: ["Product Strategy", "User Research", "Agile/Scrum", "Analytics", "Stakeholder Management"],
       type: "internship"
-    },
-    {
-      title: "Product Strategy & Innovation",
-      company: "Personal Projects",
-      period: "2022 - Present",
-      location: "Remote",
-      description: "Developed and managed multiple product initiatives from concept to launch, focusing on AI-powered solutions and user-centric design. Applied product management methodologies to drive innovation.",
-      achievements: [
-        "Launched 6+ product initiatives with focus on AI/ML and user experience",
-        "Conducted market research and competitive analysis for healthcare and career development domains",
-        "Implemented data-driven decision making processes using analytics and user feedback",
-        "Managed product roadmaps and feature prioritization for multiple concurrent projects",
-        "Achieved 40% average increase in user engagement through strategic product improvements"
-      ],
-      technologies: ["Product Roadmapping", "Market Research", "A/B Testing", "User Analytics", "MVP Development"],
-      type: "continuous"
-    },
-    {
-      title: "Innovation & Leadership",
-      company: "Hackathons & Competitions",
-      period: "2023 - 2024",
-      location: "Multiple Venues",
-      description: "Led cross-functional teams in innovation challenges, focusing on product strategy, user research, and rapid prototyping. Demonstrated ability to identify market opportunities and deliver solutions under pressure.",
-      achievements: [
-        "Secured 2nd place in major hackathon by leading product strategy and user research",
-        "Conducted rapid user validation and market analysis within 24-48 hour timeframes",
-        "Led diverse teams through product development lifecycle from ideation to presentation",
-        "Presented product vision and business cases to industry experts and investors",
-        "Demonstrated ability to balance technical constraints with user needs and business objectives"
-      ],
-      technologies: ["Product Vision", "Team Leadership", "Rapid Prototyping", "Market Validation", "Pitch Development"],
-      type: "achievement"
     }
+    // TODO: Add more real product management experiences here
+    // {
+    //   title: "Product Strategy & Innovation",
+    //   company: "Personal Projects",
+    //   period: "2022 - Present",
+    //   location: "Remote",
+    //   description: "Will add real product management experience data",
+    //   achievements: [],
+    //   technologies: [],
+    //   type: "continuous"
+    // },
+    // {
+    //   title: "Innovation & Leadership",
+    //   company: "Hackathons & Competitions", 
+    //   period: "2023 - 2024",
+    //   location: "Multiple Venues",
+    //   description: "Will add real leadership and innovation experience data",
+    //   achievements: [],
+    //   technologies: [],
+    //   type: "achievement"
+    // }
   ];
 
   useEffect(() => {
@@ -1176,7 +1101,7 @@ const ExperienceSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            My journey in software development, competitive programming, and innovation
+            My journey in product management, strategic thinking, and user-centered innovation
           </p>
         </div>
 
@@ -1306,21 +1231,21 @@ const AboutSection = () => {
 
             <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
               <p>
-                I'm a passionate Computer Science student at JECRC University with a strong focus on 
-                product management and strategic thinking. My journey combines technical understanding 
-                with user-centered product development and data-driven decision making.
+                I'm a strategic Product Manager and Computer Science student at JECRC University, passionate about 
+                transforming complex problems into user-centric solutions. My approach combines analytical thinking 
+                with deep user empathy to drive meaningful product outcomes.
               </p>
 
               <p>
-                Currently working as a Product Management Intern at Park+, where I've led product 
-                initiatives, conducted user research, and collaborated with cross-functional teams. 
-                I believe in the power of user empathy, strategic thinking, and innovative problem-solving.
+                As a Product Management Intern at Park+, I've led cross-functional initiatives, conducted comprehensive 
+                user research, and delivered data-driven product improvements that impacted thousands of users. 
+                I thrive on turning insights into actionable strategies that balance user needs with business objectives.
               </p>
 
               <p>
-                When I'm not analyzing user data or crafting product strategies, you'll find me 
-                exploring emerging technologies, leading innovation challenges, or researching 
-                market trends to identify new opportunities.
+                My passion lies in understanding user behavior, identifying market opportunities, and building 
+                products that solve real problems. I believe great products are born from the intersection of 
+                user research, strategic vision, and collaborative execution.
               </p>
             </div>
 
@@ -1473,7 +1398,7 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'Projects', href: '#projects' },
+    // { name: 'Projects', href: '#projects' }, // TODO: Re-enable when real PM projects are added
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'About', href: '#about' },
@@ -1550,7 +1475,7 @@ const App = () => {
       <SmoothCursor />
       <Navigation />
       <ModernHero />
-      <ProjectsSection />
+      {/* <ProjectsSection /> */}
       <SkillsSection />
       <ExperienceSection />
       <AboutSection />
