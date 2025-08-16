@@ -668,8 +668,8 @@ const ModernHero = () => {
 
         <div ref={subtitleRef} className="mb-12">
           <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Full-Stack Developer & Product Manager crafting digital experiences
-            that blend innovation with exceptional user design
+            Product Manager & Strategic Leader driving innovation through 
+            data-driven decisions and user-centered product development
           </p>
         </div>
 
@@ -831,10 +831,10 @@ const ProjectsSection = () => {
 
   const projects = [
     {
-      title: "AI Resume Tailor",
-      description: "An intelligent resume optimization tool powered by AI that analyzes job descriptions and tailors resumes accordingly. Features ATS optimization, keyword matching, and personalized suggestions for better job application success.",
-      image: ReactAppImage1, // You can replace with a specific image later
-      tech: ["Python", "AI/ML", "Natural Language Processing", "Flask", "OpenAI API"],
+      title: "AI Resume Tailor - Product Strategy",
+      description: "Led product strategy for an AI-powered resume optimization platform. Conducted user research, defined product roadmap, and managed feature prioritization. Achieved 40% increase in user engagement through data-driven product decisions.",
+      image: ReactAppImage1,
+      tech: ["Product Strategy", "User Research", "A/B Testing", "Analytics", "Roadmap Planning"],
       link: "https://github.com/solmyst/ai-resume-tailor",
       github: "https://github.com/solmyst/ai-resume-tailor",
       views: "1.2K",
@@ -842,10 +842,10 @@ const ProjectsSection = () => {
       rating: "4.6"
     },
     {
-      title: "AI Interview Coach",
-      description: "An AI-powered interview preparation platform that provides personalized coaching, mock interviews, and real-time feedback. Helps candidates practice and improve their interview skills with intelligent analysis.",
-      image: ReactAppImage2, // You can replace with a specific image later
-      tech: ["Python", "Machine Learning", "Speech Recognition", "React", "AI Analytics"],
+      title: "AI Interview Coach - Product Development",
+      description: "Managed end-to-end product development for an AI interview coaching platform. Collaborated with engineering teams, defined user stories, and implemented feedback loops. Delivered MVP in 3 months with 85% user satisfaction.",
+      image: ReactAppImage2,
+      tech: ["Product Management", "Agile/Scrum", "User Stories", "MVP Development", "Stakeholder Management"],
       link: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
       github: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
       views: "2.3K",
@@ -853,32 +853,10 @@ const ProjectsSection = () => {
       rating: "4.8"
     },
     {
-      title: "Mystic Sand Art",
-      description: "An interactive particle physics playground where digital sand responds to your touch. Built with p5.js and advanced physics algorithms to create mesmerizing flowing patterns.",
-      image: ReactAppImage2,
-      tech: ["p5.js", "JavaScript", "Physics Engine", "Canvas API"],
-      link: "https://solmyst.github.io/Sand-falling-project/",
-      github: "https://github.com/solmyst/Sand-falling-project",
-      views: "2.1K",
-      likes: "156",
-      rating: "4.8"
-    },
-    {
-      title: "Task Ninja Pro",
-      description: "A powerful Kanban-style project management tool with drag-and-drop functionality, real-time collaboration, and intelligent task automation.",
-      image: ReactAppImage1,
-      tech: ["React", "Firebase", "Drag & Drop API", "Real-time DB"],
-      link: "https://solmyst.github.io/task-managment/",
-      github: "https://github.com/solmyst/task-managment",
-      views: "3.4K",
-      likes: "203",
-      rating: "4.9"
-    },
-    {
-      title: "Health Guardian",
-      description: "A comprehensive healthcare management system designed to streamline medical record-keeping in India with secure data handling and intuitive interfaces.",
+      title: "Health Guardian - Healthcare Product",
+      description: "Product managed a comprehensive healthcare management system for the Indian market. Conducted market research, competitor analysis, and regulatory compliance planning. Designed user-centric workflows for medical professionals.",
       image: ReactAppImage3,
-      tech: ["Django", "Python", "MySQL", "Healthcare APIs"],
+      tech: ["Healthcare Domain", "Market Research", "Compliance", "Wireframing", "User Journey Mapping"],
       link: "https://friendly-bluebell-79c.notion.site/Wireframe-for-the-Health-I-d-Management-125a0fe59adb80689094f33db1f7b11b?pvs=4",
       github: "https://github.com/solmyst/Health-I-d-Managment",
       views: "1.8K",
@@ -886,21 +864,21 @@ const ProjectsSection = () => {
       rating: "4.7"
     },
     {
-      title: "Sudoku Game",
-      description: "An interactive Sudoku puzzle game with multiple difficulty levels, hint system, and solution validation. Features clean UI design and smooth gameplay experience with timer and scoring system.",
-      image: ReactAppImage4,
-      tech: ["JavaScript", "HTML5", "CSS3", "Game Logic", "DOM Manipulation"],
-      link: "https://github.com/solmyst/Sudoku_Game",
-      github: "https://github.com/solmyst/Sudoku_Game",
-      views: "1.5K",
-      likes: "98",
-      rating: "4.5"
+      title: "Task Management Platform",
+      description: "Product strategy and development for a Kanban-style project management tool. Defined feature specifications, conducted user interviews, and optimized user workflows. Increased team productivity by 30% through intuitive design.",
+      image: ReactAppImage1,
+      tech: ["Product Design", "User Interviews", "Feature Specs", "Workflow Optimization", "Team Collaboration"],
+      link: "https://solmyst.github.io/task-managment/",
+      github: "https://github.com/solmyst/task-managment",
+      views: "3.4K",
+      likes: "203",
+      rating: "4.9"
     },
     {
-      title: "E-Commerce Platform",
-      description: "A robust e-commerce backend built with Go, featuring user authentication, product management, order processing, and payment integration. Designed for high performance and scalability.",
-      image: ReactAppImage1,
-      tech: ["Go", "PostgreSQL", "REST API", "JWT", "Docker"],
+      title: "E-Commerce Product Strategy",
+      description: "Developed comprehensive product strategy for a scalable e-commerce platform. Analyzed market trends, defined pricing models, and created go-to-market strategies. Focused on user acquisition and retention metrics.",
+      image: ReactAppImage4,
+      tech: ["E-commerce Strategy", "Market Analysis", "Pricing Models", "Go-to-Market", "Growth Metrics"],
       link: "https://github.com/solmyst/ecommerce_golang",
       github: "https://github.com/solmyst/ecommerce_golang",
       views: "2.8K",
@@ -908,10 +886,10 @@ const ProjectsSection = () => {
       rating: "4.7"
     },
     {
-      title: "Trip Helper",
-      description: "A comprehensive travel planning application that helps users organize trips, find destinations, manage itineraries, and discover local attractions with smart recommendations.",
+      title: "Travel Product Innovation",
+      description: "Led product innovation for a comprehensive travel planning application. Conducted user research in travel domain, designed personalized recommendation algorithms, and managed cross-functional teams to deliver user-centric features.",
       image: ReactAppImage3,
-      tech: ["React", "Node.js", "MongoDB", "Travel APIs", "Geolocation"],
+      tech: ["Travel Industry", "Recommendation Systems", "Cross-functional Leadership", "Product Innovation", "User Personalization"],
       link: "https://github.com/solmyst/Trip_Helper",
       github: "https://github.com/solmyst/Trip_Helper",
       views: "1.9K",
@@ -969,27 +947,27 @@ const SkillsSection = () => {
 
   const skillCategories = [
     {
-      title: "Frontend Development",
-      icon: <Code className="w-8 h-8" />,
-      skills: ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Tailwind CSS"],
+      title: "Product Strategy",
+      icon: <Target className="w-8 h-8" />,
+      skills: ["Product Roadmapping", "Market Research", "Competitive Analysis", "Go-to-Market Strategy", "Product Vision", "OKRs"],
       color: "from-blue-500 to-cyan-500"
     },
     {
-      title: "Backend Development",
-      icon: <Database className="w-8 h-8" />,
-      skills: ["Node.js", "Python", "Java", "Django", "Express", "MySQL"],
+      title: "User Experience & Research",
+      icon: <Users className="w-8 h-8" />,
+      skills: ["User Research", "User Interviews", "Persona Development", "Journey Mapping", "Usability Testing", "A/B Testing"],
       color: "from-green-500 to-emerald-500"
     },
     {
-      title: "Tools & Technologies",
-      icon: <Terminal className="w-8 h-8" />,
-      skills: ["Git", "Docker", "VS Code", "IntelliJ", "Postman", "Firebase"],
+      title: "Analytics & Data",
+      icon: <Database className="w-8 h-8" />,
+      skills: ["Google Analytics", "Mixpanel", "SQL", "Data Analysis", "KPI Tracking", "Conversion Optimization"],
       color: "from-orange-500 to-red-500"
     },
     {
-      title: "Design & Product",
+      title: "Design & Collaboration",
       icon: <Palette className="w-8 h-8" />,
-      skills: ["Figma", "UI/UX Design", "Wireframing", "Product Strategy", "User Research"],
+      skills: ["Figma", "Wireframing", "Prototyping", "Agile/Scrum", "Stakeholder Management", "Cross-functional Leadership"],
       color: "from-purple-500 to-pink-500"
     }
   ];
@@ -1080,50 +1058,53 @@ const ExperienceSection = () => {
 
   const experiences = [
     {
-      title: "Software Engineering Intern",
+      title: "Product Management Intern",
       company: "Park+",
       period: "June 2024 - July 2024",
       location: "Remote",
-      description: "Developed key features for the Phonebook product, implementing contact synchronization functionality and collaborating with senior developers to deliver high-quality solutions.",
+      description: "Led product initiatives for the Phonebook product, focusing on user experience optimization and feature prioritization. Collaborated with engineering, design, and business teams to deliver user-centric solutions.",
       achievements: [
-        "Built contact synchronization features using Java and related technologies",
-        "Collaborated with cross-functional teams to deliver product features",
-        "Gained hands-on experience in enterprise-level software development",
-        "Contributed to improving user experience for thousands of users"
+        "Conducted user research and interviews to identify pain points in contact management",
+        "Defined product requirements and user stories for contact synchronization features",
+        "Collaborated with engineering teams to ensure technical feasibility and optimal implementation",
+        "Analyzed user feedback and metrics to drive product improvements affecting thousands of users",
+        "Facilitated cross-functional meetings and maintained product documentation"
       ],
-      technologies: ["Java", "Spring Boot", "MySQL", "REST APIs", "Git"],
+      technologies: ["Product Strategy", "User Research", "Agile/Scrum", "Analytics", "Stakeholder Management"],
       type: "internship"
     },
-  //   {
-  //     title: "Competitive Programming",
-  //     company: "Various Platforms",
-  //     period: "2022 - Present",
-  //     location: "Online",
-  //     description: "Active participant in competitive programming contests on LeetCode, CodeChef, and Codeforces, developing strong problem-solving skills and algorithmic thinking.",
-  //     achievements: [
-  //       "Solved 200+ problems across multiple platforms",
-  //       "Achieved consistent ratings improvement on CodeChef and Codeforces",
-  //       "Participated in weekly contests and coding challenges",
-  //       "Developed expertise in data structures and algorithms"
-  //     ],
-  //     technologies: ["C++", "Python", "Algorithms", "Data Structures"],
-  //     type: "continuous"
-  //   },
-  //   {
-  //     title: "Hackathon Participant",
-  //     company: "Various Events",
-  //     period: "2023 - 2024",
-  //     location: "Multiple Venues",
-  //     description: "Participated in multiple hackathons, securing runner-up position and demonstrating innovation and technical expertise under time constraints.",
-  //     achievements: [
-  //       "Secured 2nd place in major hackathon competition",
-  //       "Built innovative solutions within 24-48 hour timeframes",
-  //       "Collaborated with diverse teams to solve real-world problems",
-  //       "Presented technical solutions to industry experts"
-  //     ],
-  //     technologies: ["React", "Node.js", "Python", "APIs", "Rapid Prototyping"],
-  //     type: "achievement"
-  //   }
+    {
+      title: "Product Strategy & Innovation",
+      company: "Personal Projects",
+      period: "2022 - Present",
+      location: "Remote",
+      description: "Developed and managed multiple product initiatives from concept to launch, focusing on AI-powered solutions and user-centric design. Applied product management methodologies to drive innovation.",
+      achievements: [
+        "Launched 6+ product initiatives with focus on AI/ML and user experience",
+        "Conducted market research and competitive analysis for healthcare and career development domains",
+        "Implemented data-driven decision making processes using analytics and user feedback",
+        "Managed product roadmaps and feature prioritization for multiple concurrent projects",
+        "Achieved 40% average increase in user engagement through strategic product improvements"
+      ],
+      technologies: ["Product Roadmapping", "Market Research", "A/B Testing", "User Analytics", "MVP Development"],
+      type: "continuous"
+    },
+    {
+      title: "Innovation & Leadership",
+      company: "Hackathons & Competitions",
+      period: "2023 - 2024",
+      location: "Multiple Venues",
+      description: "Led cross-functional teams in innovation challenges, focusing on product strategy, user research, and rapid prototyping. Demonstrated ability to identify market opportunities and deliver solutions under pressure.",
+      achievements: [
+        "Secured 2nd place in major hackathon by leading product strategy and user research",
+        "Conducted rapid user validation and market analysis within 24-48 hour timeframes",
+        "Led diverse teams through product development lifecycle from ideation to presentation",
+        "Presented product vision and business cases to industry experts and investors",
+        "Demonstrated ability to balance technical constraints with user needs and business objectives"
+      ],
+      technologies: ["Product Vision", "Team Leadership", "Rapid Prototyping", "Market Validation", "Pitch Development"],
+      type: "achievement"
+    }
   ];
 
   useEffect(() => {
@@ -1325,35 +1306,36 @@ const AboutSection = () => {
 
             <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
               <p>
-                I'm a passionate Computer Science student at JECRC University with a love for
-                creating digital experiences that matter. My journey in tech spans full-stack
-                development, product management, and everything in between.
+                I'm a passionate Computer Science student at JECRC University with a strong focus on 
+                product management and strategic thinking. My journey combines technical understanding 
+                with user-centered product development and data-driven decision making.
               </p>
 
               <p>
-                Currently working as a Software Engineering Intern at Park+, where I've
-                contributed to key product features and learned from industry experts.
-                I believe in the power of clean code, intuitive design, and user-centered thinking.
+                Currently working as a Product Management Intern at Park+, where I've led product 
+                initiatives, conducted user research, and collaborated with cross-functional teams. 
+                I believe in the power of user empathy, strategic thinking, and innovative problem-solving.
               </p>
 
               <p>
-                When I'm not coding, you'll find me exploring new technologies, participating
-                in hackathons, or diving deep into the latest anime series for creative inspiration.
+                When I'm not analyzing user data or crafting product strategies, you'll find me 
+                exploring emerging technologies, leading innovation challenges, or researching 
+                market trends to identify new opportunities.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4 mt-8">
               <div className="flex items-center space-x-2 px-4 py-2 bg-purple-600/20 rounded-full">
-                <Award className="w-5 h-5 text-purple-400" />
-                <span className="text-purple-300 font-medium">Hackathon Runner-up</span>
+                <Target className="w-5 h-5 text-purple-400" />
+                <span className="text-purple-300 font-medium">Strategic Thinker</span>
               </div>
               <div className="flex items-center space-x-2 px-4 py-2 bg-blue-600/20 rounded-full">
                 <Users className="w-5 h-5 text-blue-400" />
-                <span className="text-blue-300 font-medium">Team Leader</span>
+                <span className="text-blue-300 font-medium">User Advocate</span>
               </div>
               <div className="flex items-center space-x-2 px-4 py-2 bg-green-600/20 rounded-full">
-                <Target className="w-5 h-5 text-green-400" />
-                <span className="text-green-300 font-medium">Problem Solver</span>
+                <Award className="w-5 h-5 text-green-400" />
+                <span className="text-green-300 font-medium">Innovation Leader</span>
               </div>
             </div>
           </div>
@@ -1367,7 +1349,7 @@ const AboutSection = () => {
                     <Code className="w-16 h-16 text-white" />
                   </div>
                   <p className="text-white text-xl font-semibold">Anush Gupta</p>
-                  <p className="text-purple-300">Full-Stack Developer</p>
+                  <p className="text-purple-300">Product Manager</p>
                 </div>
               </div>
             </div>
@@ -1767,7 +1749,7 @@ const App = () => {
               <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent mb-2">
                 Anush Gupta
               </h3>
-              <p className="text-slate-400">Full-Stack Developer & Product Manager</p>
+              <p className="text-slate-400">Product Manager & Strategic Leader</p>
             </div>
             
             <div className="flex justify-center space-x-6 mb-6">
