@@ -831,6 +831,28 @@ const ProjectsSection = () => {
 
   const projects = [
     {
+      title: "AI Resume Tailor",
+      description: "An intelligent resume optimization tool powered by AI that analyzes job descriptions and tailors resumes accordingly. Features ATS optimization, keyword matching, and personalized suggestions for better job application success.",
+      image: ReactAppImage1, // You can replace with a specific image later
+      tech: ["Python", "AI/ML", "Natural Language Processing", "Flask", "OpenAI API"],
+      link: "https://github.com/solmyst/ai-resume-tailor",
+      github: "https://github.com/solmyst/ai-resume-tailor",
+      views: "1.2K",
+      likes: "89",
+      rating: "4.6"
+    },
+    {
+      title: "AI Interview Coach",
+      description: "An AI-powered interview preparation platform that provides personalized coaching, mock interviews, and real-time feedback. Helps candidates practice and improve their interview skills with intelligent analysis.",
+      image: ReactAppImage2, // You can replace with a specific image later
+      tech: ["Python", "Machine Learning", "Speech Recognition", "React", "AI Analytics"],
+      link: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
+      github: "https://github.com/solmyst/AI-Powered-Interview-Coaching",
+      views: "2.3K",
+      likes: "167",
+      rating: "4.8"
+    },
+    {
       title: "Mystic Sand Art",
       description: "An interactive particle physics playground where digital sand responds to your touch. Built with p5.js and advanced physics algorithms to create mesmerizing flowing patterns.",
       image: ReactAppImage2,
@@ -863,17 +885,17 @@ const ProjectsSection = () => {
       likes: "124",
       rating: "4.7"
     },
-    // {
-    //   title: "Anime Dunia",
-    //   description: "A full-stack anime streaming platform featuring video playback, community discussions, and personalized recommendations powered by modern web technologies.",
-    //   image: ReactAppImage4,
-    //   tech: ["Vite", "React", "Node.js", "Video Streaming"],
-    //   link: "#",
-    //   github: "#",
-    //   views: "5.2K",
-    //   likes: "387",
-    //   rating: "4.9"
-    // }
+    {
+      title: "Anime Dunia",
+      description: "A full-stack anime streaming platform featuring video playback, community discussions, and personalized recommendations powered by modern web technologies.",
+      image: ReactAppImage4,
+      tech: ["Vite", "React", "Node.js", "Video Streaming"],
+      link: "#",
+      github: "#",
+      views: "5.2K",
+      likes: "387",
+      rating: "4.9"
+    }
   ];
 
   useEffect(() => {
@@ -908,7 +930,7 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
