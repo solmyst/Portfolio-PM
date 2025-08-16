@@ -886,15 +886,37 @@ const ProjectsSection = () => {
       rating: "4.7"
     },
     {
-      title: "Anime Dunia",
-      description: "A full-stack anime streaming platform featuring video playback, community discussions, and personalized recommendations powered by modern web technologies.",
+      title: "Sudoku Game",
+      description: "An interactive Sudoku puzzle game with multiple difficulty levels, hint system, and solution validation. Features clean UI design and smooth gameplay experience with timer and scoring system.",
       image: ReactAppImage4,
-      tech: ["Vite", "React", "Node.js", "Video Streaming"],
-      link: "#",
-      github: "#",
-      views: "5.2K",
-      likes: "387",
-      rating: "4.9"
+      tech: ["JavaScript", "HTML5", "CSS3", "Game Logic", "DOM Manipulation"],
+      link: "https://github.com/solmyst/Sudoku_Game",
+      github: "https://github.com/solmyst/Sudoku_Game",
+      views: "1.5K",
+      likes: "98",
+      rating: "4.5"
+    },
+    {
+      title: "E-Commerce Platform",
+      description: "A robust e-commerce backend built with Go, featuring user authentication, product management, order processing, and payment integration. Designed for high performance and scalability.",
+      image: ReactAppImage1,
+      tech: ["Go", "PostgreSQL", "REST API", "JWT", "Docker"],
+      link: "https://github.com/solmyst/ecommerce_golang",
+      github: "https://github.com/solmyst/ecommerce_golang",
+      views: "2.8K",
+      likes: "145",
+      rating: "4.7"
+    },
+    {
+      title: "Trip Helper",
+      description: "A comprehensive travel planning application that helps users organize trips, find destinations, manage itineraries, and discover local attractions with smart recommendations.",
+      image: ReactAppImage3,
+      tech: ["React", "Node.js", "MongoDB", "Travel APIs", "Geolocation"],
+      link: "https://github.com/solmyst/Trip_Helper",
+      github: "https://github.com/solmyst/Trip_Helper",
+      views: "1.9K",
+      likes: "112",
+      rating: "4.6"
     }
   ];
 
@@ -1362,45 +1384,46 @@ const AboutSection = () => {
 };
 
 // Testimonials/Visitor Feedback Section
-const TestimonialsSection = () => {
+// TODO: Add real testimonials data and re-enable this section
+/* const TestimonialsSection = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // const testimonials = [
-  //   {
-  //     name: "Sarah Chen",
-  //     role: "Senior Developer at TechCorp",
-  //     image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-  //     content: "Anush's work on the sand art simulator is absolutely mesmerizing. The attention to detail and smooth physics implementation shows real talent and dedication to craft.",
-  //     rating: 5,
-  //     project: "Sand Art Simulator"
-  //   },
-  //   {
-  //     name: "Michael Rodriguez",
-  //     role: "Product Manager at StartupXYZ",
-  //     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-  //     content: "The task management tool Anush built has incredible UX. The drag-and-drop functionality is smooth and the real-time updates work flawlessly. Impressive work!",
-  //     rating: 5,
-  //     project: "Task Management Pro"
-  //   },
-  //   {
-  //     name: "Dr. Priya Sharma",
-  //     role: "Healthcare IT Consultant",
-  //     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face",
-  //     content: "The healthcare management system shows deep understanding of the domain. The wireframes and system design demonstrate both technical skills and user empathy.",
-  //     rating: 5,
-  //     project: "Health Guardian"
-  //   },
-  //   {
-  //     name: "Alex Thompson",
-  //     role: "Full Stack Developer",
-  //     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-  //     content: "Anush's portfolio itself is a testament to his skills. The animations are smooth, the design is modern, and the code quality is excellent. Great work!",
-  //     rating: 5,
-  //     project: "Portfolio Website"
-  //   }
-  // ];
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      role: "Senior Developer at TechCorp",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+      content: "Anush's AI Resume Tailor is a game-changer! The intelligent optimization and ATS compatibility features helped me land multiple interviews. Highly recommended!",
+      rating: 5,
+      project: "AI Resume Tailor"
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "Product Manager at StartupXYZ",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+      content: "The AI Interview Coach provided invaluable practice sessions. The real-time feedback and personalized coaching helped me ace my technical interviews.",
+      rating: 5,
+      project: "AI Interview Coach"
+    },
+    {
+      name: "Dr. Priya Sharma",
+      role: "Healthcare IT Consultant",
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face",
+      content: "The healthcare management system shows deep understanding of the domain. The wireframes and system design demonstrate both technical skills and user empathy.",
+      rating: 5,
+      project: "Health Guardian"
+    },
+    {
+      name: "Alex Thompson",
+      role: "Full Stack Developer",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+      content: "Anush's portfolio showcases impressive technical diversity. From AI/ML projects to interactive animations, the code quality and innovation are outstanding!",
+      rating: 5,
+      project: "Portfolio Website"
+    }
+  ];
 
   useEffect(() => {
     gsap.fromTo(titleRef.current,
@@ -1545,7 +1568,7 @@ const TestimonialsSection = () => {
       </div>
     </section>
   );
-};
+}; */
 
 // Contact Section
 const ContactSection = () => {
@@ -1656,7 +1679,7 @@ const Navigation = () => {
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'About', href: '#about' },
-    { name: 'Testimonials', href: '#testimonials' },
+    // { name: 'Testimonials', href: '#testimonials' }, // TODO: Re-enable when real data is added
     { name: 'Contact', href: '#contact' }
   ];
 
@@ -1733,7 +1756,7 @@ const App = () => {
       <SkillsSection />
       <ExperienceSection />
       <AboutSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <ContactSection />
 
       {/* Enhanced Footer */}
