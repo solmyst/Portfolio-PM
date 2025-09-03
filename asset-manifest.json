@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/Portfolio-PM/static/css/main.879fb02c.css",
+    "main.js": "/Portfolio-PM/static/js/main.621e41e3.js",
+    "static/js/940.40266036.chunk.js": "/Portfolio-PM/static/js/940.40266036.chunk.js",
+    "static/js/453.acca0757.chunk.js": "/Portfolio-PM/static/js/453.acca0757.chunk.js",
+    "static/media/Anush_Gupta_Software_Engineering_Resume.pdf": "/Portfolio-PM/static/media/Anush_Gupta_Software_Engineering_Resume.8e51f34b9b9c5b14ace6.pdf",
+    "index.html": "/Portfolio-PM/index.html",
+    "main.879fb02c.css.map": "/Portfolio-PM/static/css/main.879fb02c.css.map",
+    "main.621e41e3.js.map": "/Portfolio-PM/static/js/main.621e41e3.js.map",
+    "940.40266036.chunk.js.map": "/Portfolio-PM/static/js/940.40266036.chunk.js.map",
+    "453.acca0757.chunk.js.map": "/Portfolio-PM/static/js/453.acca0757.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.879fb02c.css",
+    "static/js/main.621e41e3.js"
+  ]
+}
