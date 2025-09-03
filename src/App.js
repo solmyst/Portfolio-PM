@@ -48,7 +48,7 @@ const ProductLoadingScreen = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 z-50 flex items-center justify-center">
       <div className="text-center">
         {/* Animated Logo */}
         <div className="mb-8">
@@ -65,7 +65,7 @@ const ProductLoadingScreen = () => {
                 <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full animate-ping transform -translate-x-1/2" />
                 <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-pink-400 rounded-full animate-ping transform -translate-x-1/2" style={{ animationDelay: '0.5s' }} />
                 <div className="absolute left-0 top-1/2 w-2 h-2 bg-blue-400 rounded-full animate-ping transform -translate-y-1/2" style={{ animationDelay: '1s' }} />
-                <div className="absolute right-0 top-1/2 w-2 h-2 bg-green-400 rounded-full animate-ping transform -translate-y-1/2" style={{ animationDelay: '1.5s' }} />
+                <div className="absolute right-0 top-1/2 w-2 h-2 bg-cyan-400 rounded-full animate-ping transform -translate-y-1/2" style={{ animationDelay: '1.5s' }} />
               </div>
             </div>
 
@@ -113,7 +113,7 @@ const ProductLoadingScreen = () => {
       <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-purple-500/50" />
       <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-pink-500/50" />
       <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-blue-500/50" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-green-500/50" />
+      <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan-500/50" />
     </div>
   );
 };
@@ -220,12 +220,12 @@ const ModernHero = () => {
   return (
     <section ref={heroRef} className="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
       {/* Enhanced Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-blue-900/40 to-slate-700" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-transparent to-purple-900/30" />
-      <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-indigo-800/20 to-pink-800/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/40 to-slate-800" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-transparent to-blue-900/30" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-blue-800/20 to-cyan-800/20" />
 
       {/* Optimized Background Animation */}
-      <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-slate-700/20 to-slate-600/20" />}>
+      <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-slate-700/20 to-blue-800/20" />}>
         <OptimizedBackground />
       </Suspense>
 
@@ -238,11 +238,11 @@ const ModernHero = () => {
       <div className="container mx-auto px-6 text-center relative z-20 py-20">
         <div ref={titleRef} className="mb-8">
           <div className="mb-4">
-            <p className="text-lg md:text-xl text-blue-300 font-medium mb-2">Hi, I'm</p>
+            <p className="text-lg md:text-xl text-cyan-300 font-medium mb-2">Hi, I'm</p>
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight">
             <span className="block text-white drop-shadow-2xl">ANUSH</span>
-            <span className="block bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent drop-shadow-lg">
+            <span className="block bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-lg">
               GUPTA
             </span>
           </h1>
@@ -254,7 +254,7 @@ const ModernHero = () => {
 
         <div ref={subtitleRef} className="mb-16">
           <p className="text-xl md:text-2xl text-slate-200 max-w-4xl mx-auto leading-relaxed drop-shadow-lg mb-6">
-            <span className="text-blue-300 font-semibold">Product Manager</span> passionate about building user-centric digital experiences that drive growth and deliver real impact
+            <span className="text-cyan-300 font-semibold">Product Manager</span> passionate about building user-centric digital experiences that drive growth and deliver real impact
           </p>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-8">
             Recently scaled Motor Insurance at Park+ achieving significant user growth through strategic product decisions and cross-functional collaboration
@@ -264,7 +264,7 @@ const ModernHero = () => {
         <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
           <button
             onClick={scrollToSkills}
-            className="group relative px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-full hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
+            className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
           >
             <span className="flex items-center">
               View My Work
@@ -291,8 +291,8 @@ const ModernHero = () => {
       {/* Floating Elements */}
       <div className="absolute top-20 left-20 w-2 h-2 bg-cyan-400 rounded-full animate-pulse opacity-60"></div>
       <div className="absolute top-40 right-32 w-1 h-1 bg-blue-300 rounded-full animate-pulse opacity-40" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-purple-300 rounded-full animate-pulse opacity-50" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute bottom-20 right-20 w-1 h-1 bg-pink-300 rounded-full animate-pulse opacity-30" style={{ animationDelay: '3s' }}></div>
+      <div className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse opacity-50" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute bottom-20 right-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse opacity-30" style={{ animationDelay: '3s' }}></div>
     </section>
   );
 };
@@ -349,14 +349,14 @@ const KeyAchievementSection = () => {
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <div className="text-center p-6 bg-gradient-to-br from-slate-700/60 via-slate-600/40 to-slate-700/60 rounded-2xl border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300">
-              <div className="text-3xl md:text-4xl font-bold text-blue-300 mb-2">180%</div>
+            <div className="text-center p-6 bg-gradient-to-br from-slate-800/60 via-blue-900/40 to-slate-800/60 rounded-2xl border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300">
+              <div className="text-3xl md:text-4xl font-bold text-cyan-300 mb-2">180%</div>
               <div className="text-lg font-semibold text-white mb-1">User Growth</div>
               <div className="text-sm text-slate-300">DAU increase in 8 weeks</div>
             </div>
 
-            <div className="text-center p-6 bg-gradient-to-br from-slate-700/60 via-slate-600/40 to-slate-700/60 rounded-2xl border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300">
-              <div className="text-3xl md:text-4xl font-bold text-green-300 mb-2">8</div>
+            <div className="text-center p-6 bg-gradient-to-br from-slate-800/60 via-blue-900/40 to-slate-800/60 rounded-2xl border border-blue-500/30 hover:border-blue-400/50 transition-all duration-300">
+              <div className="text-3xl md:text-4xl font-bold text-blue-300 mb-2">8</div>
               <div className="text-lg font-semibold text-white mb-1">Weeks</div>
               <div className="text-sm text-slate-300">From early stage to scale</div>
             </div>
@@ -383,25 +383,25 @@ const SkillsSection = () => {
       title: "Product Strategy",
       icon: <Target className="w-8 h-8" />,
       skills: ["Product Roadmapping", "Go-to-Market Strategy", "Market Research", "Competitive Analysis", "Strategic Planning", "Product Vision"],
-      color: "from-blue-500 to-cyan-500"
+      color: "from-cyan-500 to-blue-500"
     },
     {
       title: "User Research & Insights",
       icon: <Users className="w-8 h-8" />,
       skills: ["User Research", "Behavioral Analysis", "Trust Factor Analysis", "Journey Mapping", "User Interviews", "Empathy Mapping"],
-      color: "from-green-500 to-emerald-500"
+      color: "from-blue-500 to-indigo-500"
     },
     {
       title: "Analytics & Data",
       icon: <Database className="w-8 h-8" />,
       skills: ["Data Analysis", "KPI Tracking", "A/B Testing", "User Analytics", "Performance Metrics", "SQL"],
-      color: "from-orange-500 to-red-500"
+      color: "from-sky-500 to-cyan-500"
     },
     {
       title: "Product & Leadership",
       icon: <Palette className="w-8 h-8" />,
       skills: ["Cross-functional Leadership", "Stakeholder Management", "UI/UX Strategy", "WhatsApp Integration", "Agile/Scrum", "Team Collaboration"],
-      color: "from-purple-500 to-pink-500"
+      color: "from-indigo-500 to-purple-500"
     }
   ];
 
@@ -438,12 +438,12 @@ const SkillsSection = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-purple-900/20 to-slate-800">
+    <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-blue-900/20 to-slate-900">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
             Core
-            <span className="block bg-gradient-to-r from-pink-300 to-rose-400 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
               Competencies
             </span>
           </h2>
@@ -557,11 +557,11 @@ const ExperienceSection = () => {
   const getTypeColor = (type) => {
     switch (type) {
       case 'internship':
-        return 'from-blue-500 to-cyan-500';
+        return 'from-cyan-500 to-blue-500';
       case 'continuous':
-        return 'from-green-500 to-emerald-500';
+        return 'from-cyan-500 to-blue-500';
       case 'achievement':
-        return 'from-purple-500 to-pink-500';
+        return 'from-blue-500 to-indigo-500';
       default:
         return 'from-gray-500 to-gray-600';
     }
@@ -573,7 +573,7 @@ const ExperienceSection = () => {
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
             Impact &
-            <span className="block bg-gradient-to-r from-pink-300 to-rose-400 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
               Results
             </span>
           </h2>
@@ -590,7 +590,7 @@ const ExperienceSection = () => {
             >
               {/* Timeline line */}
               {index < experiences.length - 1 && (
-                <div className="absolute left-8 top-20 w-0.5 h-32 bg-gradient-to-b from-purple-500 to-transparent opacity-30" />
+                <div className="absolute left-8 top-20 w-0.5 h-32 bg-gradient-to-b from-cyan-500 to-transparent opacity-30" />
               )}
 
               <div className="flex flex-col md:flex-row gap-8">
@@ -606,10 +606,10 @@ const ExperienceSection = () => {
                   {/* Header */}
                   <div className="mb-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                      <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
                         {exp.title}
                       </h3>
-                      <span className="text-purple-400 font-medium">{exp.period}</span>
+                      <span className="text-cyan-400 font-medium">{exp.period}</span>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-center gap-2 text-gray-400">
                       <span className="font-medium">{exp.company}</span>
@@ -642,7 +642,7 @@ const ExperienceSection = () => {
                       {exp.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="tech-tag px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm font-medium hover:bg-purple-600/30 transition-colors cursor-default"
+                          className="tech-tag px-3 py-1 bg-cyan-600/20 text-cyan-300 rounded-full text-sm font-medium hover:bg-cyan-600/30 transition-colors cursor-default"
                         >
                           {tech}
                         </span>
@@ -657,9 +657,9 @@ const ExperienceSection = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-full border border-purple-500/30">
-            <Target className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 font-medium">Ready to drive your next product success story</span>
+          <div className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-full border border-cyan-500/30">
+            <Target className="w-5 h-5 text-cyan-400" />
+            <span className="text-cyan-300 font-medium">Ready to drive your next product success story</span>
           </div>
         </div>
       </div>
@@ -695,13 +695,13 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-indigo-900/20 to-slate-800">
+    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-blue-900/20 to-slate-900">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div ref={contentRef}>
             <h2 className="text-5xl md:text-6xl font-black text-white mb-8">
               About
-              <span className="block bg-gradient-to-r from-pink-300 to-rose-400 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
                 Me
               </span>
             </h2>
@@ -727,31 +727,31 @@ const AboutSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <div className="flex items-center space-x-2 px-4 py-2 bg-purple-600/20 rounded-full">
-                <Target className="w-5 h-5 text-purple-400" />
-                <span className="text-purple-300 font-medium">Strategic Thinker</span>
+              <div className="flex items-center space-x-2 px-4 py-2 bg-cyan-600/20 rounded-full">
+                <Target className="w-5 h-5 text-cyan-400" />
+                <span className="text-cyan-300 font-medium">Strategic Thinker</span>
               </div>
               <div className="flex items-center space-x-2 px-4 py-2 bg-blue-600/20 rounded-full">
                 <Users className="w-5 h-5 text-blue-400" />
                 <span className="text-blue-300 font-medium">User Advocate</span>
               </div>
-              <div className="flex items-center space-x-2 px-4 py-2 bg-green-600/20 rounded-full">
-                <Award className="w-5 h-5 text-green-400" />
-                <span className="text-green-300 font-medium">Innovation Leader</span>
+              <div className="flex items-center space-x-2 px-4 py-2 bg-indigo-600/20 rounded-full">
+                <Award className="w-5 h-5 text-indigo-400" />
+                <span className="text-indigo-300 font-medium">Innovation Leader</span>
               </div>
             </div>
           </div>
 
           <div ref={imageRef} className="relative">
             <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20 z-10" />
-              <div className="w-full h-full bg-gradient-to-br from-purple-900 to-pink-900 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/20 to-blue-600/20 z-10" />
+              <div className="w-full h-full bg-gradient-to-br from-cyan-900 to-blue-900 flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center mb-4 mx-auto">
                     <Code className="w-16 h-16 text-white" />
                   </div>
                   <p className="text-white text-xl font-semibold">Anush Gupta</p>
-                  <p className="text-purple-300">Product Manager</p>
+                  <p className="text-cyan-300">Product Manager</p>
                 </div>
               </div>
             </div>
@@ -793,7 +793,7 @@ const ContactSection = () => {
   }, []);
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-900 via-cyan-900/10 to-slate-900">
+    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-900 via-blue-900/10 to-slate-900">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
