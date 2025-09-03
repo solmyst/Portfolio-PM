@@ -4,18 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// Example of configuration object
+// Product Manager Portfolio Configuration
 const projectConfig = {
-  title: "Task management",
-  description: "Your project description",
+  title: "Product Growth Portfolio",
+  description: "Scaling products from early stage to 180% growth through strategic product management",
   image: "/public/React App-1.png",
   buttons: [
     {
-      label: "Button Label",
-      icon: null, // Replace with your imported IconComponent or other JSX
-      link: "https://your-link.com"
+      label: "View Growth Results",
+      icon: null,
+      link: "#skills"
     },
-    // Add more button objects as needed
+    {
+      label: "Download Resume",
+      icon: null,
+      link: "./assest/Anush_Gupta_Software_Engineering_Resume.pdf"
+    }
   ],
 };
 

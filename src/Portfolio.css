@@ -9,6 +9,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 0;
 }
 
 body {
@@ -17,10 +18,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
-  background-attachment: fixed;
+  background: #1e293b;
   color: #ffffff;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Hide default cursor on desktop */
@@ -34,22 +36,25 @@ body {
   }
 }
 
-/* Enhanced Grid Pattern Background */
-.grid-pattern {
+/* Static Grid Pattern Background - No Animation */
+.static-grid-pattern {
   background-image: 
-    linear-gradient(rgba(147, 197, 253, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(147, 197, 253, 0.05) 1px, transparent 1px),
-    linear-gradient(rgba(196, 181, 253, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(196, 181, 253, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+    linear-gradient(rgba(147, 197, 253, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(147, 197, 253, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
   width: 100%;
   height: 100%;
-  animation: grid-move 30s linear infinite;
 }
 
-@keyframes grid-move {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+/* Keep original for compatibility but disable animation */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(147, 197, 253, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(147, 197, 253, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  width: 100%;
+  height: 100%;
+  /* Animation removed for performance */
 }
 
 /* Enhanced Smooth Scrollbar */
@@ -296,6 +301,32 @@ a {
   will-change: opacity;
 }
 
+/* GPU Acceleration for smooth animations */
+.animate-bounce,
+.animate-pulse,
+.animate-spin {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize repaints */
+.group:hover .group-hover\:scale-110 {
+  transform: translateZ(0) scale(1.1);
+}
+
+/* Reduce layout thrashing */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize font rendering */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -407,7 +438,34 @@ a {
   /* Reduce motion on mobile for better performance */
   .animate-bounce,
   .animate-pulse {
-    animation-duration: 2s;
+    animation-duration: 4s;
+  }
+  
+  /* Disable heavy animations on mobile */
+  .grid-pattern,
+  .static-grid-pattern {
+    display: none;
+  }
+  
+  .bg-gradient-to-r {
+    animation: none;
+  }
+  
+  /* Reduce particle count on mobile */
+  canvas {
+    opacity: 0.05 !important;
+  }
+  
+  /* Simplify gradients on mobile */
+  .bg-gradient-to-br {
+    background: #334155 !important;
+  }
+  
+  /* Reduce blur effects on mobile */
+  .backdrop-blur-sm,
+  .backdrop-blur-md {
+    backdrop-filter: none;
+    background: rgba(51, 65, 85, 0.8) !important;
   }
 }
 
@@ -721,7 +779,7 @@ ced Light Gradient Theme Additions */
 
 /* Loading Screen Enhancements */
 .loading-gradient {
-  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+  background: linear-gradient(135deg, #1e293b, #334155, #475569);
   background-size: 400% 400%;
   animation: gradient-shift-loading 3s ease infinite;
 }
