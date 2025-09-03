@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.879fb02c.css",
-    "main.js": "/static/js/main.13895d77.js",
+    "main.css": "/static/css/main.f7066cfb.css",
+    "main.js": "/static/js/main.ab2114c7.js",
     "static/js/940.40266036.chunk.js": "/static/js/940.40266036.chunk.js",
     "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
     "static/media/Anush_Gupta_Software_Engineering_Resume.pdf": "/static/media/Anush_Gupta_Software_Engineering_Resume.8e51f34b9b9c5b14ace6.pdf",
     "index.html": "/index.html",
-    "main.879fb02c.css.map": "/static/css/main.879fb02c.css.map",
-    "main.13895d77.js.map": "/static/js/main.13895d77.js.map",
+    "main.f7066cfb.css.map": "/static/css/main.f7066cfb.css.map",
+    "main.ab2114c7.js.map": "/static/js/main.ab2114c7.js.map",
     "940.40266036.chunk.js.map": "/static/js/940.40266036.chunk.js.map",
     "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.879fb02c.css",
-    "static/js/main.13895d77.js"
+    "static/css/main.f7066cfb.css",
+    "static/js/main.ab2114c7.js"
   ]
 }
