@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   Github, Linkedin, Mail, FileText, ArrowRight,
   Code, Palette, Database,
-  Award, Users, Target, ChevronDown, Menu, X, TrendingUp
+  Award, Users, Target, ChevronDown, Menu, X
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,35 +12,23 @@ import ReactApppdf from './assest/Anush_Gupta_Software_Engineering_Resume.pdf';
 // Lazy load heavy components for better performance
 const OptimizedBackground = lazy(() => import('./components/OptimizedBackground'));
 
-// Optimized image loading (for future use)
-// const optimizedImages = {
-//   ReactAppImage1: './assest/ReactApp.png',
-//   ReactAppImage2: './assest/Enhanced Magical Sand Art Creator-1.png',
-//   ReactAppImage3: './assest/1729408542692.png',
-//   ReactAppImage4: './assest/image4.png'
-// };
-
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
-
-
 
 // Product-Focused Loading Screen Component
 const ProductLoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState('Analyzing market trends...');
 
-  const loadingSteps = [
-    'Analyzing market trends...',
-    'Loading user insights...',
-    'Optimizing conversion funnels...',
-    'Preparing growth metrics...',
-    'Ready to scale!'
-  ];
-
-
-
   useEffect(() => {
+    const loadingSteps = [
+      'Analyzing market trends...',
+      'Loading user insights...',
+      'Optimizing conversion funnels...',
+      'Preparing growth metrics...',
+      'Ready to scale!'
+    ];
+
     // Fast progress simulation
     const progressInterval = setInterval(() => {
       setProgress(prev => {
@@ -57,7 +45,6 @@ const ProductLoadingScreen = () => {
     }, 80);
 
     return () => clearInterval(progressInterval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -118,7 +105,7 @@ const ProductLoadingScreen = () => {
 
         {/* Professional Loading Messages */}
         <div className="mt-8 text-gray-500 text-sm">
-          <p>� Loading portfolio...</p>
+          <p>Loading portfolio...</p>
         </div>
       </div>
 
@@ -182,7 +169,7 @@ const SmoothCursor = () => {
   }, []);
 
   // Don't render on mobile
-  if (window.innerWidth < 768) return null;
+  if (typeof window !== 'undefined' && window.innerWidth < 768) return null;
 
   return (
     <>
@@ -224,8 +211,6 @@ const ModernHero = () => {
         { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
         "-=0.6"
       );
-
-    // Remove parallax effect to prevent glitching during scroll
   }, []);
 
   const scrollToSkills = () => {
@@ -233,8 +218,8 @@ const ModernHero = () => {
   };
 
   return (
-    <section ref={heroRef} className="h-[80vh] w-full flex items-center justify-center relative overflow-hidden">
-      {/* Enhanced Gradient Background - No Black Parts */}
+    <section ref={heroRef} className="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
+      {/* Enhanced Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-blue-900/40 to-slate-700" />
       <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-transparent to-purple-900/30" />
       <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-indigo-800/20 to-pink-800/20" />
@@ -250,7 +235,7 @@ const ModernHero = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 text-center relative z-20 h-full flex flex-col justify-center">
+      <div className="container mx-auto px-6 text-center relative z-20 py-20">
         <div ref={titleRef} className="mb-8">
           <div className="mb-4">
             <p className="text-lg md:text-xl text-blue-300 font-medium mb-2">Hi, I'm</p>
@@ -261,7 +246,7 @@ const ModernHero = () => {
               GUPTA
             </span>
           </h1>
-          <div className="mt-4">
+          <div className="mt-6">
             <p className="text-xl md:text-2xl text-slate-300 font-semibold">Product Manager</p>
             <p className="text-lg text-slate-400 mt-2">Turning ideas into products that delight users and drive growth</p>
           </div>
@@ -274,23 +259,9 @@ const ModernHero = () => {
           <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-8">
             Recently scaled Motor Insurance at Park+ achieving significant user growth through strategic product decisions and cross-functional collaboration
           </p>
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-sm max-w-2xl mx-auto px-4">
-            <div className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
-              <Target className="w-4 h-4 text-blue-400 flex-shrink-0" />
-              <span className="text-slate-200 whitespace-nowrap">Product Strategy</span>
-            </div>
-            <div className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
-              <Users className="w-4 h-4 text-green-400 flex-shrink-0" />
-              <span className="text-slate-200 whitespace-nowrap">User Research</span>
-            </div>
-            <div className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
-              <TrendingUp className="w-4 h-4 text-purple-400 flex-shrink-0" />
-              <span className="text-slate-200 whitespace-nowrap">Growth Analytics</span>
-            </div>
-          </div>
         </div>
 
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
           <button
             onClick={scrollToSkills}
             className="group relative px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-full hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
@@ -311,11 +282,9 @@ const ModernHero = () => {
         </div>
 
         {/* Enhanced Scroll Indicator */}
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="flex flex-col items-center">
-            <ChevronDown className="w-6 h-6 text-slate-300/80 mb-2" />
-            <div className="w-px h-8 bg-gradient-to-b from-slate-300/60 to-transparent"></div>
-          </div>
+        <div className="flex flex-col items-center animate-bounce">
+          <ChevronDown className="w-6 h-6 text-slate-300/80 mb-2" />
+          <div className="w-px h-8 bg-gradient-to-b from-slate-300/60 to-transparent"></div>
         </div>
       </div>
 
@@ -327,171 +296,6 @@ const ModernHero = () => {
     </section>
   );
 };
-
-// Modern Project Card - Currently unused, will be used when projects data is ready
-// const ProjectCard = ({ project, index }) => {
-//   const cardRef = useRef(null);
-//   const imageRef = useRef(null);
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   useEffect(() => {
-//     gsap.fromTo(cardRef.current,
-//       { y: 100, opacity: 0 },
-//       {
-//         y: 0,
-//         opacity: 1,
-//         duration: 1,
-//         delay: index * 0.2,
-//         ease: "power3.out",
-//         scrollTrigger: {
-//           trigger: cardRef.current,
-//           start: "top 80%",
-//           end: "bottom 20%",
-//           toggleActions: "play none none reverse"
-//         }
-//       }
-//     );
-//   }, [index]);
-
-//   return (
-//     <div
-//       ref={cardRef}
-//       className="group relative bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-800/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-600/30 hover:border-cyan-400/40 transition-all duration-500 shadow-xl hover:shadow-cyan-500/10"
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//     >
-//       {/* Image Container */}
-//       <div className="relative h-64 md:h-80 overflow-hidden">
-//         <img
-//           ref={imageRef}
-//           src={project.image}
-//           alt={project.title}
-//           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-//         />
-//         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-//         {/* Hover Overlay */}
-//         <div className={`absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/15 to-purple-500/20 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'
-//           }`} />
-//       </div>
-
-//       {/* Content */}
-//       <div className="p-6 md:p-8">
-//         <div className="flex items-center justify-between mb-4">
-//           <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-cyan-300 transition-colors">
-//             {project.title}
-//           </h3>
-//           <div className="flex space-x-2">
-//             {project.link && (
-//               <a
-//                 href={project.link}
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className="p-2 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 transition-all duration-300"
-//               >
-//                 <ExternalLink className="w-4 h-4 text-white" />
-//               </a>
-//             )}
-//             {project.github && (
-//               <a
-//                 href={project.github}
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className="p-2 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 transition-all duration-300"
-//               >
-//                 <Github className="w-4 h-4 text-white" />
-//               </a>
-//             )}
-//           </div>
-//         </div>
-
-//         <p className="text-gray-300 text-lg leading-relaxed mb-6">
-//           {project.description}
-//         </p>
-
-//         {/* Tech Stack */}
-//         <div className="flex flex-wrap gap-2 mb-6">
-//           {project.tech.map((tech, i) => (
-//             <span
-//               key={i}
-//               className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-200 rounded-full text-sm font-medium border border-cyan-400/20 hover:border-cyan-400/40 transition-colors"
-//             >
-//               {tech}
-//             </span>
-//           ))}
-//         </div>
-
-//         {/* Stats */}
-//         <div className="flex items-center space-x-6 text-sm text-gray-400">
-//           <div className="flex items-center space-x-1">
-//             <Eye className="w-4 h-4" />
-//             <span>{project.views}</span>
-//           </div>
-//           <div className="flex items-center space-x-1">
-//             <Heart className="w-4 h-4" />
-//             <span>{project.likes}</span>
-//           </div>
-//           <div className="flex items-center space-x-1">
-//             <Star className="w-4 h-4" />
-//             <span>{project.rating}</span>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// Projects Section - Currently unused, will be added when projects data is ready
-// const ProjectsSection = () => {
-//   const sectionRef = useRef(null);
-//   const titleRef = useRef(null);
-
-//   // TODO: Add real product management projects data
-//   const projects = [
-//     // Projects will be added here with real PM experience and case studies
-//   ];
-
-//   useEffect(() => {
-//     gsap.fromTo(titleRef.current,
-//       { y: 50, opacity: 0 },
-//       {
-//         y: 0,
-//         opacity: 1,
-//         duration: 1,
-//         ease: "power3.out",
-//         scrollTrigger: {
-//           trigger: titleRef.current,
-//           start: "top 80%"
-//         }
-//       }
-//     );
-//   }, []);
-
-//   return (
-//     <section id="projects" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-//       <div className="container mx-auto px-6">
-//         <div ref={titleRef} className="text-center mb-16">
-//           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
-//             Featured
-//             <span className="block bg-gradient-to-r from-pink-300 to-rose-400 bg-clip-text text-transparent">
-//               Projects
-//             </span>
-//           </h2>
-//           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-//             A collection of projects that showcase my passion for creating
-//             innovative digital experiences
-//           </p>
-//         </div>
-
-//         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
-//           {projects.map((project, index) => (
-//             <ProjectCard key={index} project={project} index={index} />
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
 
 // Key Achievement Highlight Section
 const KeyAchievementSection = () => {
@@ -515,17 +319,34 @@ const KeyAchievementSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="-mt-16 pt-12 pb-8 bg-gradient-to-r from-slate-900 via-blue-900/20 to-slate-900">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-r from-slate-900 via-blue-900/20 to-slate-900">
       <div className="container mx-auto px-6">
         <div ref={statsRef} className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Recent Impact at <span className="text-cyan-400">Park+</span>
-            </h2>
-            <p className="text-lg text-gray-400">
-              Scaling Motor Insurance product from early stage to rapid growth in just 8 weeks
-            </p>
-          </div>
+          <section className="recent-impact">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Recent Impact at <span className="text-cyan-400">Park+</span>
+              </h2>
+              <p className="text-lg text-gray-400">
+                Scaling Motor Insurance product from early stage to rapid growth in just 8 weeks
+              </p>
+
+              <div className="impact-tags flex flex-wrap justify-center gap-4 mt-8 max-w-4xl mx-auto">
+                <div className="tag flex items-center space-x-2 px-4 py-3 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
+                  <span>⚡</span>
+                  <span className="text-slate-200 text-sm">Product Strategy</span>
+                </div>
+                <div className="tag flex items-center space-x-2 px-4 py-3 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
+                  <span>🔍</span>
+                  <span className="text-slate-200 text-sm">User Research</span>
+                </div>
+                <div className="tag flex items-center space-x-2 px-4 py-3 bg-slate-600/30 rounded-full border border-slate-500/30 backdrop-blur-sm hover:bg-slate-500/40 transition-colors">
+                  <span>📈</span>
+                  <span className="text-slate-200 text-sm">Growth Analytics</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div className="text-center p-6 bg-gradient-to-br from-slate-700/60 via-slate-600/40 to-slate-700/60 rounded-2xl border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300">
@@ -617,7 +438,7 @@ const SkillsSection = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="py-12 bg-gradient-to-br from-slate-800 via-purple-900/20 to-slate-800">
+    <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-purple-900/20 to-slate-800">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
@@ -672,7 +493,7 @@ const ExperienceSection = () => {
     {
       title: "Product Management Intern",
       company: "Park+",
-      period: "June 9 - Aug 8, 2025",
+      period: "June 9 - Aug 8, 2024",
       location: "Remote",
       description: "Drove rapid growth for the Motor Insurance product from early stage to scale, achieving exceptional user engagement and conversion improvements through strategic UI/UX enhancements and data-driven product decisions.",
       achievements: [
@@ -686,27 +507,6 @@ const ExperienceSection = () => {
       technologies: ["Product Strategy", "User Research", "Conversion Optimization", "WhatsApp Integration", "Insurance Domain", "Growth Analytics"],
       type: "internship"
     }
-    // TODO: Add more real product management experiences here
-    // {
-    //   title: "Product Strategy & Innovation",
-    //   company: "Personal Projects",
-    //   period: "2022 - Present",
-    //   location: "Remote",
-    //   description: "Will add real product management experience data",
-    //   achievements: [],
-    //   technologies: [],
-    //   type: "continuous"
-    // },
-    // {
-    //   title: "Innovation & Leadership",
-    //   company: "Hackathons & Competitions", 
-    //   period: "2023 - 2024",
-    //   location: "Multiple Venues",
-    //   description: "Will add real leadership and innovation experience data",
-    //   achievements: [],
-    //   technologies: [],
-    //   type: "achievement"
-    // }
   ];
 
   useEffect(() => {
@@ -768,7 +568,7 @@ const ExperienceSection = () => {
   };
 
   return (
-    <section id="experience" ref={sectionRef} className="py-12 bg-gradient-to-br from-slate-900 via-blue-900/10 to-slate-900">
+    <section id="experience" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-900 via-blue-900/10 to-slate-900">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
@@ -895,7 +695,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-12 bg-gradient-to-br from-slate-800 via-indigo-900/20 to-slate-800">
+    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-800 via-indigo-900/20 to-slate-800">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div ref={contentRef}>
@@ -967,9 +767,6 @@ const AboutSection = () => {
   );
 };
 
-// Testimonials/Visitor Feedback Section
-// TODO: Add real testimonials data and re-enable this section later
-
 // Contact Section
 const ContactSection = () => {
   const sectionRef = useRef(null);
@@ -996,7 +793,7 @@ const ContactSection = () => {
   }, []);
 
   return (
-    <section id="contact" ref={sectionRef} className="py-12 bg-gradient-to-br from-slate-900 via-cyan-900/10 to-slate-900">
+    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-900 via-cyan-900/10 to-slate-900">
       <div className="container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
