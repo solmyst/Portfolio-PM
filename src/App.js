@@ -251,11 +251,11 @@ const App = () => {
             {/* Content */}
             <div className="text-center lg:text-left order-2 lg:order-none">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6">
-                Hello
+                Welcome!!
               </h1>
 
               <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Manager</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">A breif about me</h2>
                 <p className="text-lg text-gray-600 leading-relaxed max-w-lg mb-4">
                   Turning ideas into products that delight users and drive growth
                 </p>
