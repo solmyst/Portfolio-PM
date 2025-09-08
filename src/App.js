@@ -583,14 +583,14 @@ const App = () => {
 
             {/* Resume */}
             <button
-              onClick={() => window.open('/resume.pdf', '_blank')}
+              onClick={() => window.open('https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', '_blank')}
               className="group p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-blue-200/50 hover:shadow-xl transition-all text-center w-full hover:scale-105 duration-300"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg">
                 <Download className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Resume</h3>
-              <p className="text-gray-600">Download PDF</p>
+              <p className="text-gray-600">View Resume</p>
             </button>
           </div>
 
