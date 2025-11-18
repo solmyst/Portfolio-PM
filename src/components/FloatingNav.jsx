@@ -13,9 +13,9 @@ const FloatingNav = ({ activeSection, onNavigate }) => {
   ];
 
   return (
-    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fadeInUp">
+    <div className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fadeInUp w-auto max-w-[95vw]">
       {/* Glassmorphism Navigation */}
-      <nav className="flex items-center gap-2 px-6 py-4 bg-white/20 backdrop-blur-xl rounded-full border border-white/30 shadow-2xl">
+      <nav className="flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-3 sm:py-4 bg-white/20 backdrop-blur-xl rounded-full border border-white/30 shadow-2xl">
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
@@ -27,24 +27,24 @@ const FloatingNav = ({ activeSection, onNavigate }) => {
               onClick={() => onNavigate(item.id)}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
-              className={`relative flex items-center gap-2 px-4 py-3 rounded-full transition-all duration-300 ${
+              className={`relative flex items-center gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-lg scale-110'
+                  ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-lg scale-105 sm:scale-110'
                   : 'text-gray-700 hover:bg-white/30'
               }`}
               style={{
                 transitionDelay: `${index * 50}ms`
               }}
             >
-              <Icon className={`w-5 h-5 transition-transform duration-300 ${isActive || isHovered ? 'scale-110' : ''}`} />
+              <Icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive || isHovered ? 'scale-110' : ''}`} />
               
-              {/* Label appears on hover or active */}
+              {/* Label appears on hover or active - Hidden on small mobile */}
               <span
-                className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${
+                className={`hidden sm:block overflow-hidden transition-all duration-300 whitespace-nowrap ${
                   isActive || isHovered ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0'
                 }`}
               >
-                <span className="font-medium text-sm">{item.label}</span>
+                <span className="font-medium text-xs sm:text-sm">{item.label}</span>
               </span>
 
               {/* Active indicator dot */}

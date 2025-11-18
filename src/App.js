@@ -204,15 +204,15 @@ const App = () => {
 
       {/* Hero Section */}
       <section id="home" className="pt-12 sm:pt-16 pb-16 sm:pb-20 relative overflow-hidden">
-        {/* Decorative floating elements in background */}
-        <div className="absolute top-20 left-10 opacity-20">
-          <Sparkles className="w-12 h-12 text-pink-500 animate-pulse" />
+        {/* Decorative floating elements in background - Hidden on small mobile */}
+        <div className="hidden sm:block absolute top-20 left-10 opacity-20">
+          <Sparkles className="w-8 sm:w-12 h-8 sm:h-12 text-pink-500 animate-pulse" />
         </div>
-        <div className="absolute top-40 right-20 opacity-20">
-          <Zap className="w-16 h-16 text-purple-500 animate-bounce" />
+        <div className="hidden sm:block absolute top-40 right-10 sm:right-20 opacity-20">
+          <Zap className="w-12 sm:w-16 h-12 sm:h-16 text-purple-500 animate-bounce" />
         </div>
-        <div className="absolute bottom-20 left-1/4 opacity-20">
-          <Star className="w-10 h-10 text-blue-500 animate-spin-slow" />
+        <div className="hidden sm:block absolute bottom-20 left-1/4 opacity-20">
+          <Star className="w-8 sm:w-10 h-8 sm:h-10 text-blue-500 animate-spin-slow" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
@@ -221,23 +221,23 @@ const App = () => {
             {/* Profile Image */}
             <div className="flex justify-center lg:justify-start">
               <div className="relative">
-                {/* Circular Text - positioned outside the image */}
-                <div className="absolute -inset-16 flex items-center justify-center pointer-events-none">
+                {/* Circular Text - positioned outside the image - Hidden on mobile */}
+                <div className="hidden md:block absolute -inset-16 flex items-center justify-center pointer-events-none">
                   <div className="animate-spin-slow" style={{ animationDuration: '30s' }}>
                     <CircularText
                       text="✦ PRODUCT MANAGER ✦ ANUSH GUPTA ✦ INNOVATION ✦ GROWTH ✦ "
-                      radius={200}
-                      fontSize={13}
+                      radius={window.innerWidth < 768 ? 140 : window.innerWidth < 1024 ? 170 : 200}
+                      fontSize={window.innerWidth < 768 ? 11 : 13}
                       className="text-pink-500 font-bold"
                     />
                   </div>
                 </div>
 
                 {/* Animated background rings */}
-                <div className="absolute inset-0 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-spin-slow opacity-30"></div>
-                <div className="absolute inset-2 w-60 h-60 sm:w-76 sm:h-76 rounded-full bg-gradient-to-r from-blue-200 via-pink-200 to-purple-200 animate-pulse opacity-40"></div>
+                <div className="absolute inset-0 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-spin-slow opacity-30"></div>
+                <div className="absolute inset-2 w-44 h-44 sm:w-60 sm:h-60 md:w-68 md:h-68 lg:w-76 lg:h-76 rounded-full bg-gradient-to-r from-blue-200 via-pink-200 to-purple-200 animate-pulse opacity-40"></div>
 
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 shadow-2xl border-4 border-white z-10">
+                <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 shadow-2xl border-4 border-white z-10">
                   <img
                     src={profileImage}
                     alt="Anush Gupta - Product Manager"
@@ -279,15 +279,15 @@ const App = () => {
                 />
               </h1>
 
-              <div className="space-y-6">
+              <div className="space-y-6 px-4 sm:px-0">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
-                    Two Word I Want To Say : -  
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+                    A brief about me
                   </h2>
                 </div>
 
-                <div className="space-y-5 max-w-2xl">
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                <div className="space-y-4 sm:space-y-5 max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
                     I thrive in the <span className="font-semibold text-pink-600">productive chaos of an early-stage startup</span>. Give me a half-formed idea, a broken Figma flow, or a 3-bullet Notion doc—I excel at turning that ambiguity into a tangible product.
                   </p>
 
