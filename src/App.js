@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Target, Users, Database, Award, Mail, Linkedin, Github, Download, ArrowRight, Rocket, TrendingUp, Users2 } from 'lucide-react';
+import { Target, Users, Database, Award, Mail, Linkedin, Github, Download, ArrowRight, Rocket, TrendingUp, Users2, Sparkles, Zap, Star, Code, Palette, BarChart } from 'lucide-react';
 import './App.css';
 import './WizardLoader.css';
+import profileImage from './assest/my_image.jpg';
+import CountUp from './components/CountUp';
+import CircularText from './components/CircularText';
+import Carousel from './components/Carousel';
+import LogoLoop from './components/LogoLoop';
+import FloatingNav from './components/FloatingNav';
+import TextType from './components/TextType';
 
 // Wizard Loading Screen Component
 const LoadingScreen = ({ onComplete }) => {
@@ -79,7 +86,7 @@ const LoadingScreen = ({ onComplete }) => {
             </div>
 
             <p className="text-sm text-purple-400 mt-4 font-mono">
-              {Math.round(progress)}% Complete
+              <CountUp end={Math.round(progress)} duration={300} suffix="%" /> Complete
             </p>
           </div>
 
@@ -138,12 +145,35 @@ const App = () => {
     { id: 'contact', label: 'Contact' }
   ];
 
-  // Handle scroll effects
+  // Handle scroll effects and section detection
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+
+      // Detect active section based on scroll position
+      const sections = navItems.map(item => ({
+        id: item.id,
+        element: document.getElementById(item.id)
+      }));
+
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element) {
+          const offsetTop = section.element.offsetTop;
+          if (scrollPosition >= offsetTop) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+
+    handleScroll(); // Call once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   // Scroll to section
   const scrollToSection = (sectionId) => {
@@ -164,63 +194,52 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
-      {/* Dynamic Header with Scroll Effects */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrollY > 100
-        ? 'bg-white/70 backdrop-blur-xl border-b border-pink-300/70 shadow-lg py-2'
-        : 'bg-white/80 backdrop-blur-md border-b border-pink-200/50 shadow-sm py-4'
-        }`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className={`bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 ${scrollY > 100 ? 'w-8 h-8' : 'w-10 h-10'
-                }`}>
-                <span className={`text-white font-bold transition-all duration-500 ${scrollY > 100 ? 'text-base' : 'text-lg'
-                  }`}>A</span>
-              </div>
-              <div>
-                <h1 className={`font-bold text-gray-900 transition-all duration-500 ${scrollY > 100 ? 'text-lg' : 'text-xl'
-                  }`}>Anush Gupta</h1>
-                <p className={`text-gray-600 transition-all duration-500 ${scrollY > 100 ? 'text-xs' : 'text-sm'
-                  }`}>Product Manager</p>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors ${activeSection === item.id
-                    ? 'text-pink-600 bg-pink-50 px-3 py-1 rounded-full'
-                    : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50 px-3 py-1 rounded-full'
-                    }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
+      {/* Animated background elements throughout */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob delay-200"></div>
+        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob delay-500"></div>
+      </div>
 
       {/* Hero Section */}
-      <section id="home" className="pt-20 sm:pt-24 pb-16 sm:pb-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh] sm:min-h-[80vh]">
+      <section id="home" className="pt-12 sm:pt-16 pb-16 sm:pb-20 relative overflow-hidden">
+        {/* Decorative floating elements in background */}
+        <div className="absolute top-20 left-10 opacity-20">
+          <Sparkles className="w-12 h-12 text-pink-500 animate-pulse" />
+        </div>
+        <div className="absolute top-40 right-20 opacity-20">
+          <Zap className="w-16 h-16 text-purple-500 animate-bounce" />
+        </div>
+        <div className="absolute bottom-20 left-1/4 opacity-20">
+          <Star className="w-10 h-10 text-blue-500 animate-spin-slow" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[70vh] sm:min-h-[80vh]">
 
             {/* Profile Image */}
             <div className="flex justify-center lg:justify-start">
               <div className="relative">
+                {/* Circular Text - positioned outside the image */}
+                <div className="absolute -inset-16 flex items-center justify-center pointer-events-none">
+                  <div className="animate-spin-slow" style={{ animationDuration: '30s' }}>
+                    <CircularText
+                      text="✦ PRODUCT MANAGER ✦ ANUSH GUPTA ✦ INNOVATION ✦ GROWTH ✦ "
+                      radius={200}
+                      fontSize={13}
+                      className="text-pink-500 font-bold"
+                    />
+                  </div>
+                </div>
+
                 {/* Animated background rings */}
                 <div className="absolute inset-0 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-spin-slow opacity-30"></div>
                 <div className="absolute inset-2 w-60 h-60 sm:w-76 sm:h-76 rounded-full bg-gradient-to-r from-blue-200 via-pink-200 to-purple-200 animate-pulse opacity-40"></div>
 
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 shadow-2xl border-4 border-white">
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 shadow-2xl border-4 border-white z-10">
                   <img
-                    src="/src/assest/my_image.jpg"
+                    src={profileImage}
                     alt="Anush Gupta - Product Manager"
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -241,56 +260,51 @@ const App = () => {
                   </div>
                 </div>
 
-                {/* Floating elements */}
-                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full animate-bounce opacity-80"></div>
-                <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse opacity-70"></div>
-                <div className="absolute top-1/4 -left-4 sm:-left-8 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-ping opacity-60"></div>
+                {/* Enhanced floating elements */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full animate-bounce opacity-80 shadow-lg"></div>
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse opacity-70 shadow-lg"></div>
+                <div className="absolute top-1/4 -left-8 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-ping opacity-60"></div>
+                <div className="absolute bottom-1/4 -right-8 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce opacity-70 shadow-lg" style={{ animationDelay: '0.5s' }}></div>
               </div>
             </div>
 
             {/* Content */}
             <div className="text-center lg:text-left order-2 lg:order-none">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6">
-                Welcome!!
+                <TextType
+                  words={['Welcome!!', 'Hello!', 'Namaste!', 'Hi There!']}
+                  typingSpeed={150}
+                  deletingSpeed={100}
+                  delayBetweenWords={2000}
+                />
               </h1>
 
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">A breif about me</h2>
-                <p className="text-lg text-gray-600 leading-relaxed max-w-lg mb-4">
-                  Turning ideas into products that delight users and drive growth
-                </p>
-                <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-                  Recently scaled Motor Insurance at Park+ achieving significant user growth through
-                  strategic product decisions and cross-functional collaboration
-                </p>
-              </div>
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+                    Two Word I Want To Say : -  
+                  </h2>
+                </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-row gap-3 sm:gap-4 md:gap-6 justify-center lg:justify-start items-center">
-                <button
-                  onClick={() => scrollToSection('experience')}
-                  className="group relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 bg-gradient-to-br from-pink-400 via-rose-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 overflow-hidden flex-shrink-0"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-300 to-rose-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <span className="relative z-10 text-center leading-tight">Experience</span>
-                  <div className="absolute inset-0 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors"></div>
-                </button>
-                <button
-                  onClick={() => scrollToSection('skills')}
-                  className="group relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 overflow-hidden flex-shrink-0"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-300 to-pink-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <span className="relative z-10 text-center leading-tight">Skills</span>
-                  <div className="absolute inset-0 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors"></div>
-                </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="group relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 overflow-hidden flex-shrink-0"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-300 to-purple-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <span className="relative z-10 text-center leading-tight">Contact</span>
-                  <div className="absolute inset-0 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors"></div>
-                </button>
+                <div className="space-y-5 max-w-2xl">
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    I thrive in the <span className="font-semibold text-pink-600">productive chaos of an early-stage startup</span>. Give me a half-formed idea, a broken Figma flow, or a 3-bullet Notion doc—I excel at turning that ambiguity into a tangible product.
+                  </p>
+
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    I love <span className="font-semibold text-purple-600">building from scratch</span>. Whether it's new products, core features, landing pages, or backend APIs, I'm driven by <span className="font-semibold text-gray-900">"whatever moves the needle."</span>
+                  </p>
+
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    My ideal environment <span className="font-semibold text-blue-600">moves fast, ships fast, and learns fast</span>.
+                  </p>
+
+                  <div className="pt-2">
+                    <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-medium">
+                      If you're building something ambitious and need someone who learns quickly, takes full ownership, and delivers—I'd love to be a part of your journey.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -298,41 +312,86 @@ const App = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 sm:py-20 bg-gradient-to-br from-white via-pink-50/30 to-purple-50/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">About Me</h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      <section id="about" className="py-20 sm:py-28 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 relative overflow-hidden">
+        {/* Decorative elements matching hero */}
+        <div className="absolute top-10 right-10 opacity-20">
+          <Sparkles className="w-16 h-16 text-pink-600 animate-pulse" />
+        </div>
+        <div className="absolute bottom-10 left-10 opacity-20">
+          <Zap className="w-20 h-20 text-purple-600 animate-bounce" />
+        </div>
+        <div className="absolute top-1/2 right-1/4 opacity-15">
+          <Star className="w-12 h-12 text-blue-600 animate-spin-slow" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
+              About Me
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-800 max-w-4xl mx-auto leading-relaxed font-medium">
               Product Manager passionate about building user-centric digital experiences
               that drive growth and deliver real impact
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-2xl mx-auto">
-            <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-200/50 hover:shadow-lg transition-all duration-300">
-              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">8</div>
-              <div className="text-lg font-semibold text-gray-900 mb-1">Weeks</div>
-              <div className="text-sm text-gray-600">From early stage to scale</div>
-            </div>
-            <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200/50 hover:shadow-lg transition-all duration-300">
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">Park+</div>
-              <div className="text-lg font-semibold text-gray-900 mb-1">Motor Insurance</div>
-              <div className="text-sm text-gray-600">Product scaling success</div>
-            </div>
+          {/* Stats Carousel */}
+          <div className="mb-16 max-w-3xl mx-auto">
+            <Carousel
+              items={[
+                <div key="stat1" className="text-center p-12 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl border-2 border-purple-200/50 shadow-xl">
+                  <div className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+                    <CountUp end={8} duration={2000} />
+                  </div>
+                  <div className="text-2xl font-semibold text-gray-900 mb-2">Weeks</div>
+                  <div className="text-base text-gray-600">From early stage to scale at Park+</div>
+                  <div className="mt-6 flex justify-center gap-2">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>,
+                <div key="stat2" className="text-center p-12 bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl border-2 border-blue-200/50 shadow-xl">
+                  <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                    <CountUp end={180} duration={2500} suffix="%" />
+                  </div>
+                  <div className="text-2xl font-semibold text-gray-900 mb-2">User Growth</div>
+                  <div className="text-base text-gray-600">Achieved at Park+ Motor Insurance</div>
+                  <div className="mt-6 flex justify-center gap-2">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>,
+                <div key="stat3" className="text-center p-12 bg-gradient-to-br from-pink-50 to-rose-50 rounded-3xl border-2 border-pink-200/50 shadow-xl">
+                  <div className="text-6xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4">
+                    <CountUp end={100} duration={2000} suffix="%" />
+                  </div>
+                  <div className="text-2xl font-semibold text-gray-900 mb-2">Dedication</div>
+                  <div className="text-base text-gray-600">Committed to product excellence</div>
+                  <div className="mt-6 flex justify-center gap-2">
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-rose-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>
+              ]}
+              autoPlay={true}
+              interval={4000}
+            />
           </div>
 
           {/* Key Traits */}
           <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-full border border-pink-200/50 hover:shadow-md transition-all">
+            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-full border border-pink-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
               <Target className="w-5 h-5 text-pink-600" />
               <span className="text-pink-800 font-medium">Strategic Thinker</span>
             </div>
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full border border-purple-200/50 hover:shadow-md transition-all">
+            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full border border-purple-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
               <Users className="w-5 h-5 text-purple-600" />
               <span className="text-purple-800 font-medium">User Advocate</span>
             </div>
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full border border-blue-200/50 hover:shadow-md transition-all">
+            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full border border-blue-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
               <Award className="w-5 h-5 text-blue-600" />
               <span className="text-blue-800 font-medium">Innovation Leader</span>
             </div>
@@ -340,11 +399,21 @@ const App = () => {
         </div>
       </section>
       {/* Experience Section */}
-      <section id="experience" className="py-20 bg-gradient-to-br from-purple-50/50 via-pink-50/50 to-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">My Journey</h2>
-            <p className="text-xl text-gray-600">Building impactful products that drive real growth</p>
+      <section id="experience" className="py-20 sm:py-28 bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 relative overflow-hidden">
+        {/* Decorative elements matching theme */}
+        <div className="absolute top-20 left-20 opacity-20">
+          <Rocket className="w-16 h-16 text-pink-600 animate-float" />
+        </div>
+        <div className="absolute bottom-20 right-20 opacity-20">
+          <TrendingUp className="w-20 h-20 text-purple-600 animate-pulse" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
+              My Journey
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-800 font-medium">Building impactful products that drive real growth</p>
           </div>
 
           {/* Park+ Experience */}
@@ -384,16 +453,24 @@ const App = () => {
               </div>
 
               {/* Key Achievements */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-200/50">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">✅</div>
-                  <div className="text-sm font-semibold text-gray-900 mb-1">Conversions</div>
-                  <div className="text-xs text-gray-600">Quotes → Proposals → Purchase</div>
-                </div>
-                <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200/50">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">🏗️</div>
-                  <div className="text-sm font-semibold text-gray-900 mb-1">Scale Ready</div>
-                  <div className="text-xs text-gray-600">Outbound calling & features</div>
+              <div className="mb-8">
+                <h4 className="font-semibold text-gray-900 mb-4">Key Achievements:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-200/50 hover:shadow-lg transition-all">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">✅</div>
+                    <div className="text-sm font-semibold text-gray-900 mb-1">Conversions</div>
+                    <div className="text-xs text-gray-600">Quotes → Proposals → Purchase</div>
+                  </div>
+                  <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200/50 hover:shadow-lg transition-all">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">�️</div>
+                    <div className="text-sm font-semibold text-gray-900 mb-1">Scale Ready</div>
+                    <div className="text-xs text-gray-600">Outbound calling & features</div>
+                  </div>
+                  <div className="text-center p-6 bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl border border-pink-200/50 hover:shadow-lg transition-all">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-2">📱</div>
+                    <div className="text-sm font-semibold text-gray-900 mb-1">WhatsApp Integration</div>
+                    <div className="text-xs text-gray-600">Engagement & retention flows</div>
+                  </div>
                 </div>
               </div>
 
@@ -436,11 +513,24 @@ const App = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Core Skills</h2>
-            <p className="text-xl text-gray-600">
+      <section id="skills" className="py-20 sm:py-28 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-10 right-1/4 opacity-20">
+          <Code className="w-16 h-16 text-blue-600 animate-wiggle" />
+        </div>
+        <div className="absolute bottom-10 left-1/4 opacity-20">
+          <Palette className="w-16 h-16 text-pink-600 animate-pulse" />
+        </div>
+        <div className="absolute top-1/2 right-10 opacity-20">
+          <BarChart className="w-14 h-14 text-purple-600 animate-bounce" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
+              Core Skills
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-800 font-medium">
               A comprehensive toolkit for modern product management
             </p>
           </div>
@@ -544,27 +634,61 @@ const App = () => {
         </div>
       </section>
 
+      {/* Skills & Tools Logo Loop */}
+      <section className="py-16 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100">
+        <div className="max-w-7xl mx-auto px-6 mb-8">
+          <h3 className="text-3xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            Tools & Technologies
+          </h3>
+        </div>
+        <LogoLoop
+          logos={[
+            'Figma',
+            'Jira',
+            'SQL',
+            'Python',
+            'Analytics',
+            'Notion',
+            'Slack',
+            'Miro',
+            'Tableau',
+            'Excel'
+          ]}
+          speed={25}
+        />
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-pink-50/50 via-purple-50/50 to-blue-50/50">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Let's Connect</h2>
-            <p className="text-xl text-gray-600">
+      <section id="contact" className="py-20 sm:py-28 bg-gradient-to-br from-rose-100 via-pink-100 to-purple-100 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-10 left-10 opacity-20">
+          <Mail className="w-20 h-20 text-pink-600 animate-bounce" />
+        </div>
+        <div className="absolute bottom-10 right-10 opacity-20">
+          <Sparkles className="w-16 h-16 text-purple-600 animate-pulse" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
+              Let's Connect
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-800 font-medium">
               Ready to discuss your next product challenge?
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* Email */}
             <a
               href="mailto:anushgupta105@gmail.com"
-              className="group p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-pink-200/50 hover:shadow-xl transition-all text-center hover:scale-105 duration-300"
+              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-pink-300/50 hover:shadow-pink-500/50 hover:shadow-2xl transition-all text-center hover:scale-105 duration-300 hover-lift"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg">
-                <Mail className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
+                <Mail className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600">anushgupta105@gmail.com</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Email</h3>
+              <p className="text-gray-700 font-medium">anushgupta105@gmail.com</p>
             </a>
 
             {/* LinkedIn */}
@@ -572,70 +696,114 @@ const App = () => {
               href="https://www.linkedin.com/in/anush-gupta105/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-200/50 hover:shadow-xl transition-all text-center hover:scale-105 duration-300"
+              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-purple-300/50 hover:shadow-purple-500/50 hover:shadow-2xl transition-all text-center hover:scale-105 duration-300 hover-lift"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg">
-                <Linkedin className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
+                <Linkedin className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">LinkedIn</h3>
-              <p className="text-gray-600">Connect with me</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">LinkedIn</h3>
+              <p className="text-gray-700 font-medium">Connect with me</p>
             </a>
 
             {/* Resume */}
             <button
               onClick={() => window.open('https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', '_blank')}
-              className="group p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-blue-200/50 hover:shadow-xl transition-all text-center w-full hover:scale-105 duration-300"
+              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-blue-300/50 hover:shadow-blue-500/50 hover:shadow-2xl transition-all text-center w-full hover:scale-105 duration-300 hover-lift"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg">
-                <Download className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
+                <Download className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Resume</h3>
-              <p className="text-gray-600">View Resume</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Resume</h3>
+              <p className="text-gray-700 font-medium">View Resume</p>
             </button>
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-full font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer shadow-xl animate-glow">
               <span>Ready to drive your next product success story</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-6 h-6 animate-bounce" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border-t border-pink-200/50">
-        <div className="max-w-4xl mx-auto px-6">
+      {/* Footer - Matching Website Gradient */}
+      <footer className="py-16 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 relative overflow-hidden border-t border-pink-200/50">
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-30">
+          <div className="absolute top-10 left-10 w-40 h-40 bg-pink-200 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-60 h-60 bg-purple-200 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">A</span>
+            {/* Logo */}
+            <div className="flex items-center justify-center space-x-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-xl animate-scalePulse">
+                <span className="text-3xl font-black text-white">A</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">Anush Gupta</span>
+              <div className="text-left">
+                <h3 className="text-3xl font-black text-gray-900">Anush Gupta</h3>
+                <p className="text-gray-700 text-lg font-medium">Product Manager</p>
+              </div>
             </div>
-            <p className="text-gray-600 mb-6">
+
+            <p className="text-gray-700 text-xl mb-8 max-w-2xl mx-auto font-medium">
               Product Manager passionate about building impactful digital experiences
             </p>
-            <div className="flex justify-center space-x-6">
-              <a href="mailto:anushgupta105@gmail.com" className="text-gray-400 hover:text-pink-600 transition-colors">
-                <Mail className="w-6 h-6" />
+
+            {/* Social Links */}
+            <div className="flex justify-center space-x-6 mb-10">
+              <a
+                href="mailto:anushgupta105@gmail.com"
+                className="w-14 h-14 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <Mail className="w-7 h-7 text-white" />
               </a>
-              <a href="https://www.linkedin.com/in/anush-gupta105/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-600 transition-colors">
-                <Linkedin className="w-6 h-6" />
+              <a
+                href="https://www.linkedin.com/in/anush-gupta105/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <Linkedin className="w-7 h-7 text-white" />
               </a>
-              <a href="https://github.com/solmyst" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
-                <Github className="w-6 h-6" />
+              <a
+                href="https://github.com/solmyst"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <Github className="w-7 h-7 text-white" />
               </a>
             </div>
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
-                © 2025 Anush Gupta. reality without the escape.
+
+            {/* Quick Links */}
+            <div className="flex flex-wrap justify-center gap-6 mb-10">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-gray-700 hover:text-pink-600 font-medium transition-colors text-lg"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Copyright */}
+            <div className="pt-8 border-t border-gray-300">
+              <p className="text-gray-600 text-base font-medium">
+                © 2025 Anush Gupta. Crafted with passion and purpose.
               </p>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* Floating Bottom Navigation */}
+      <FloatingNav activeSection={activeSection} onNavigate={scrollToSection} />
     </div>
   );
 };
