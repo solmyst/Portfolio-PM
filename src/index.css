@@ -55,15 +55,47 @@
 }
 
 /* Document Page Shadow & Layout */
+.sidebar {
+  border-right: 1px solid #e8eaed;
+  box-shadow: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #e8eaed;
+  border-radius: 4px;
+}
+
+.v-ruler-tick {
+  width: 8px;
+  height: 1px;
+  background: #dadce0;
+  margin-bottom: 7px;
+}
+
+.v-ruler-tick.major {
+  width: 12px;
+  background: #9aa0a6;
+}
+
+/* Page Gap */
+#scroll-container {
+  background-color: #f8f9fa;
+}
+
 .document-page {
   width: 816px;
   min-height: 1056px;
   padding: 96px; /* 1 inch approx at 96dpi */
   box-sizing: border-box;
-  box-shadow: 0 1px 3px 1px rgba(60,64,67,.15), 0 1px 2px 0 rgba(60,64,67,.3);
+  box-shadow: 0 1px 3px rgba(60,64,67,.15), 0 1px 2px rgba(60,64,67,.3);
   background-color: white;
   border: 1px solid #e0e0e0;
   transition: box-shadow 0.3s ease;
+  flex-shrink: 0;
 }
 
 .document-page:hover {
