@@ -1,809 +1,929 @@
-import React, { useState, useEffect } from 'react';
-import { Target, Users, Database, Award, Mail, Linkedin, Github, Download, ArrowRight, Rocket, TrendingUp, Users2, Sparkles, Zap, Star, Code, Palette, BarChart } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Download, ArrowRight } from 'lucide-react';
 import './App.css';
-import './WizardLoader.css';
-import profileImage from './assest/my_image.jpg';
 import CountUp from './components/CountUp';
-import CircularText from './components/CircularText';
-import Carousel from './components/Carousel';
-import LogoLoop from './components/LogoLoop';
-import FloatingNav from './components/FloatingNav';
+import TopNav from './components/TopNav';
 import TextType from './components/TextType';
+import FunnelChart from './components/FunnelChart';
+import KanbanBoard from './components/KanbanBoard';
+import OKRPanel from './components/OKRPanel';
+import ToolsGrid from './components/ToolsGrid';
 
-// Wizard Loading Screen Component
+/* ─── Loading Screen ─────────────────────────────────────── */
+const FULL_NAME = 'ANUSH GUPTA';
+const LETTERS = FULL_NAME.split('');
+
 const LoadingScreen = ({ onComplete }) => {
+  const [revealedCount, setRevealedCount] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [nameReveal, setNameReveal] = useState('');
-  const fullName = 'ANUSH';
+  const doneRef = useRef(false);
 
   useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        const newProgress = prev + Math.random() * 6 + 1.5;
+    // Reveal one letter every 350ms
+    const timers = LETTERS.map((_, i) =>
+      setTimeout(() => setRevealedCount(i + 1), i * 350 + 400)
+    );
 
-        // Reveal name letters progressively - each letter at 20% intervals
-        const letterIndex = Math.floor((newProgress / 100) * fullName.length);
-        if (letterIndex > 0 && letterIndex <= fullName.length) {
-          setNameReveal(fullName.substring(0, letterIndex));
-        }
-
-        // Only complete when name is fully revealed AND progress is 100%
-        if (newProgress >= 100 && nameReveal === fullName) {
-          clearInterval(progressInterval);
-          setTimeout(() => {
-            onComplete();
-          }, 2000); // Give more time to see the complete name
-          return 100;
-        }
-
-        // Don't let progress complete until name is fully revealed
-        if (newProgress >= 100 && nameReveal !== fullName) {
-          setNameReveal(fullName);
-          return 95; // Keep at 95% until name is complete
-        }
-
-        return newProgress;
+    // Progress bar fills over ~4s
+    const iv = setInterval(() => {
+      setProgress((p) => {
+        const next = p + Math.random() * 3 + 1.5;
+        return next >= 100 ? 100 : next;
       });
-    }, 200);
+    }, 120);
 
-    return () => clearInterval(progressInterval);
-  }, [onComplete, nameReveal, fullName]);
+    // Hard deadline: always complete after 5.5s no matter what
+    const deadline = setTimeout(() => {
+      if (!doneRef.current) {
+        doneRef.current = true;
+        onComplete();
+      }
+    }, 5500);
 
-  const isComplete = progress >= 100;
+    return () => {
+      timers.forEach(clearTimeout);
+      clearInterval(iv);
+      clearTimeout(deadline);
+    };
+  }, [onComplete]);
+
+  // Complete as soon as progress hits 100 AND all letters shown
+  useEffect(() => {
+    if (progress >= 100 && revealedCount >= LETTERS.length && !doneRef.current) {
+      doneRef.current = true;
+      setTimeout(onComplete, 600);
+    }
+  }, [progress, revealedCount, onComplete]);
+
+  const messages = [
+    '🔮 Summoning magic...',
+    '✨ Conjuring letters...',
+    '🌟 Weaving spells...',
+    '⚡ Revealing identity...',
+    '🎭 Crafting presence...',
+    '🎪 Almost complete...',
+    '🎉 Welcome to my realm!',
+  ];
+  const msgIdx = Math.min(Math.floor(progress / (100 / messages.length)), messages.length - 1);
 
   return (
-    <div className={`fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center z-50 transition-all duration-1000 ${isComplete ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}>
-
-      {/* Noise overlay */}
-      <div className="noise opacity-10"></div>
-
-      <div className="w-full max-w-6xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
-
-          {/* Left Side - Name Reveal */}
-          <div className="text-center lg:text-left order-2 lg:order-1">
-            <div className="mb-8">
-              <div className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-wider font-mono">
-                {nameReveal}
-                <span className="animate-pulse">|</span>
-              </div>
-              <p className="text-lg text-purple-300">
-                {progress < 20 ? 'Summoning magic...' :
-                  progress < 40 ? 'Conjuring letters...' :
-                    progress < 60 ? 'Weaving spells...' :
-                      progress < 80 ? 'Revealing identity...' :
-                        progress < 95 ? 'Almost complete...' :
-                          'Welcome to my realm!'}
-              </p>
-            </div>
-
-            {/* Progress bar */}
-            <div className="progress mx-auto lg:mx-0">
-              <div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-
-            <p className="text-sm text-purple-400 mt-4 font-mono">
-              <CountUp end={Math.round(progress)} duration={300} suffix="%" /> Complete
-            </p>
-          </div>
-
-          {/* Right Side - Wizard Animation */}
-          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="scene">
-              <div className="wizard">
-                <div className="body"></div>
-                <div className="right-arm">
-                  <div className="right-hand"></div>
-                </div>
-                <div className="left-arm">
-                  <div className="left-hand"></div>
-                </div>
-                <div className="head">
-                  <div className="beard"></div>
-                  <div className="face">
-                    <div className="adds"></div>
-                  </div>
-                  <div className="hat">
-                    <div className="hat-of-the-hat"></div>
-                    <div className="four-point-star --first"></div>
-                    <div className="four-point-star --second"></div>
-                    <div className="four-point-star --third"></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating magical letters instead of objects */}
-              <div className="letters">
-                <div className="letter letter-a" style={{ opacity: nameReveal.length >= 1 ? 1 : 0.3 }}>A</div>
-                <div className="letter letter-n" style={{ opacity: nameReveal.length >= 2 ? 1 : 0.3 }}>N</div>
-                <div className="letter letter-u" style={{ opacity: nameReveal.length >= 3 ? 1 : 0.3 }}>U</div>
-                <div className="letter letter-s" style={{ opacity: nameReveal.length >= 4 ? 1 : 0.3 }}>S</div>
-                <div className="letter letter-h" style={{ opacity: nameReveal.length >= 5 ? 1 : 0.3 }}>H</div>
+    <div
+      className="fixed inset-0 flex flex-col items-center justify-center z-50"
+      style={{ background: '#0d0e11' }}
+    >
+      {/* Wizard figure */}
+      <div className="mb-8 relative">
+        <div className="scene">
+          <div className="wizard">
+            <div className="body" />
+            <div className="right-arm"><div className="right-hand" /></div>
+            <div className="left-arm"><div className="left-hand" /></div>
+            <div className="head">
+              <div className="beard" />
+              <div className="face"><div className="adds" /></div>
+              <div className="hat">
+                <div className="hat-of-the-hat" />
+                <div className="four-point-star --first" />
+                <div className="four-point-star --second" />
+                <div className="four-point-star --third" />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Letter reveal */}
+      <div className="flex items-center justify-center mb-4" style={{ minHeight: 72 }}>
+        {LETTERS.map((letter, i) => (
+          i < revealedCount ? (
+            <span
+              key={i}
+              className="letter-drop"
+              style={{
+                fontFamily: 'Syne, sans-serif',
+                fontWeight: 800,
+                fontSize: 'clamp(32px, 7vw, 64px)',
+                marginRight: letter === ' ' ? '0.4em' : '0.04em',
+                background: i % 3 === 0
+                  ? 'linear-gradient(135deg,#4f6ef7,#06b6d4)'
+                  : i % 3 === 1
+                  ? 'linear-gradient(135deg,#7c3aed,#ec4899)'
+                  : 'linear-gradient(135deg,#22c55e,#06b6d4)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {letter}
+            </span>
+          ) : null
+        ))}
+      </div>
+
+      {/* Status */}
+      <p
+        className="mb-6 text-sm"
+        style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}
+      >
+        {messages[msgIdx]}
+      </p>
+
+      {/* Progress bar */}
+      <div
+        className="w-64 h-1 rounded-full overflow-hidden"
+        style={{ background: '#1c1f27' }}
+      >
+        <div
+          className="h-full rounded-full transition-all duration-300"
+          style={{
+            width: `${progress}%`,
+            background: 'linear-gradient(90deg,#4f6ef7,#7c3aed)',
+          }}
+        />
+      </div>
+      <p
+        className="mt-2 text-xs"
+        style={{ color: '#252830', fontFamily: 'JetBrains Mono, monospace' }}
+      >
+        {Math.round(progress)}%
+      </p>
     </div>
   );
 };
 
-const App = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const [isLoading, setIsLoading] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
-
-  // Navigation items
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' }
-  ];
-
-  // Handle scroll effects and section detection
+/* ─── Section fade hook ──────────────────────────────────── */
+const useFadeIn = () => {
+  const ref = useRef(null);
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) el.classList.add('visible'); },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+};
 
-      // Detect active section based on scroll position
-      const sections = navItems.map(item => ({
-        id: item.id,
-        element: document.getElementById(item.id)
-      }));
+/* ─── Section label ──────────────────────────────────────── */
+const SectionLabel = ({ ticket, title, sub }) => (
+  <div className="mb-10">
+    <div className="flex items-center gap-3 mb-3">
+      <span
+        className="text-xs px-2 py-1 rounded"
+        style={{
+          fontFamily: 'JetBrains Mono, monospace',
+          color: '#4f6ef7',
+          background: 'rgba(79,110,247,0.1)',
+          border: '1px solid rgba(79,110,247,0.3)',
+        }}
+      >
+        {ticket}
+      </span>
+      <span
+        className="text-xs px-2 py-1 rounded"
+        style={{
+          fontFamily: 'JetBrains Mono, monospace',
+          color: '#22c55e',
+          background: 'rgba(34,197,94,0.1)',
+          border: '1px solid rgba(34,197,94,0.3)',
+        }}
+      >
+        ● ACTIVE
+      </span>
+    </div>
+    <h2
+      className="font-display mb-2"
+      style={{ fontSize: 'clamp(28px,4vw,40px)', color: '#e8eaf0', fontFamily: 'Syne, sans-serif', fontWeight: 800 }}
+    >
+      {title}
+    </h2>
+    {sub && (
+      <p style={{ color: '#6b7280', fontFamily: 'DM Sans, sans-serif', fontSize: 15 }}>{sub}</p>
+    )}
+  </div>
+);
 
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+/* ─── Divider ────────────────────────────────────────────── */
+const Divider = () => (
+  <div className="w-full h-px" style={{ background: '#252830' }} />
+);
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.element) {
-          const offsetTop = section.element.offsetTop;
-          if (scrollPosition >= offsetTop) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
-      }
-    };
+/* ─── Contact Form ───────────────────────────────────────── */
+const ContactForm = () => {
+  const [form, setForm] = useState({ title: '', email: '', message: '' });
+  const [priority, setPriority] = useState('P1');
+  const [submitted, setSubmitted] = useState(false);
+  const [ticketId] = useState(() => Math.floor(100 + Math.random() * 900));
 
-    handleScroll(); // Call once on mount
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
-
-  // Scroll to section
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(sectionId);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!form.title || !form.email) return;
+    setSubmitted(true);
   };
 
-  // Loading complete handler
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
-  if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  if (submitted) {
+    return (
+      <div
+        className="rounded-lg p-6 text-center"
+        style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.3)' }}
+      >
+        <p className="text-lg font-bold mb-2" style={{ color: '#22c55e', fontFamily: 'JetBrains Mono, monospace' }}>
+          ✅ Ticket created: AG-INBOX-{ticketId}
+        </p>
+        <p className="text-sm" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>
+          Thanks! I'll get back to you soon.
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
-      {/* Animated background elements throughout */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob delay-200"></div>
-        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob delay-500"></div>
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-lg p-6"
+      style={{ background: '#14161b', border: '1px solid #252830' }}
+    >
+      <div className="flex items-center justify-between mb-5 pb-4" style={{ borderBottom: '1px solid #252830' }}>
+        <span className="text-sm font-semibold" style={{ color: '#e8eaf0', fontFamily: 'DM Sans, sans-serif' }}>New Message</span>
+        <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>AG-INBOX</span>
       </div>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-12 sm:pt-16 pb-16 sm:pb-20 relative overflow-hidden">
-        {/* Decorative floating elements in background - Hidden on small mobile */}
-        <div className="hidden sm:block absolute top-20 left-10 opacity-20">
-          <Sparkles className="w-8 sm:w-12 h-8 sm:h-12 text-pink-500 animate-pulse" />
+      <div className="flex flex-col gap-4 mb-5">
+        <div>
+          <label className="block text-xs mb-1" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>Title *</label>
+          <input
+            type="text"
+            required
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            placeholder="What's on your mind?"
+            className="w-full px-3 py-2 rounded text-sm outline-none transition-all duration-200"
+            style={{ background: '#1c1f27', border: '1px solid #252830', color: '#e8eaf0', fontFamily: 'DM Sans, sans-serif' }}
+            onFocus={(e) => { e.target.style.borderColor = 'rgba(79,110,247,0.5)'; }}
+            onBlur={(e) => { e.target.style.borderColor = '#252830'; }}
+          />
         </div>
-        <div className="hidden sm:block absolute top-40 right-10 sm:right-20 opacity-20">
-          <Zap className="w-12 sm:w-16 h-12 sm:h-16 text-purple-500 animate-bounce" />
+        <div>
+          <label className="block text-xs mb-1" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>Email *</label>
+          <input
+            type="email"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            placeholder="your@email.com"
+            className="w-full px-3 py-2 rounded text-sm outline-none transition-all duration-200"
+            style={{ background: '#1c1f27', border: '1px solid #252830', color: '#e8eaf0', fontFamily: 'DM Sans, sans-serif' }}
+            onFocus={(e) => { e.target.style.borderColor = 'rgba(79,110,247,0.5)'; }}
+            onBlur={(e) => { e.target.style.borderColor = '#252830'; }}
+          />
         </div>
-        <div className="hidden sm:block absolute bottom-20 left-1/4 opacity-20">
-          <Star className="w-8 sm:w-10 h-8 sm:h-10 text-blue-500 animate-spin-slow" />
+        <div>
+          <label className="block text-xs mb-1" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>Message</label>
+          <textarea
+            rows={4}
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            placeholder="Tell me about your product challenge..."
+            className="w-full px-3 py-2 rounded text-sm outline-none transition-all duration-200 resize-none"
+            style={{ background: '#1c1f27', border: '1px solid #252830', color: '#e8eaf0', fontFamily: 'DM Sans, sans-serif' }}
+            onFocus={(e) => { e.target.style.borderColor = 'rgba(79,110,247,0.5)'; }}
+            onBlur={(e) => { e.target.style.borderColor = '#252830'; }}
+          />
         </div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[70vh] sm:min-h-[80vh]">
-
-            {/* Profile Image */}
-            <div className="flex justify-center lg:justify-start">
-              <div className="relative">
-                {/* Circular Text - positioned outside the image - Hidden on mobile */}
-                <div className="hidden md:block absolute -inset-16 flex items-center justify-center pointer-events-none">
-                  <div className="animate-spin-slow" style={{ animationDuration: '30s' }}>
-                    <CircularText
-                      text="✦ PRODUCT MANAGER ✦ ANUSH GUPTA ✦ INNOVATION ✦ GROWTH ✦ "
-                      radius={window.innerWidth < 768 ? 140 : window.innerWidth < 1024 ? 170 : 200}
-                      fontSize={window.innerWidth < 768 ? 11 : 13}
-                      className="text-pink-500 font-bold"
-                    />
-                  </div>
-                </div>
-
-                {/* Animated background rings */}
-                <div className="absolute inset-0 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-spin-slow opacity-30"></div>
-                <div className="absolute inset-2 w-44 h-44 sm:w-60 sm:h-60 md:w-68 md:h-68 lg:w-76 lg:h-76 rounded-full bg-gradient-to-r from-blue-200 via-pink-200 to-purple-200 animate-pulse opacity-40"></div>
-
-                <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 shadow-2xl border-4 border-white z-10">
-                  <img
-                    src={profileImage}
-                    alt="Anush Gupta - Product Manager"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fallback if image doesn't load
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  {/* Fallback content */}
-                  <div className="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center" style={{ display: 'none' }}>
-                    <div className="text-center">
-                      <div className="w-24 h-24 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center mb-4 mx-auto">
-                        <Target className="w-12 h-12 text-white" />
-                      </div>
-                      <p className="text-gray-700 font-semibold">Anush Gupta</p>
-                      <p className="text-gray-500 text-sm">Product Manager</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Enhanced floating elements */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full animate-bounce opacity-80 shadow-lg"></div>
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse opacity-70 shadow-lg"></div>
-                <div className="absolute top-1/4 -left-8 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-ping opacity-60"></div>
-                <div className="absolute bottom-1/4 -right-8 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce opacity-70 shadow-lg" style={{ animationDelay: '0.5s' }}></div>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="text-center lg:text-left order-2 lg:order-none">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6">
-                <TextType
-                  words={['Welcome!!', 'Hello!', 'Namaste!', 'Hi There!']}
-                  typingSpeed={150}
-                  deletingSpeed={100}
-                  delayBetweenWords={2000}
-                />
-              </h1>
-
-              <div className="space-y-6 px-4 sm:px-0">
-                <div>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
-                    A brief about me
-                  </h2>
-                </div>
-
-                <div className="space-y-4 sm:space-y-5 max-w-2xl mx-auto lg:mx-0">
-                  <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
-                    I thrive in the <span className="font-semibold text-pink-600">productive chaos of an early-stage startup</span>. Give me a half-formed idea, a broken Figma flow, or a 3-bullet Notion doc—I excel at turning that ambiguity into a tangible product.
-                  </p>
-
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                    I love <span className="font-semibold text-purple-600">building from scratch</span>. Whether it's new products, core features, landing pages, or backend APIs, I'm driven by <span className="font-semibold text-gray-900">"whatever moves the needle."</span>
-                  </p>
-
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                    My ideal environment <span className="font-semibold text-blue-600">moves fast, ships fast, and learns fast</span>.
-                  </p>
-
-                  <div className="pt-2">
-                    <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-medium">
-                      If you're building something ambitious and need someone who learns quickly, takes full ownership, and delivers—I'd love to be a part of your journey.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>Priority:</span>
+          {['P0', 'P1', 'P2'].map((p) => {
+            const colors = { P0: '#ef4444', P1: '#f59e0b', P2: '#4f6ef7' };
+            const active = priority === p;
+            return (
+              <button
+                key={p}
+                type="button"
+                onClick={() => setPriority(p)}
+                className="px-2 py-1 rounded text-xs transition-all duration-200"
+                style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  background: active ? colors[p] + '25' : 'transparent',
+                  color: active ? colors[p] : '#6b7280',
+                  border: `1px solid ${active ? colors[p] + '60' : '#252830'}`,
+                }}
+              >
+                {p}
+              </button>
+            );
+          })}
         </div>
-      </section>
+        <button
+          type="submit"
+          className="flex items-center gap-2 px-4 py-2 rounded text-sm font-semibold transition-all duration-200"
+          style={{ background: '#4f6ef7', color: '#fff', fontFamily: 'JetBrains Mono, monospace' }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#3b5bdb'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = '#4f6ef7'; }}
+        >
+          Assign to Anush <ArrowRight size={14} />
+        </button>
+      </div>
+    </form>
+  );
+};
 
-      {/* About Section */}
-      <section id="about" className="py-20 sm:py-28 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 relative overflow-hidden">
-        {/* Decorative elements matching hero */}
-        <div className="absolute top-10 right-10 opacity-20">
-          <Sparkles className="w-16 h-16 text-pink-600 animate-pulse" />
-        </div>
-        <div className="absolute bottom-10 left-10 opacity-20">
-          <Zap className="w-20 h-20 text-purple-600 animate-bounce" />
-        </div>
-        <div className="absolute top-1/2 right-1/4 opacity-15">
-          <Star className="w-12 h-12 text-blue-600 animate-spin-slow" />
-        </div>
+/* ─── Main App ───────────────────────────────────────────── */
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState('home');
+  const [copied, setCopied] = useState(null);
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
-              About Me
-            </h2>
-            <p className="text-xl sm:text-2xl text-gray-800 max-w-4xl mx-auto leading-relaxed font-medium">
-              Product Manager passionate about building user-centric digital experiences
-              that drive growth and deliver real impact
-            </p>
-          </div>
+  const sections = ['home', 'about', 'metrics', 'experience', 'skills', 'contact'];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sectionsRef = useRef(sections);
 
-          {/* Stats Carousel */}
-          <div className="mb-16 max-w-3xl mx-auto">
-            <Carousel
-              items={[
-                <div key="stat1" className="text-center p-12 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl border-2 border-purple-200/50 shadow-xl">
-                  <div className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
-                    <CountUp end={8} duration={2000} />
-                  </div>
-                  <div className="text-2xl font-semibold text-gray-900 mb-2">Weeks</div>
-                  <div className="text-base text-gray-600">From early stage to scale at Park+</div>
-                  <div className="mt-6 flex justify-center gap-2">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
-                </div>,
-                <div key="stat2" className="text-center p-12 bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl border-2 border-blue-200/50 shadow-xl">
-                  <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-                    <CountUp end={180} duration={2500} suffix="%" />
-                  </div>
-                  <div className="text-2xl font-semibold text-gray-900 mb-2">User Growth</div>
-                  <div className="text-base text-gray-600">Achieved at Park+ Motor Insurance</div>
-                  <div className="mt-6 flex justify-center gap-2">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
-                </div>,
-                <div key="stat3" className="text-center p-12 bg-gradient-to-br from-pink-50 to-rose-50 rounded-3xl border-2 border-pink-200/50 shadow-xl">
-                  <div className="text-6xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4">
-                    <CountUp end={100} duration={2000} suffix="%" />
-                  </div>
-                  <div className="text-2xl font-semibold text-gray-900 mb-2">Dedication</div>
-                  <div className="text-base text-gray-600">Committed to product excellence</div>
-                  <div className="mt-6 flex justify-center gap-2">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-rose-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
-                </div>
-              ]}
-              autoPlay={true}
-              interval={4000}
-            />
-          </div>
+  /* Active section detection */
+  useEffect(() => {
+    const handler = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      for (let i = sectionsRef.current.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionsRef.current[i]);
+        if (el && scrollPos >= el.offsetTop) {
+          setActiveSection(sectionsRef.current[i]);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handler);
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
 
-          {/* Key Traits */}
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-full border border-pink-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
-              <Target className="w-5 h-5 text-pink-600" />
-              <span className="text-pink-800 font-medium">Strategic Thinker</span>
-            </div>
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full border border-purple-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
-              <Users className="w-5 h-5 text-purple-600" />
-              <span className="text-purple-800 font-medium">User Advocate</span>
-            </div>
-            <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full border border-blue-200/50 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
-              <Award className="w-5 h-5 text-blue-600" />
-              <span className="text-blue-800 font-medium">Innovation Leader</span>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Experience Section */}
-      <section id="experience" className="py-20 sm:py-28 bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 relative overflow-hidden">
-        {/* Decorative elements matching theme */}
-        <div className="absolute top-20 left-20 opacity-20">
-          <Rocket className="w-16 h-16 text-pink-600 animate-float" />
-        </div>
-        <div className="absolute bottom-20 right-20 opacity-20">
-          <TrendingUp className="w-20 h-20 text-purple-600 animate-pulse" />
-        </div>
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
-              My Journey
-            </h2>
-            <p className="text-xl sm:text-2xl text-gray-800 font-medium">Building impactful products that drive real growth</p>
-          </div>
+  const copyToClipboard = (text, key) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(key);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
 
-          {/* Park+ Experience */}
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-pink-200/50 hover:shadow-2xl transition-all duration-500">
-              {/* Header */}
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-                <div className="mb-4 md:mb-0">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center">
-                      <Rocket className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Product Intern</h3>
-                      <p className="text-xl text-pink-600 font-semibold">Park+</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 font-medium rounded-full text-sm">
-                    June 9 – Aug 8, 2025
+  /* Fade refs */
+  const heroRef    = useFadeIn();
+  const aboutRef   = useFadeIn();
+  const metricsRef = useFadeIn();
+  const expRef     = useFadeIn();
+  const skillsRef  = useFadeIn();
+  const contactRef = useFadeIn();
+
+  if (isLoading) return <LoadingScreen onComplete={() => setIsLoading(false)} />;
+
+  return (
+    <div style={{ background: '#0d0e11', minHeight: '100vh' }}>
+      <TopNav activeSection={activeSection} onNavigate={scrollTo} />
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section id="home" className="section-fade" ref={heroRef}
+        style={{ paddingTop: 80, paddingBottom: 80, minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      >
+        <div className="w-full max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+
+            {/* Left — 3 cols */}
+            <div className="lg:col-span-3">
+              {/* Ticket meta */}
+              <div className="flex flex-wrap items-center gap-2 mb-6">
+                {[
+                  { label: 'AG-001', color: '#4f6ef7', bg: 'rgba(79,110,247,0.1)', border: 'rgba(79,110,247,0.3)' },
+                  { label: '● IN PROGRESS', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.3)' },
+                  { label: 'Priority: P0', color: '#ef4444', bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.3)' },
+                  { label: 'Sprint: Q2-2026', color: '#6b7280', bg: 'rgba(107,114,128,0.1)', border: 'rgba(107,114,128,0.3)' },
+                ].map((tag) => (
+                  <span
+                    key={tag.label}
+                    className="text-xs px-2 py-1 rounded"
+                    style={{ fontFamily: 'JetBrains Mono, monospace', color: tag.color, background: tag.bg, border: `1px solid ${tag.border}` }}
+                  >
+                    {tag.label}
                   </span>
-                  <p className="text-sm text-gray-500 mt-1">8 Weeks of Impact</p>
-                </div>
+                ))}
               </div>
 
-              {/* Impact Statement */}
-              <div className="mb-8 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200/50">
-                <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center">
-                  <TrendingUp className="w-5 h-5 text-pink-600 mr-2" />
-                  180% User Growth in 8 Weeks 🚀
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  Contributed to scaling the Motor Insurance product from its early stage to rapid growth,
-                  working on UI/UX upgrades and WhatsApp-driven engagement flows that drove exceptional results.
-                </p>
-              </div>
-
-              {/* Key Achievements */}
-              <div className="mb-8">
-                <h4 className="font-semibold text-gray-900 mb-4">Key Achievements:</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-200/50 hover:shadow-lg transition-all">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">✅</div>
-                    <div className="text-sm font-semibold text-gray-900 mb-1">Conversions</div>
-                    <div className="text-xs text-gray-600">Quotes → Proposals → Purchase</div>
-                  </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200/50 hover:shadow-lg transition-all">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">�️</div>
-                    <div className="text-sm font-semibold text-gray-900 mb-1">Scale Ready</div>
-                    <div className="text-xs text-gray-600">Outbound calling & features</div>
-                  </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl border border-pink-200/50 hover:shadow-lg transition-all">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-2">📱</div>
-                    <div className="text-sm font-semibold text-gray-900 mb-1">WhatsApp Integration</div>
-                    <div className="text-xs text-gray-600">Engagement & retention flows</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Takeaways */}
-              <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
-                  <Users2 className="w-5 h-5 text-purple-600 mr-2" />
-                  Key Takeaways:
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700">Scaling in insurance demands a balance of domain depth + user trust</p>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700">Conversion is driven by empathy just as much as design</p>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700">With the right ownership mindset, even 8 weeks can create outsized impact</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Technologies */}
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-3">Technologies & Skills:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-pink-100 text-pink-800 rounded-full text-sm font-medium">WhatsApp Integration</span>
-                  <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">UI/UX Design</span>
-                  <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Conversion Optimization</span>
-                  <span className="px-4 py-2 bg-rose-100 text-rose-800 rounded-full text-sm font-medium">Product Strategy</span>
-                  <span className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">Cross-functional Leadership</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-20 sm:py-28 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-10 right-1/4 opacity-20">
-          <Code className="w-16 h-16 text-blue-600 animate-wiggle" />
-        </div>
-        <div className="absolute bottom-10 left-1/4 opacity-20">
-          <Palette className="w-16 h-16 text-pink-600 animate-pulse" />
-        </div>
-        <div className="absolute top-1/2 right-10 opacity-20">
-          <BarChart className="w-14 h-14 text-purple-600 animate-bounce" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
-              Core Skills
-            </h2>
-            <p className="text-xl sm:text-2xl text-gray-800 font-medium">
-              A comprehensive toolkit for modern product management
-            </p>
-          </div>
-
-          {/* Interactive Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Left Column - Strategy & User Research */}
-            <div className="space-y-8">
-              {/* Strategy Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100 rounded-3xl p-8 border border-pink-200/50 hover:shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-200/30 to-rose-200/30 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-                      <Target className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-pink-700 transition-colors">Strategy</h3>
-                      <p className="text-sm text-gray-600">Product Vision & Planning</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-pink-100 transition-colors cursor-default">Product Roadmapping</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-rose-100 transition-colors cursor-default">Market Research</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-pink-100 transition-colors cursor-default">Competitive Analysis</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-rose-100 transition-colors cursor-default">Strategic Planning</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* User Research Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 rounded-3xl p-8 border border-purple-200/50 hover:shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-200/30 to-pink-200/30 rounded-full translate-y-12 -translate-x-12 group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:-rotate-12 transition-transform duration-500">
-                      <Users className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors">User Research</h3>
-                      <p className="text-sm text-gray-600">Understanding User Needs</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-purple-100 transition-colors cursor-default">User Interviews</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-pink-100 transition-colors cursor-default">Behavioral Analysis</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-purple-100 transition-colors cursor-default">Journey Mapping</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-pink-100 transition-colors cursor-default">Empathy Mapping</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Analytics & Leadership */}
-            <div className="space-y-8">
-              {/* Analytics Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 rounded-3xl p-8 border border-blue-200/50 hover:shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-                <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full -translate-y-14 -translate-x-14 group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-                      <Database className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">Analytics</h3>
-                      <p className="text-sm text-gray-600">Data-Driven Decisions</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-100 transition-colors cursor-default">Data Analysis</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-purple-100 transition-colors cursor-default">A/B Testing</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-100 transition-colors cursor-default">KPI Tracking</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-purple-100 transition-colors cursor-default">SQL</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Leadership Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-indigo-100 rounded-3xl p-8 border border-indigo-200/50 hover:shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-                <div className="absolute bottom-0 right-0 w-36 h-36 bg-gradient-to-tl from-indigo-200/30 to-blue-200/30 rounded-full translate-y-18 translate-x-18 group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:-rotate-12 transition-transform duration-500">
-                      <Award className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-indigo-700 transition-colors">Leadership</h3>
-                      <p className="text-sm text-gray-600">Team & Stakeholder Management</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-100 transition-colors cursor-default">Cross-functional Teams</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-100 transition-colors cursor-default">Stakeholder Management</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-100 transition-colors cursor-default">Agile/Scrum</div>
-                    <div className="px-4 py-2 bg-white/70 backdrop-blur-sm rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-100 transition-colors cursor-default">Team Collaboration</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills & Tools Logo Loop */}
-      <section className="py-16 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100">
-        <div className="max-w-7xl mx-auto px-6 mb-8">
-          <h3 className="text-3xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            Tools & Technologies
-          </h3>
-        </div>
-        <LogoLoop
-          logos={[
-            'Figma',
-            'Jira',
-            'SQL',
-            'Python',
-            'Analytics',
-            'Notion',
-            'Slack',
-            'Miro',
-            'Tableau',
-            'Excel'
-          ]}
-          speed={25}
-        />
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 sm:py-28 bg-gradient-to-br from-rose-100 via-pink-100 to-purple-100 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 opacity-20">
-          <Mail className="w-20 h-20 text-pink-600 animate-bounce" />
-        </div>
-        <div className="absolute bottom-10 right-10 opacity-20">
-          <Sparkles className="w-16 h-16 text-purple-600 animate-pulse" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent mb-6 animate-fadeInScale">
-              Let's Connect
-            </h2>
-            <p className="text-xl sm:text-2xl text-gray-800 font-medium">
-              Ready to discuss your next product challenge?
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {/* Email */}
-            <a
-              href="mailto:anushgupta105@gmail.com"
-              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-pink-300/50 hover:shadow-pink-500/50 hover:shadow-2xl transition-all text-center hover:scale-105 duration-300 hover-lift"
-            >
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
-                <Mail className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Email</h3>
-              <p className="text-gray-700 font-medium">anushgupta105@gmail.com</p>
-            </a>
-
-            {/* LinkedIn */}
-            <a
-              href="https://www.linkedin.com/in/anush-gupta105/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-purple-300/50 hover:shadow-purple-500/50 hover:shadow-2xl transition-all text-center hover:scale-105 duration-300 hover-lift"
-            >
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
-                <Linkedin className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">LinkedIn</h3>
-              <p className="text-gray-700 font-medium">Connect with me</p>
-            </a>
-
-            {/* Resume */}
-            <button
-              onClick={() => window.open('https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', '_blank')}
-              className="group p-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-blue-300/50 hover:shadow-blue-500/50 hover:shadow-2xl transition-all text-center w-full hover:scale-105 duration-300 hover-lift"
-            >
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all shadow-xl">
-                <Download className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Resume</h3>
-              <p className="text-gray-700 font-medium">View Resume</p>
-            </button>
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center">
-            <div className="inline-flex items-center space-x-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer shadow-xl animate-glow">
-              <span>Ready to drive your next product success story</span>
-              <ArrowRight className="w-6 h-6 animate-bounce" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer - Matching Website Gradient */}
-      <footer className="py-16 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 relative overflow-hidden border-t border-pink-200/50">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-30">
-          <div className="absolute top-10 left-10 w-40 h-40 bg-pink-200 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-60 h-60 bg-purple-200 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center">
-            {/* Logo */}
-            <div className="flex items-center justify-center space-x-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-xl animate-scalePulse">
-                <span className="text-3xl font-black text-white">A</span>
-              </div>
-              <div className="text-left">
-                <h3 className="text-3xl font-black text-gray-900">Anush Gupta</h3>
-                <p className="text-gray-700 text-lg font-medium">Product Manager</p>
-              </div>
-            </div>
-
-            <p className="text-gray-700 text-xl mb-8 max-w-2xl mx-auto font-medium">
-              Product Manager passionate about building impactful digital experiences
-            </p>
-
-            {/* Social Links */}
-            <div className="flex justify-center space-x-6 mb-10">
-              <a
-                href="mailto:anushgupta105@gmail.com"
-                className="w-14 h-14 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <Mail className="w-7 h-7 text-white" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/anush-gupta105/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <Linkedin className="w-7 h-7 text-white" />
-              </a>
-              <a
-                href="https://github.com/solmyst"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <Github className="w-7 h-7 text-white" />
-              </a>
-            </div>
-
-            {/* Quick Links */}
-            <div className="flex flex-wrap justify-center gap-6 mb-10">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-gray-700 hover:text-pink-600 font-medium transition-colors text-lg"
+              {/* Name */}
+              <div className="mb-4">
+                <div
+                  className="hero-name leading-none"
+                  style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(52px,8vw,96px)', color: '#e8eaf0', lineHeight: 1 }}
                 >
-                  {item.label}
+                  ANUSH
+                </div>
+                <div
+                  className="hero-name hero-underline leading-none"
+                  style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(52px,8vw,96px)', color: '#e8eaf0', lineHeight: 1 }}
+                >
+                  GUPTA
+                </div>
+              </div>
+
+              {/* Terminal line */}
+              <div
+                className="mb-4 text-sm"
+                style={{ fontFamily: 'JetBrains Mono, monospace', color: '#4f6ef7' }}
+              >
+                {'> '}
+                <TextType
+                  words={[
+                    'product_manager --mode=growth --environment=startup',
+                    'shipping ideas since 2024 // currently: open_to_work',
+                    'turning half-baked docs into shipped products',
+                  ]}
+                  typingSpeed={55}
+                  deletingSpeed={30}
+                  delayBetweenWords={2500}
+                  className=""
+                />
+              </div>
+
+              {/* One-liner */}
+              <p className="mb-8 text-base" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif', maxWidth: 480 }}>
+                I turn half-baked Notion docs into shipped products. Give me ambiguity — I'll give you a roadmap.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => scrollTo('about')}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold transition-all duration-200"
+                  style={{ background: '#4f6ef7', color: '#fff', fontFamily: 'JetBrains Mono, monospace' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = '#3b5bdb'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = '#4f6ef7'; }}
+                >
+                  View PRD <ArrowRight size={14} />
                 </button>
+                <button
+                  onClick={() => window.open('https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', '_blank')}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold transition-all duration-200"
+                  style={{ background: 'transparent', color: '#9ca3af', border: '1px solid #252830', fontFamily: 'JetBrains Mono, monospace' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#4f6ef7'; e.currentTarget.style.color = '#4f6ef7'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#252830'; e.currentTarget.style.color = '#9ca3af'; }}
+                >
+                  Resume <Download size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* Right — stat panel */}
+            <div className="lg:col-span-2">
+              <div
+                className="rounded-lg p-6"
+                style={{ background: '#14161b', border: '1px solid #252830' }}
+              >
+                <p
+                  className="text-xs mb-4 pb-3"
+                  style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', borderBottom: '1px solid #252830' }}
+                >
+                  PARK+ MOTOR INSURANCE
+                </p>
+
+                {/* Big metric */}
+                <div className="mb-2">
+                  <span
+                    style={{
+                      fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                      fontSize: 'clamp(48px,6vw,72px)',
+                      background: 'linear-gradient(135deg,#4f6ef7,#22c55e)',
+                      WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                    }}
+                  >
+                    <CountUp end={180} suffix="%" duration={1500} />
+                  </span>
+                </div>
+                <p className="text-sm mb-5" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>
+                  User Growth
+                </p>
+
+                {/* Sprint bar */}
+                <div className="mb-5">
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>8 wks sprint</span>
+                    <span className="text-xs" style={{ color: '#22c55e', fontFamily: 'JetBrains Mono, monospace' }}>Done ✅</span>
+                  </div>
+                  <div className="h-2 rounded-full overflow-hidden" style={{ background: '#252830' }}>
+                    <div className="h-full rounded-full" style={{ width: '100%', background: 'linear-gradient(90deg,#4f6ef7,#22c55e)' }} />
+                  </div>
+                </div>
+
+                {/* Mini funnel */}
+                <div className="flex flex-col gap-1.5">
+                  {[
+                    { label: '↑ Quotes',    w: '100%', color: '#4f6ef7' },
+                    { label: '↑ Proposals', w: '65%',  color: '#7c3aed' },
+                    { label: '↑ Purchases', w: '40%',  color: '#22c55e' },
+                  ].map((row) => (
+                    <div key={row.label} className="flex items-center gap-2">
+                      <div className="h-1.5 rounded-full" style={{ width: row.w, background: row.color, minWidth: 20 }} />
+                      <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>
+                        {row.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── PRD / ABOUT ──────────────────────────────────────── */}
+      <section id="about" className="section-fade" ref={aboutRef} style={{ padding: '80px 0' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionLabel ticket="AG-002" title="Product Requirements Document" sub="Anush Gupta — Personal Brand v1.0" />
+
+          {/* Notion doc header */}
+          <div
+            className="rounded-lg p-4 mb-8 flex flex-wrap gap-4 items-center"
+            style={{ background: '#14161b', border: '1px solid #252830' }}
+          >
+            <span className="text-sm" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>📄 Owner: <strong style={{ color: '#e8eaf0' }}>Anush Gupta</strong></span>
+            <span className="text-xs px-2 py-1 rounded" style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.3)', fontFamily: 'JetBrains Mono, monospace' }}>✅ Approved</span>
+            <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>Last edited: May 2026</span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* Left — PRD content */}
+            <div className="flex flex-col gap-6">
+              {[
+                { color: 'blue',   heading: 'Objective', text: 'Turn ambiguity into shipped product. Fast. Give me a half-formed idea, a broken Figma flow, or a 3-bullet Notion doc — I\'ll turn it into something real.' },
+                { color: 'purple', heading: 'Problem Statement', text: 'Most PMs wait for clarity before acting. Anush thrives in the chaos before clarity arrives.' },
+                { color: 'green',  heading: 'User Persona (that\'s you)', text: 'You need someone who ships, not someone who plans to ship. Someone who owns the full loop: research → design → ship → measure.' },
+                { color: 'amber',  heading: 'Key Behaviors', text: null, bullets: ['Owns the full loop: research → design → ship → measure', 'Writes PRDs that devs actually read', 'Asks "what does success look like" before writing a single line', 'Moves fast, ships fast, learns fast'] },
+              ].map((block) => (
+                <div
+                  key={block.heading}
+                  className={`notion-block ${block.color === 'purple' ? 'purple' : block.color === 'green' ? 'green' : block.color === 'amber' ? 'amber' : ''}`}
+                >
+                  <p className="text-xs mb-2" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    {block.heading}
+                  </p>
+                  {block.text && (
+                    <p className="text-sm leading-relaxed" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>{block.text}</p>
+                  )}
+                  {block.bullets && (
+                    <ul className="flex flex-col gap-1">
+                      {block.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-sm" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>
+                          <span style={{ color: '#4f6ef7', marginTop: 4 }}>›</span> {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               ))}
             </div>
 
-            {/* Copyright */}
-            <div className="pt-8 border-t border-gray-300">
-              <p className="text-gray-600 text-base font-medium">
-                © 2025 Anush Gupta. Crafted with passion and purpose.
-              </p>
+            {/* Right — Property table */}
+            <div>
+              <div
+                className="rounded-lg overflow-hidden"
+                style={{ border: '1px solid #252830' }}
+              >
+                {[
+                  { key: 'Status',       val: '● Open to Work',      valColor: '#22c55e' },
+                  { key: 'Role',         val: 'Product Manager',      valColor: '#e8eaf0' },
+                  { key: 'Environment',  val: 'Early-stage startup',  valColor: '#e8eaf0' },
+                  { key: 'Superpower',   val: 'Ambiguity → Clarity',  valColor: '#4f6ef7' },
+                  { key: 'Stack',        val: 'Figma · Jira · SQL · Notion', valColor: '#9ca3af' },
+                  { key: 'Location',     val: 'Jaipur, India',        valColor: '#e8eaf0' },
+                  { key: 'Availability', val: 'Immediate',            valColor: '#22c55e' },
+                ].map((row, i, arr) => (
+                  <div
+                    key={row.key}
+                    className="flex items-center"
+                    style={{ borderBottom: i < arr.length - 1 ? '1px solid #252830' : 'none' }}
+                  >
+                    <div
+                      className="px-4 py-3 w-36 flex-shrink-0"
+                      style={{ background: '#14161b', borderRight: '1px solid #252830' }}
+                    >
+                      <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>{row.key}</span>
+                    </div>
+                    <div className="px-4 py-3 flex-1" style={{ background: '#1c1f27' }}>
+                      <span className="text-sm" style={{ color: row.valColor, fontFamily: 'JetBrains Mono, monospace' }}>{row.val}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Trait pills */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                {[
+                  { label: '🎯 Strategic Thinker', color: '#4f6ef7' },
+                  { label: '👥 User Advocate',     color: '#7c3aed' },
+                  { label: '🏆 Innovation Leader', color: '#22c55e' },
+                ].map((pill) => (
+                  <span
+                    key={pill.label}
+                    className="px-3 py-1.5 rounded text-xs font-medium"
+                    style={{
+                      background: pill.color + '15',
+                      color: pill.color,
+                      border: `1px solid ${pill.color}40`,
+                      fontFamily: 'JetBrains Mono, monospace',
+                    }}
+                  >
+                    {pill.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── METRICS DASHBOARD ────────────────────────────────── */}
+      <section id="metrics" className="section-fade" ref={metricsRef} style={{ padding: '80px 0', background: '#0a0b0e' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionLabel ticket="AG-003" title="Product Analytics" sub="KPIs from Park+ Motor Insurance Internship" />
+
+          {/* 4 metric cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            {[
+              { num: 180, suffix: '%', label: 'User Growth',  sub: '↑ vs baseline',  color: '#22c55e' },
+              { num: 8,   suffix: ' wks', label: 'Timeline', sub: 'Sprint complete', color: '#4f6ef7' },
+              { num: 3,   suffix: '-step', label: 'Funnel',  sub: 'Built & shipped', color: '#7c3aed' },
+              { num: 100, suffix: '%',  label: 'Shipped',    sub: 'Full ownership',  color: '#f59e0b' },
+            ].map((card) => (
+              <div
+                key={card.label}
+                className="metric-card rounded-lg p-5 transition-all duration-200"
+                style={{ background: '#14161b', border: '1px solid #252830' }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                    fontSize: 'clamp(28px,3vw,40px)',
+                    color: card.color,
+                  }}
+                >
+                  <CountUp end={card.num} suffix={card.suffix} duration={1200} />
+                </div>
+                <p className="text-sm font-semibold mt-1" style={{ color: '#e8eaf0', fontFamily: 'DM Sans, sans-serif' }}>{card.label}</p>
+                <p className="text-xs mt-0.5" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>{card.sub}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Funnel chart */}
+          <div
+            className="rounded-lg p-6 mb-10"
+            style={{ background: '#14161b', border: '1px solid #252830' }}
+          >
+            <p className="text-xs mb-6" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>
+              CONVERSION FUNNEL — PARK+ MOTOR INSURANCE
+            </p>
+            <FunnelChart />
+          </div>
+
+          {/* Epic columns */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                id: 'AG-CONV', label: 'EPIC: CONVERSION', color: '#4f6ef7',
+                items: ['Funnel redesign', 'Quote → Proposal UI', 'Trust signals'],
+              },
+              {
+                id: 'AG-ENG', label: 'EPIC: ENGAGEMENT', color: '#7c3aed',
+                items: ['WhatsApp flows', 'Retention triggers', 'Re-engagement'],
+              },
+              {
+                id: 'AG-SCL', label: 'EPIC: SCALE', color: '#22c55e',
+                items: ['Outbound calling', 'Feature readiness', 'Infrastructure'],
+              },
+            ].map((epic) => (
+              <div
+                key={epic.id}
+                className="rounded-lg p-5"
+                style={{ background: '#14161b', border: `1px solid ${epic.color}33` }}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold" style={{ color: epic.color, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.08em' }}>
+                    {epic.label}
+                  </span>
+                  <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{epic.id}</span>
+                </div>
+                <div className="flex flex-col gap-2 mb-4">
+                  {epic.items.map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <span style={{ color: epic.color, fontSize: 10 }}>●</span>
+                      <span className="text-sm" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <span
+                  className="text-xs px-2 py-1 rounded"
+                  style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.3)', fontFamily: 'JetBrains Mono, monospace' }}
+                >
+                  ✅ Shipped
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── SPRINT BOARD / EXPERIENCE ─────────────────────────── */}
+      <section id="experience" className="section-fade" ref={expRef} style={{ padding: '80px 0' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionLabel ticket="AG-004" title="Active Sprint — Q2 2026" sub="Board: ANUSH-GUPTA-CAREER" />
+          <KanbanBoard />
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── ROADMAP / SKILLS ──────────────────────────────────── */}
+      <section id="skills" className="section-fade" ref={skillsRef} style={{ padding: '80px 0', background: '#0a0b0e' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionLabel ticket="AG-005" title="Product Roadmap — Skills" sub="View: Quarterly  |  Group by: Domain" />
+
+          {/* OKR Panel */}
+          <div className="mb-10">
+            <p
+              className="text-xs mb-4"
+              style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}
+            >
+              Q2 2026 OKRs
+            </p>
+            <OKRPanel />
+          </div>
+
+          {/* Skill timeline — swimlanes */}
+          <div
+            className="rounded-lg p-6 mb-10 overflow-x-auto"
+            style={{ background: '#14161b', border: '1px solid #252830' }}
+          >
+            <p className="text-xs mb-6" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>
+              SKILL TIMELINE
+            </p>
+            <div className="flex flex-col gap-4" style={{ minWidth: 560 }}>
+              {[
+                { domain: 'STRATEGY', color: '#4f6ef7', pills: ['Roadmapping', 'Competitive Analysis', 'Park+ Strategy', '●'] },
+                { domain: 'USER',     color: '#7c3aed', pills: ['Interviews', 'Journey Mapping', 'Park+ Research', '●'] },
+                { domain: 'ANALYTICS',color: '#22c55e', pills: ['SQL Basics', 'KPI Tracking', 'A/B + Funnels', '●'] },
+                { domain: 'TECH',     color: '#f59e0b', pills: ['Spring Boot', 'React', 'Docker', 'LLMs', '●'] },
+              ].map((lane) => (
+                <div key={lane.domain} className="flex items-center gap-3">
+                  <span
+                    className="text-xs w-20 flex-shrink-0 text-right"
+                    style={{ color: lane.color, fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
+                  >
+                    {lane.domain}
+                  </span>
+                  <div className="flex items-center gap-2 flex-1">
+                    {lane.pills.map((pill, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1 rounded-full text-xs flex-shrink-0"
+                        style={{
+                          background: pill === '●' ? lane.color : lane.color + '20',
+                          color: pill === '●' ? '#0d0e11' : lane.color,
+                          border: `1px solid ${lane.color}40`,
+                          fontFamily: 'JetBrains Mono, monospace',
+                          fontSize: 10,
+                        }}
+                      >
+                        {pill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tools grid */}
+          <p className="text-xs mb-4" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>
+            TOOLS & TECHNOLOGIES
+          </p>
+          <ToolsGrid />
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── CONTACT ───────────────────────────────────────────── */}
+      <section id="contact" className="section-fade" ref={contactRef} style={{ padding: '80px 0' }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <SectionLabel ticket="AG-006" title="Let's Build Something" sub="Ready to discuss your next product challenge?" />
+
+          {/* Callout */}
+          <div
+            className="rounded-lg p-5 mb-8"
+            style={{ background: 'rgba(79,110,247,0.08)', border: '1px solid rgba(79,110,247,0.25)' }}
+          >
+            <p className="text-sm" style={{ color: '#9ca3af', fontFamily: 'DM Sans, sans-serif' }}>
+              💡 I'm available for <strong style={{ color: '#e8eaf0' }}>PM roles, internships, and product consulting</strong>. Let's build something worth measuring.
+            </p>
+          </div>
+
+          {/* Link database */}
+          <div
+            className="rounded-lg overflow-hidden mb-8"
+            style={{ border: '1px solid #252830' }}
+          >
+            <div
+              className="flex items-center px-4 py-2"
+              style={{ background: '#14161b', borderBottom: '1px solid #252830' }}
+            >
+              <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em' }}>
+                CONTACT DATABASE
+              </span>
+            </div>
+            {[
+              { icon: '📧', type: 'Email',    val: 'anushgupta105@gmail.com',                          href: 'mailto:anushgupta105@gmail.com',                                                    copyKey: 'email' },
+              { icon: '💼', type: 'LinkedIn', val: 'linkedin.com/in/anush-gupta105',                   href: 'https://www.linkedin.com/in/anush-gupta105/',                                       copyKey: 'linkedin' },
+              { icon: '💻', type: 'GitHub',   val: 'github.com/solmyst',                               href: 'https://github.com/solmyst',                                                        copyKey: 'github' },
+              { icon: '📄', type: 'Resume',   val: 'Google Drive — View Resume',                       href: 'https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', copyKey: 'resume' },
+            ].map((row, i, arr) => (
+              <div
+                key={row.type}
+                className="flex items-center"
+                style={{ borderBottom: i < arr.length - 1 ? '1px solid #252830' : 'none', background: '#1c1f27' }}
+              >
+                <div className="px-4 py-3 w-28 flex-shrink-0 flex items-center gap-2" style={{ borderRight: '1px solid #252830', background: '#14161b' }}>
+                  <span>{row.icon}</span>
+                  <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>{row.type}</span>
+                </div>
+                <div className="px-4 py-3 flex-1">
+                  <span className="text-sm" style={{ color: '#9ca3af', fontFamily: 'JetBrains Mono, monospace' }}>{row.val}</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-3 flex-shrink-0">
+                  <button
+                    onClick={() => copyToClipboard(row.href, row.copyKey)}
+                    className="text-xs px-2 py-1 rounded transition-all duration-200"
+                    style={{
+                      fontFamily: 'JetBrains Mono, monospace',
+                      background: copied === row.copyKey ? 'rgba(34,197,94,0.15)' : '#252830',
+                      color: copied === row.copyKey ? '#22c55e' : '#6b7280',
+                      border: `1px solid ${copied === row.copyKey ? 'rgba(34,197,94,0.4)' : '#252830'}`,
+                    }}
+                  >
+                    {copied === row.copyKey ? 'Copied ✓' : 'Copy'}
+                  </button>
+                  <a
+                    href={row.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs px-2 py-1 rounded transition-all duration-200"
+                    style={{ fontFamily: 'JetBrains Mono, monospace', background: '#252830', color: '#6b7280', border: '1px solid #252830', textDecoration: 'none' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#4f6ef7'; e.currentTarget.style.borderColor = 'rgba(79,110,247,0.4)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = '#6b7280'; e.currentTarget.style.borderColor = '#252830'; }}
+                  >
+                    Open ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Linear-style message form */}
+          <ContactForm />
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── FOOTER ────────────────────────────────────────────── */}
+      <footer style={{ background: '#0d0e11', padding: '24px 0', borderTop: '1px solid #252830' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>
+                ANUSH-GUPTA-PORTFOLIO · Space: Personal Brand · Version: 1.0.0
+              </span>
+              <span className="text-xs" style={{ color: '#252830', fontFamily: 'JetBrains Mono, monospace' }}>
+                Built with: React · Designed in: Figma · Tracked in: Jira
+              </span>
+            </div>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-xs" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>
+                Last edited: May 2026 · Contributors: Anush G.
+              </span>
+              <span className="text-xs" style={{ color: '#252830', fontFamily: 'JetBrains Mono, monospace' }}>
+                © 2026 Anush Gupta · anushgupta105@gmail.com
+              </span>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Floating Bottom Navigation */}
-      <FloatingNav activeSection={activeSection} onNavigate={scrollToSection} />
     </div>
   );
 };
