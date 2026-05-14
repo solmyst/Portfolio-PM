@@ -23,7 +23,7 @@ const Ruler = () => {
   }
 
   return (
-    <div className="w-full bg-[#f8f9fa] border-b border-doc-border flex justify-center sticky top-0 z-30 docs-ruler-container h-[48px]">
+    <div className="w-full bg-[#f8f9fa] border-b border-doc-border flex justify-center sticky top-0 z-30 docs-ruler-container h-[40px]">
       <div className="w-[816px] h-full flex items-end relative bg-white border-x border-doc-border shadow-sm">
         <div className="absolute left-0 top-0 bottom-0 bg-[#e8eaed] w-[96px] opacity-30"></div>
         <div className="absolute right-0 top-0 bottom-0 bg-[#e8eaed] w-[96px] opacity-30"></div>
@@ -42,7 +42,7 @@ const Ruler = () => {
 const CommentCard = ({ id, avatarText, avatarBg, name, time, text, topOffset, resolveComment, isResolved, replyText }) => {
   if (isResolved) return null;
   return (
-    <div className="absolute right-[-320px] w-[280px] bg-white border border-doc-border rounded-[8px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.15)] font-ui text-[13px] z-[40] select-none animate-in" style={{ top: topOffset }} contentEditable="false">
+    <div className="absolute right-[-310px] w-[270px] bg-white border border-doc-border rounded-[8px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.15)] font-ui text-[13px] z-[40] select-none animate-in" style={{ top: topOffset }} contentEditable="false">
       <div className="flex items-center gap-2 mb-2">
         <div className="w-[32px] h-[32px] rounded-full text-white text-[12px] font-medium flex items-center justify-center flex-shrink-0" style={{ backgroundColor: avatarBg }}>
           {avatarText}
@@ -171,23 +171,21 @@ function App() {
       <div className="flex flex-1 overflow-hidden pt-[104px]">
         
         {/* Document Outline (Sidebar) */}
-        <div className="w-[260px] bg-doc-surface fixed left-0 top-[104px] bottom-0 p-6 overflow-y-auto hidden lg:block z-40 border-r border-doc-border sidebar shadow-[2px_0_10px_rgba(0,0,0,0.02)]">
-          <div className="text-[11px] font-bold text-[#444746] mb-6 uppercase tracking-[1px] opacity-70">Document Outline</div>
-          <div className="flex flex-col gap-1">
+        <div className="w-[240px] bg-doc-surface fixed left-0 top-[104px] bottom-0 p-5 overflow-y-auto hidden lg:block z-40 border-r border-doc-border sidebar">
+          <div className="text-[11px] font-bold text-[#444746] mb-4 uppercase tracking-[0.8px] opacity-60">Document Outline</div>
+          <div className="flex flex-col gap-0.5">
             {outline.map(item => {
               const isActive = activeSection === item.id;
               return (
                 <div 
                   key={item.id}
-                  className={`cursor-pointer rounded-r-full py-2 transition-all duration-200 group ${item.level === 3 ? 'text-[12px]' : 'text-[13px]'} ${item.level === 1 ? 'font-bold' : 'font-medium'} ${
-                    isActive ? 'text-google-blue bg-[#EAF1FC] border-l-[3px] border-google-blue pl-[15px]' : 'text-[#444746] hover:bg-[#F1F3F4] border-l-[3px] border-transparent pl-[17px]'
+                  className={`cursor-pointer rounded-r-full py-1.5 transition-all duration-200 group ${item.level === 3 ? 'text-[12px]' : 'text-[13px]'} ${item.level === 1 ? 'font-bold' : 'font-medium'} ${
+                    isActive ? 'text-google-blue bg-[#EAF1FC] border-l-[3px] border-google-blue pl-[15px]' : 'text-[#444746] hover:bg-[#F1F3F4] border-l-[3px] border-transparent pl-[18px]'
                   }`}
-                  style={{ paddingLeft: item.level === 3 ? '35px' : '' }}
+                  style={{ paddingLeft: item.level === 3 ? '32px' : '' }}
                   onClick={() => scrollTo(item.id)}
                 >
-                  <span className={`${isActive ? 'translate-x-1' : 'group-hover:translate-x-1'} inline-block transition-transform`}>
-                    {item.label}
-                  </span>
+                  {item.label}
                 </div>
               )
             })}
@@ -195,14 +193,14 @@ function App() {
         </div>
 
         {/* Main Document Area */}
-        <div className="flex-1 flex flex-col overflow-hidden lg:ml-[260px]">
+        <div className="flex-1 flex flex-col overflow-hidden lg:ml-[240px]">
           
           <Ruler />
 
           <div 
             id="scroll-container" 
             ref={scrollContainerRef}
-            className="flex-1 overflow-y-auto flex flex-col items-center bg-[#F0F2F5] pt-12 pb-48 scroll-smooth"
+            className="flex-1 overflow-y-auto flex flex-col items-center bg-[#F0F2F5] pt-10 pb-48 scroll-smooth"
           >
             
             {/* PAGE 1 */}
@@ -211,28 +209,28 @@ function App() {
               onKeyDown={handleKeyDown}
               suppressContentEditableWarning={true}
               spellCheck="false"
-              className="document-page relative flex flex-col bg-white w-full max-w-[816px] min-h-[1056px] shadow-[0_1px_3px_1px_rgba(60,64,67,.15)] outline-none font-doc px-[96px] py-[96px] mb-8 break-words overflow-hidden"
+              className="document-page relative flex flex-col bg-white shadow-page outline-none font-doc mb-10 break-words overflow-hidden"
             >
               <div contentEditable="false" className="absolute top-0 right-0 left-0 h-0 z-[45]">
-                <CommentCard id="1" avatarText="HR" avatarBg="#34A853" name="Head of Product" time="2 days ago" text="Whoever built this website understands product. Already sent to our CTO." topOffset="80px" isResolved={resolvedComments["1"]} resolveComment={resolveComment} />
+                <CommentCard id="1" avatarText="HR" avatarBg="#34A853" name="Head of Product" time="2 days ago" text="Whoever built this website understands product." topOffset="80px" isResolved={resolvedComments["1"]} resolveComment={resolveComment} />
                 <CommentCard id="2" avatarText="VK" avatarBg="#4285F4" name="Hiring Manager" time="Yesterday" text="Ready for Deployment. Someone hire this person." topOffset="220px" isResolved={resolvedComments["2"]} resolveComment={resolveComment} />
               </div>
 
               <div className="text-[#202124] max-w-full">
-                <div id="hero" className="mb-8">
-                  <h1 className="text-[26pt] font-bold mb-[16px] mt-0 text-[#202124] leading-tight">
+                <div id="hero" className="mb-6">
+                  <h1 className="text-[26pt] font-bold mb-[12px] mt-0 text-[#202124] leading-tight">
                     <span className={`comment-anchor ${!resolvedComments["1"] ? 'active' : ''}`}>Product Requirements Document</span>
                   </h1>
-                  <table className="prd-header-table w-full border-collapse mb-[32px] table-fixed" contentEditable="false">
+                  <table className="prd-header-table w-full border-collapse mb-[24px] table-fixed" contentEditable="false">
                     <tbody>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold w-[220px] bg-gray-50/50 text-[11pt]">Product Name</td><td className="border border-[#D0D0D0] p-3 text-google-blue font-bold tracking-tight text-[11pt]">Anush Gupta</td></tr>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50 text-[11pt]">Status</td><td className="border border-[#D0D0D0] p-3 font-bold text-[11pt]"><span className="w-2 h-2 rounded-full bg-google-green inline-block mr-2 animate-pulse"></span><span className={`comment-anchor ${!resolvedComments["2"] ? 'active' : ''}`}>Ready for Deployment</span></td></tr>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50 text-[11pt]">Document Owner</td><td className="border border-[#D0D0D0] p-3 text-doc-link underline text-[11pt] truncate">anushgupta105@gmail.com</td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold w-[200px] bg-gray-50/50 text-[10pt]">Product Name</td><td className="border border-[#D0D0D0] p-2.5 text-google-blue font-bold tracking-tight text-[10pt]">Anush Gupta</td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50 text-[10pt]">Status</td><td className="border border-[#D0D0D0] p-2.5 font-bold text-[10pt]"><span className="w-2 h-2 rounded-full bg-google-green inline-block mr-2 animate-pulse"></span><span className={`comment-anchor ${!resolvedComments["2"] ? 'active' : ''}`}>Ready for Deployment</span></td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50 text-[10pt]">Document Owner</td><td className="border border-[#D0D0D0] p-2.5 text-doc-link underline text-[10pt] truncate">anushgupta105@gmail.com</td></tr>
                       <tr>
-                        <td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50 text-[11pt]">Resources</td>
-                        <td className="border border-[#D0D0D0] p-3">
-                          <button onClick={() => window.open(resumeUrl, '_blank')} className="bg-google-blue hover:bg-google-blue-hover text-white px-4 py-1.5 rounded-md font-medium text-[11px] flex items-center gap-2 shadow-sm">
-                            <span className="material-symbols-outlined text-[16px]">description</span> View Resume
+                        <td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50 text-[10pt]">Resources</td>
+                        <td className="border border-[#D0D0D0] p-2.5">
+                          <button onClick={() => window.open(resumeUrl, '_blank')} className="bg-google-blue hover:bg-google-blue-hover text-white px-3 py-1 rounded-md font-medium text-[9pt] flex items-center gap-1.5 shadow-sm">
+                            <span className="material-symbols-outlined text-[14px]">description</span> View Resume
                           </button>
                         </td>
                       </tr>
@@ -240,38 +238,38 @@ function App() {
                   </table>
                 </div>
 
-                <hr className="border-t-[1.5px] border-black opacity-80 mb-12" />
+                <hr className="border-t-[1.5px] border-black opacity-80 mb-10" />
 
-                <div id="executive-summary" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">1. Executive Summary & Problem Statement</h2>
+                <div id="executive-summary" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">1. Executive Summary & Problem Statement</h2>
                   <p><strong>The Problem:</strong> Most Product Managers wait for perfect clarity before acting.founders need builders who can operate in chaos.</p>
-                  <p><strong>The Solution (Anush):</strong> A highly adaptable Product Manager engineered to turn ambiguity into shipped product. "Anush" is designed to take half-formed ideas and turn them into scalable features.</p>
+                  <p><strong>The Solution (Anush):</strong> A highly adaptable Product Manager engineered to turn ambiguity into shipped product.</p>
                 </div>
 
-                <div id="personas" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">2. Target Audience (User Personas)</h2>
-                  <ul className="list-disc ml-8 space-y-2">
+                <div id="personas" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">2. Target Audience (User Personas)</h2>
+                  <ul className="list-disc ml-8 space-y-1">
                     <li><strong>Startup Founders:</strong> Seeking a PM who owns the full loop without requiring hand-holding.</li>
                     <li><strong>Hiring Managers:</strong> Needing a teammate who writes PRDs that developers actually read.</li>
                   </ul>
                 </div>
 
-                <div id="capabilities" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">3. Core Capabilities (Experience)</h2>
-                  <div id="parkplus" className="mb-8">
-                    <h3 className="text-[14px] font-bold mb-2 mt-4">3.1 Motor Insurance Growth Engine</h3>
-                    <p className="italic text-[#5f6368] mb-3 text-[11pt]">Role: Product Intern @ Park+ (Jun–Aug 2025)</p>
+                <div id="capabilities" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">3. Core Capabilities (Experience)</h2>
+                  <div id="parkplus" className="mb-4">
+                    <h3 className="text-[14px] font-bold mb-1">3.1 Motor Insurance Growth Engine</h3>
+                    <p className="italic text-[#5f6368] mb-2 text-[10pt]">Role: Product Intern @ Park+ (Jun–Aug 2025)</p>
                     <ul className="list-disc ml-8 space-y-1">
-                      <li><strong>Feature:</strong> Scaled Motor Insurance to <span className="bg-[#fff2cc] font-bold px-1.5 rounded">180% user growth</span> in an 8-week sprint.</li>
-                      <li><strong>UX Overhaul:</strong> Owned funnel redesign, optimizing Quote → Proposal UI to increase conversion through strategic trust signals.</li>
+                      <li><strong>Feature:</strong> Scaled Motor Insurance to <span className="bg-[#fff2cc] font-bold px-1.5 rounded">180% user growth</span> in 8 weeks.</li>
+                      <li><strong>UX Overhaul:</strong> Owned funnel redesign, specifically optimizing Quote → Proposal UI.</li>
                     </ul>
                   </div>
 
-                  <div id="education" className="mb-8">
-                    <h3 className="text-[14px] font-bold mb-2 mt-4">3.2 Technical Foundation Framework</h3>
-                    <p className="italic text-[#5f6368] mb-3 text-[11pt]">Environment: JECRC University (2023–2027)</p>
+                  <div id="education" className="mb-4">
+                    <h3 className="text-[14px] font-bold mb-1">3.2 Technical Foundation Framework</h3>
+                    <p className="italic text-[#5f6368] mb-2 text-[10pt]">Environment: JECRC University (2023–2027)</p>
                     <ul className="list-disc ml-8 space-y-1">
-                      <li><strong>Degree:</strong> B.Tech in Computer Science. Fluency allows for seamless communication with engineering teams.</li>
+                      <li><strong>Degree:</strong> B.Tech in Computer Science. Fluency allows for seamless engineering collaboration.</li>
                     </ul>
                   </div>
                 </div>
@@ -288,7 +286,7 @@ function App() {
               onKeyDown={handleKeyDown}
               suppressContentEditableWarning={true}
               spellCheck="false"
-              className="document-page relative flex flex-col bg-white w-full max-w-[816px] min-h-[1056px] shadow-[0_1px_3px_1px_rgba(60,64,67,.15)] outline-none font-doc px-[96px] py-[96px] break-words overflow-hidden"
+              className="document-page relative flex flex-col bg-white shadow-page outline-none font-doc break-words overflow-hidden"
             >
               <div contentEditable="false" className="absolute top-0 right-0 left-0 h-0 z-[45]">
                 <CommentCard id="3" avatarText="SA" avatarBg="#FBBC04" name="Founder" time="1h ago" text="LLMs + SQL + Figma. Exactly what we need." topOffset="80px" isResolved={resolvedComments["3"]} resolveComment={resolveComment} />
@@ -297,58 +295,58 @@ function App() {
               </div>
 
               <div className="text-[#202124] max-w-full">
-                <div id="ux-designs" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">4. UX & Product Designs</h2>
+                <div id="ux-designs" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">4. UX & Product Designs</h2>
                   <p>Click on wireframes below to expand high-fidelity UX mockups.</p>
-                  <div className="grid grid-cols-2 gap-6 mt-8 mb-6" contentEditable="false">
-                    <div className="group border-2 border-dashed border-[#D0D0D0] hover:border-google-blue hover:bg-blue-50/50 cursor-pointer h-[150px] flex flex-col items-center justify-center transition-all rounded-xl" onClick={() => setSelectedUX('Funnel Flow')}>
-                      <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 transition-all">📈</span>
-                      <span className="text-[13px] font-bold text-[#5F6368] group-hover:text-google-blue underline">View Park+ Funnel Flow</span>
+                  <div className="grid grid-cols-2 gap-4 mt-6 mb-4" contentEditable="false">
+                    <div className="group border-2 border-dashed border-[#D0D0D0] hover:border-google-blue hover:bg-blue-50/50 cursor-pointer h-[120px] flex flex-col items-center justify-center transition-all rounded-lg" onClick={() => setSelectedUX('Funnel Flow')}>
+                      <span className="text-2xl mb-1 grayscale group-hover:grayscale-0 transition-all">📈</span>
+                      <span className="text-[12px] font-bold text-[#5F6368] group-hover:text-google-blue underline">View Funnel Flow</span>
                     </div>
-                    <div className="group border-2 border-dashed border-[#D0D0D0] hover:border-google-blue hover:bg-blue-50/50 cursor-pointer h-[150px] flex flex-col items-center justify-center transition-all rounded-xl" onClick={() => setSelectedUX('WhatsApp Flow')}>
-                      <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 transition-all">💬</span>
-                      <span className="text-[13px] font-bold text-[#5F6368] group-hover:text-google-blue underline">View WhatsApp Flow</span>
+                    <div className="group border-2 border-dashed border-[#D0D0D0] hover:border-google-blue hover:bg-blue-50/50 cursor-pointer h-[120px] flex flex-col items-center justify-center transition-all rounded-lg" onClick={() => setSelectedUX('WhatsApp Flow')}>
+                      <span className="text-2xl mb-1 grayscale group-hover:grayscale-0 transition-all">💬</span>
+                      <span className="text-[12px] font-bold text-[#5F6368] group-hover:text-google-blue underline">View WhatsApp Flow</span>
                     </div>
                   </div>
                 </div>
 
-                <div id="requirements" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">5. Functional Requirements (Skills & Toolkit)</h2>
+                <div id="requirements" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">5. Functional Requirements (Skills & Toolkit)</h2>
                   <table className="prd-header-table w-full border-collapse mt-4 table-fixed" contentEditable="false">
                     <thead>
-                      <tr><th className="border border-[#D0D0D0] p-3 bg-gray-50 text-left font-bold text-[13px] w-1/3">Category</th><th className="border border-[#D0D0D0] p-3 bg-gray-50 text-left font-bold text-[13px]">Tools & Competencies</th></tr>
+                      <tr><th className="border border-[#D0D0D0] p-2.5 bg-gray-50 text-left font-bold text-[10pt] w-1/3">Category</th><th className="border border-[#D0D0D0] p-2.5 bg-gray-50 text-left font-bold text-[10pt]">Tools & Competencies</th></tr>
                     </thead>
-                    <tbody className="text-[13px]">
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50">Product Strategy</td><td className="border border-[#D0D0D0] p-3">Roadmapping, PRD Writing, GTM Strategy</td></tr>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50">Data & Analytics</td><td className="border border-[#D0D0D0] p-3">SQL, Amplitude, Mixpanel, A/B Testing</td></tr>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50">Technical</td><td className="border border-[#D0D0D0] p-3">APIs, LLMs/LangChain, React, Python</td></tr>
-                      <tr><td className="border border-[#D0D0D0] p-3 font-bold bg-gray-50/50"><span className={`comment-anchor ${!resolvedComments["3"] ? 'active' : ''}`}>Software Stack</span></td><td className="border border-[#D0D0D0] p-3">Figma, Jira, Notion, Linear, Miro</td></tr>
+                    <tbody className="text-[10pt]">
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50">Strategy</td><td className="border border-[#D0D0D0] p-2.5">Roadmapping, PRD Writing, GTM</td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50">Data</td><td className="border border-[#D0D0D0] p-2.5">SQL, Amplitude, Mixpanel, A/B</td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50">Technical</td><td className="border border-[#D0D0D0] p-2.5">APIs, LLMs/LangChain, React</td></tr>
+                      <tr><td className="border border-[#D0D0D0] p-2.5 font-bold bg-gray-50/50"><span className={`comment-anchor ${!resolvedComments["3"] ? 'active' : ''}`}>Stack</span></td><td className="border border-[#D0D0D0] p-2.5">Figma, Jira, Notion, Linear</td></tr>
                     </tbody>
                   </table>
                 </div>
 
-                <div id="metrics" className="mb-[48px]" ref={statsRef}>
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">6. Success Metrics (KPIs tracked)</h2>
-                  <ul className="space-y-3 mt-4">
-                    <li className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-google-blue"></div>
-                      <div><strong className="stat-counter font-bold text-google-blue text-lg" data-target="180" data-suffix="%">0%</strong> User Growth achieved (Park+ Internship)</div>
+                <div id="metrics" className="mb-[32px]" ref={statsRef}>
+                  <h2 className="text-[18px] font-bold mb-[8px]">6. Success Metrics (KPIs)</h2>
+                  <ul className="space-y-2 mt-4">
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-google-blue"></div>
+                      <div className="text-[10pt]"><strong className="stat-counter font-bold text-google-blue" data-target="180" data-suffix="%">0%</strong> Growth achieved (Internship)</div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-google-red"></div>
-                      <div><strong className="stat-counter font-bold text-google-red text-lg" data-target="8" data-suffix=" Weeks">0 Weeks</strong> Sprint Duration consistently met</div>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-google-red"></div>
+                      <div className="text-[10pt]"><strong className="stat-counter font-bold text-google-red" data-target="8" data-suffix=" Weeks">0 Weeks</strong> Sprint Duration consistently met</div>
                     </li>
                   </ul>
                 </div>
 
-                <div id="release" className="mb-[48px]">
-                  <h2 className="text-[18px] font-bold mb-[12px] border-b border-gray-300 pb-1">7. Release Plan & Contact</h2>
-                  <div className="flex flex-wrap gap-4 mt-6" contentEditable="false">
-                    <button onClick={() => window.location.href='mailto:anushgupta105@gmail.com'} className="flex items-center gap-2 bg-google-blue text-white px-6 py-2.5 rounded-full font-bold shadow-md">
-                      <span className="material-symbols-outlined">mail</span> Email Me
+                <div id="release" className="mb-[32px]">
+                  <h2 className="text-[18px] font-bold mb-[8px]">7. Release Plan & Contact</h2>
+                  <div className="flex flex-wrap gap-3 mt-6" contentEditable="false">
+                    <button onClick={() => window.location.href='mailto:anushgupta105@gmail.com'} className="flex items-center gap-2 bg-google-blue text-white px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm">
+                      <span className="material-symbols-outlined text-[18px]">mail</span> Email Me
                     </button>
-                    <button onClick={() => window.open(resumeUrl, '_blank')} className="flex items-center gap-2 bg-white border border-[#D0D0D0] text-[#202124] px-6 py-2.5 rounded-full font-bold shadow-sm">
-                      <span className="material-symbols-outlined text-google-red">description</span> Resume
+                    <button onClick={() => window.open(resumeUrl, '_blank')} className="flex items-center gap-2 bg-white border border-[#D0D0D0] text-[#202124] px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm">
+                      <span className="material-symbols-outlined text-google-red text-[18px]">description</span> Resume
                     </button>
                   </div>
                 </div>
@@ -364,14 +362,14 @@ function App() {
 
       {selectedUX && (
         <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-8 font-ui backdrop-blur-sm" onClick={() => setSelectedUX(null)}>
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-5xl" onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4 text-[#202124]">
-              <h3 className="text-[20px] font-bold">{selectedUX}</h3>
-              <button onClick={() => setSelectedUX(null)} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition-colors">
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-4xl" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4 border-b border-gray-100 pb-3 text-[#202124]">
+              <h3 className="text-[18px] font-bold">{selectedUX}</h3>
+              <button onClick={() => setSelectedUX(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition-colors">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
-            <div className="w-full h-[600px] bg-[#F8F9FA] border border-gray-200 flex items-center justify-center text-gray-400 rounded-xl">🎨 Figma Interactive Embed for {selectedUX}</div>
+            <div className="w-full h-[500px] bg-[#F8F9FA] border border-gray-200 flex items-center justify-center text-gray-400 rounded-lg italic">🎨 High-Fidelity {selectedUX} Preview</div>
           </div>
         </div>
       )}

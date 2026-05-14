@@ -24,10 +24,10 @@
   max-width: 100%;
 }
 
-.font-doc h1 { font-size: 26px; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
-.font-doc h2 { font-size: 18px; font-weight: 700; margin-top: 28px; margin-bottom: 8px; }
-.font-doc h3 { font-size: 14px; font-weight: 700; margin-top: 20px; margin-bottom: 4px; }
-.font-doc p { margin-bottom: 12px; }
+.font-doc h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; margin-top: 0; line-height: 1.2; }
+.font-doc h2 { font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 6px; border-bottom: 1px solid #e8eaed; padding-bottom: 4px; }
+.font-doc h3 { font-size: 14px; font-weight: 700; margin-top: 16px; margin-bottom: 4px; }
+.font-doc p { margin-bottom: 10px; }
 
 .font-doc ul { list-style-type: disc; margin-left: 2em; margin-bottom: 16px; }
 .font-doc ol { list-style-type: decimal; margin-left: 2em; margin-bottom: 16px; }
@@ -56,9 +56,12 @@
 
 /* Document Page Shadow & Layout */
 .document-page {
+  width: 816px;
+  min-height: 1056px;
   padding: 96px; /* 1 inch approx at 96dpi */
   box-sizing: border-box;
   box-shadow: 0 1px 3px 1px rgba(60,64,67,.15), 0 1px 2px 0 rgba(60,64,67,.3);
+  background-color: white;
   border: 1px solid #e0e0e0;
   transition: box-shadow 0.3s ease;
 }
