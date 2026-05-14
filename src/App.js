@@ -84,7 +84,7 @@ const CommentCard = ({ id, avatarText, avatarBg, name, time, text, topOffset, re
         </div>
       )}
       <div className="flex gap-2">
-        <button className="flex-1 bg-google-blue hover:bg-google-blue-hover text-white font-medium py-1.5 rounded-full transition-colors text-[11px]" onClick={() => window.location.href='mailto:anushgupta105@gmail.com'}>Reply</button>
+        <button className="flex-1 bg-google-blue hover:bg-google-blue-hover text-white font-medium py-1.5 rounded-full transition-colors text-[11px]" onClick={() => window.location.href = 'mailto:anushgupta105@gmail.com'}>Reply</button>
         <button className="flex-1 border border-doc-border hover:bg-gray-50 text-[#202124] font-medium py-1.5 rounded-full transition-colors text-[11px]" onClick={() => resolveComment(id)}>Resolve</button>
       </div>
     </div>
@@ -95,6 +95,8 @@ function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [resolvedComments, setResolvedComments] = useState({});
   const [statsAnimated, setStatsAnimated] = useState(false);
+  const [isEditable, setIsEditable] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   const statsRef = useRef(null);
   const scrollContainerRef = useRef(null);
@@ -106,16 +108,25 @@ function App() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setActiveSection(id);
+      setIsSidebarOpen(false);
     }
   };
 
   const handleKeyDown = (e) => {
+    if (!isEditable) return;
     const allowedKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown', 'c', 'v', 'a'];
     const isCmd = e.ctrlKey || e.metaKey;
     if (!allowedKeys.includes(e.key) && !isCmd) e.preventDefault();
   };
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsEditable(window.innerWidth > 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const scrollContainer = scrollContainerRef.current;
     const handleScroll = () => {
       let currentActive = outline[0].id;
@@ -151,19 +162,32 @@ function App() {
         }
       }
     };
+    
     scrollContainer?.addEventListener('scroll', handleScroll);
-    return () => scrollContainer?.removeEventListener('scroll', handleScroll);
+    return () => {
+      scrollContainer?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, [statsAnimated]);
 
   return (
     <div className="bg-[#F0F2F5] h-screen font-ui text-doc-text flex flex-col overflow-hidden">
-      <TopNav />
+      <TopNav isEditable={isEditable} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
       <VerticalRuler />
-      
-      <div className="flex flex-1 overflow-hidden pt-[104px]">
+
+      <div className={`flex flex-1 overflow-hidden ${isEditable ? 'pt-[104px]' : 'pt-[64px]'} transition-all duration-300`}>
         
+        {/* Mobile Sidebar Overlay */}
+        {isSidebarOpen && !isEditable && (
+          <div 
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[45] lg:hidden animate-in fade-in duration-300"
+            onClick={() => setIsSidebarOpen(false)}
+          ></div>
+        )}
+
         {/* Document Sidebar (Styled like Google Doc Tabs) */}
-        <div className="w-[240px] bg-white fixed left-0 top-[104px] bottom-0 p-4 overflow-y-auto hidden lg:block z-40 border-r border-doc-border sidebar">
+        <div className={`w-[240px] bg-white fixed left-0 ${isEditable ? 'top-[104px]' : 'top-[64px]'} bottom-0 p-4 overflow-y-auto z-50 border-r border-doc-border sidebar transition-all duration-300 
+          ${isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'} lg:translate-x-0 lg:block lg:z-40 ${!isSidebarOpen && 'hidden lg:block'}`}>
           <div className="flex items-center justify-between mb-6">
             <span className="text-[14px] font-medium text-[#202124]">Document tabs</span>
             <span className="material-symbols-outlined text-[18px] text-[#5f6368] cursor-pointer">add</span>
@@ -176,7 +200,7 @@ function App() {
             <div className="text-[11px] font-bold text-[#5f6368] mb-4 uppercase tracking-wider">Sections</div>
             <div className="flex flex-col gap-1">
               {outline.map(item => (
-                <div 
+                <div
                   key={item.id}
                   className={`cursor-pointer text-[13px] py-1.5 transition-colors ${activeSection === item.id ? 'text-google-blue font-bold' : 'text-[#5f6368] hover:text-[#202124]'}`}
                   onClick={() => scrollTo(item.id)}
@@ -189,19 +213,19 @@ function App() {
         </div>
 
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-[240px]">
-          <HorizontalRuler />
+          {isEditable && <HorizontalRuler />}
 
           <div id="scroll-container" ref={scrollContainerRef} className="flex-1 overflow-y-auto flex flex-col items-center bg-[#F0F2F5] pt-8 pb-48 scroll-smooth">
-            
+
             {/* Continuous Document with Visual Page Breaks */}
-            <div 
-              contentEditable="true"
+            <div
+              contentEditable={isEditable ? "true" : "false"}
               onKeyDown={handleKeyDown}
               suppressContentEditableWarning={true}
               spellCheck="false"
               className="relative flex flex-col items-center outline-none font-doc"
             >
-              
+
               {/* PAGE 1 */}
               <div className="document-page relative bg-white shadow-page px-[96px] py-[96px] mb-[12px] flex flex-col">
                 <div contentEditable="false" className="absolute top-0 right-0 left-0 h-0 z-[45]">
@@ -329,7 +353,7 @@ function App() {
                   <h3 className="text-[14px] font-bold mb-1">8.1 Trip Helper</h3>
                   <p className="text-[10pt] mb-1">Route optimization and trip-cost calculation (Fuel, Tolls, Maps).</p>
                   <p className="text-[10pt] italic text-[#5F6368] mb-3">Stack: Spring Boot • APIs • SQL • Maps Integration</p>
-                  
+
                   <h3 className="text-[14px] font-bold mb-1">8.2 AI DevOps Knowledge Agent</h3>
                   <p className="text-[10pt] mb-1">AI-powered documentation system reducing onboarding friction.</p>
                   <p className="text-[10pt] italic text-[#5F6368] mb-3">Stack: LLMs • LangChain • Python • Vector DBs</p>
@@ -366,7 +390,7 @@ function App() {
                 <div id="release" className="mb-[32px]">
                   <h2 className="text-[18px] font-bold mb-[8px]">12. Release Plan & Contact</h2>
                   <div className="flex flex-wrap gap-2.5 mt-4" contentEditable="false">
-                    <button onClick={() => window.location.href='mailto:anushgupta105@gmail.com'} className="flex items-center gap-2 bg-google-blue text-white px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm hover:bg-google-blue-hover transition-colors">Email Me</button>
+                    <button onClick={() => window.location.href = 'mailto:anushgupta105@gmail.com'} className="flex items-center gap-2 bg-google-blue text-white px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm hover:bg-google-blue-hover transition-colors">Email Me</button>
                     <button onClick={() => window.open(resumeUrl, '_blank')} className="flex items-center gap-2 bg-white border border-[#D0D0D0] text-[#202124] px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm hover:bg-gray-50 transition-colors">Resume</button>
                     <button onClick={() => window.open('https://linkedin.com/in/anush-gupta105', '_blank')} className="flex items-center gap-2 bg-white border border-[#D0D0D0] text-[#202124] px-5 py-2 rounded-full font-bold text-[10pt] shadow-sm hover:bg-gray-50 transition-colors">LinkedIn</button>
                   </div>

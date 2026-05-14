@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TopNav = () => {
+const TopNav = ({ isEditable = true, onMenuClick }) => {
   const [docName, setDocName] = useState('Anush_Gupta_PRD_v2.0');
   const [isStarred, setIsStarred] = useState(false);
   const [saveStatus, setSaveStatus] = useState('All changes saved in Drive');
@@ -26,6 +26,7 @@ const TopNav = () => {
   }, [docName]);
 
   const execCommand = (command, value = null) => {
+    if (!isEditable) return;
     document.execCommand(command, false, value);
     if (['bold', 'italic', 'underline'].includes(command)) {
       setActiveFormats(prev => ({ ...prev, [command]: !prev[command] }));
@@ -53,6 +54,15 @@ const TopNav = () => {
         {/* Header Row */}
         <div className="flex items-center justify-between px-2 h-[64px] border-b border-doc-border">
           <div className="flex items-center gap-1">
+            {!isEditable && (
+              <button 
+                onClick={onMenuClick}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors ml-1"
+              >
+                <span className="material-symbols-outlined text-[24px]">menu</span>
+              </button>
+            )}
+
             <div className="w-10 h-10 flex items-center justify-center rounded cursor-pointer hover:bg-gray-100 transition-colors ml-1" onClick={() => window.location.reload()}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.5 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V7.5L14.5 2Z" fill="#4285F4" />
@@ -69,14 +79,15 @@ const TopNav = () => {
                   type="text"
                   value={docName}
                   onChange={(e) => setDocName(e.target.value)}
-                  className={`text-[18px] text-doc-text bg-transparent outline-none border border-transparent hover:border-gray-300 focus:border-doc-blue rounded px-1 min-w-[200px] h-[24px] ${docName === 'Anush_Gupta_PRD_v2.0' ? 'typing-cursor' : ''}`}
+                  readOnly={!isEditable}
+                  className={`text-[18px] text-doc-text bg-transparent outline-none border border-transparent hover:border-gray-300 focus:border-doc-blue rounded px-1 min-w-[200px] h-[24px] ${docName === 'Anush_Gupta_PRD_v2.0' && isEditable ? 'typing-cursor' : ''}`}
                 />
                 <span className="material-symbols-outlined text-[20px] cursor-pointer" style={{ color: isStarred ? '#FBBC04' : '#5F6368' }} onClick={() => setIsStarred(!isStarred)}>{isStarred ? 'star' : 'star_border'}</span>
                 <span className="material-symbols-outlined text-[20px] text-doc-text-secondary cursor-pointer hover:bg-gray-100 p-0.5 rounded ml-1" title="Move">drive_file_move</span>
                 <span className="material-symbols-outlined text-[20px] text-doc-text-secondary cursor-pointer hover:bg-gray-100 p-0.5 rounded ml-1" title="See document status">cloud_done</span>
               </div>
 
-              <div className="flex items-center text-[14px] text-doc-text mt-[2px]">
+              <div className={`items-center text-[14px] text-doc-text mt-[2px] ${!isEditable ? 'hidden' : 'flex'}`}>
                 {['File', 'Edit', 'View', 'Insert', 'Format', 'Tools', 'Extensions', 'Help'].map(menu => (
                   <div key={menu} className="px-2 py-[2px] rounded hover:bg-gray-100 cursor-pointer">{menu}</div>
                 ))}
@@ -152,7 +163,7 @@ const TopNav = () => {
         </div>
 
         {/* Toolbar Row */}
-        <div className="flex items-center px-4 h-[40px] bg-doc-toolbar text-doc-text overflow-x-auto whitespace-nowrap toolbar shadow-sm border-b border-doc-border">
+        <div className={`flex items-center px-4 h-[40px] bg-doc-toolbar text-doc-text overflow-x-auto whitespace-nowrap toolbar shadow-sm border-b border-doc-border ${!isEditable ? 'hidden' : 'flex'}`}>
           <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px]">
             <button onClick={() => execCommand('undo')} className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"><span className="material-symbols-outlined text-[20px]">undo</span></button>
             <button onClick={() => execCommand('redo')} className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"><span className="material-symbols-outlined text-[20px]">redo</span></button>
