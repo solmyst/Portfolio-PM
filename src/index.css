@@ -1,3 +1,187 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-doc-bg text-doc-text font-ui antialiased;
+    margin: 0;
+  }
+}
+
+::selection {
+  background-color: #b4d5fe;
+}
+
+/* Document Formatting System */
+.font-doc {
+  font-family: Arial, sans-serif;
+  font-size: 11pt; /* 14.67px */
+  line-height: 1.5;
+  color: #202124;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.font-doc h1 { font-size: 26px; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
+.font-doc h2 { font-size: 18px; font-weight: 700; margin-top: 28px; margin-bottom: 8px; }
+.font-doc h3 { font-size: 14px; font-weight: 700; margin-top: 20px; margin-bottom: 4px; }
+.font-doc p { margin-bottom: 12px; }
+
+.font-doc ul { list-style-type: disc; margin-left: 2em; margin-bottom: 16px; }
+.font-doc ol { list-style-type: decimal; margin-left: 2em; margin-bottom: 16px; }
+.font-doc li { margin-bottom: 6px; }
+
+.font-doc strong { font-weight: 700; }
+.font-doc em { font-style: italic; }
+
+/* Comment System Highlights */
+.comment-anchor {
+  background: rgba(255, 214, 0, 0.4);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.comment-anchor:hover, .comment-anchor.active {
+  background: rgba(255, 214, 0, 0.7);
+}
+
+.shadow-page {
+  box-shadow: 0 1px 3px 1px rgba(60,64,67,.15), 0 1px 2px 0 rgba(60,64,67,.3);
+}
+
+.docs-header {
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+}
+
+/* Document Page Shadow & Layout */
+.document-page {
+  padding: 96px; /* 1 inch approx at 96dpi */
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px 1px rgba(60,64,67,.15), 0 1px 2px 0 rgba(60,64,67,.3);
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+
+.document-page:hover {
+  box-shadow: 0 4px 6px 0 rgba(60,64,67,.15), 0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Ruler Styling */
+.docs-ruler-container {
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.3);
+}
+
+.docs-ruler {
+  height: 48px;
+  background: white;
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+.ruler-tick {
+  border-left: 1px solid #c7c7c7;
+  height: 6px;
+  position: relative;
+}
+
+.ruler-tick.major {
+  height: 12px;
+}
+
+.ruler-label {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #70757a;
+}
+
+/* Margin Indicators */
+.margin-indicator {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid #1a73e8;
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.indent-indicator {
+  width: 10px;
+  height: 3px;
+  background: #1a73e8;
+  position: absolute;
+  bottom: 10px;
+  transform: translateX(-50%);
+}
+
+/* Blinking Cursor Animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #1A73E8;
+  font-weight: 100;
+  margin-left: 2px;
+}
+
+/* Page Break */
+.page-break {
+  border: none;
+  height: 0;
+  margin: 24px -96px; /* Negates document padding */
+  position: relative;
+}
+.page-break::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: #F8F9FA;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+/* Print Mode */
+@media print {
+  .docs-header, .menu-bar, .toolbar, .sidebar, .comment-card { display: none !important; }
+  .docs-canvas { padding: 0 !important; }
+  .document-page { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; border: none !important; }
+  body { background: white; }
+}
+
+/* Custom scrollbar to match webkit defaults more cleanly */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 8px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bdc1c6;
+}
+
