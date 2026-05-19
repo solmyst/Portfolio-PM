@@ -9,7 +9,7 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
   const [linkCopied, setLinkCopied] = useState(false);
   const [shareEmail, setShareEmail] = useState('');
 
-  const resumeUrl = "https://drive.google.com/file/d/1PntDE7PYeHvqNEJol-5Q2ub0VzHsmsWz/view?usp=drive_link";
+  const resumeUrl = "/Anush_Gupta_Software_Engineering_Resume.pdf";
 
   const [activeFormats, setActiveFormats] = useState({
     bold: false,
@@ -125,7 +125,7 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
                     </div>
                     <div className="flex flex-col gap-1">
                       <button
-                        onClick={() => window.open('https://linkedin.com/in/anush-gupta105', '_blank')}
+                        onClick={() => window.open('https://www.linkedin.com/in/anush-gupta105/', '_blank')}
                         className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors text-left"
                       >
                         <span className="material-symbols-outlined text-google-blue">person_outline</span>
