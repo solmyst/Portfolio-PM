@@ -132,7 +132,7 @@ const HeroSection = () => {
                 </div>
 
                 <div className="flex items-center gap-4 pt-6" style={{ borderTop: '1px solid #1e2028' }}>
-                  <button onClick={() => window.open('https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing', '_blank')} className="text-[12px] text-pm-muted-2 hover:text-[#e2e4eb] transition-colors flex items-center gap-1">
+                  <button onClick={() => window.open('https://drive.google.com/file/d/1PntDE7PYeHvqNEJol-5Q2ub0VzHsmsWz/view?usp=sharing', '_blank')} className="text-[12px] text-pm-muted-2 hover:text-[#e2e4eb] transition-colors flex items-center gap-1">
                     View Resume ↗
                   </button>
                   <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="text-[12px] text-[#5b66f0] hover:text-[#7b8ef8] transition-colors flex items-center gap-1">
@@ -147,9 +147,9 @@ const HeroSection = () => {
         {/* Stat Cluster (Bottom Right) */}
         <div className="absolute bottom-8 right-8 w-64 rounded" style={{ background: '#14161b', border: '1px solid #1e2028' }}>
           {[
-            { icon: '🏢', label: 'Park+ Motor Insurance' },
-            { icon: '📈', label: '180% User Growth' },
-            { icon: '⏱', label: '8-Week Sprint' },
+            { icon: '🏢', label: 'Park+ — 4 Internships Journey' },
+            { icon: '📈', label: '7x DAU Growth (2K → 14K)' },
+            { icon: '⏱', label: '12x Policy Sales (5 → 60)' },
           ].map((stat, i, arr) => (
             <div 
               key={stat.label} 

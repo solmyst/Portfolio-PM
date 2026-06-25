@@ -69,7 +69,7 @@ const FunnelChart = () => {
       <div className="hidden md:flex flex-col ml-8 mb-8 pl-8 border-l border-gray-200">
         <div className="text-gray-900 text-sm font-bold mb-1">Overall Conversion: 40%</div>
         <div className="text-green-600 text-xs font-semibold flex items-center gap-1">
-          Growth vs baseline: +180% ↑
+          DAU Growth: 7x (2K → 14K) ↑
         </div>
       </div>
     </div>

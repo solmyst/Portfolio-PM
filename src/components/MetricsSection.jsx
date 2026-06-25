@@ -30,7 +30,7 @@ const MetricsSection = () => {
         {/* Row 1: KPI Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: 'USER GROWTH', val: 180, suffix: '%', change: '↑ 180%', desc: 'vs. prev' },
+            { label: 'DAU GROWTH', val: 7, suffix: 'x', change: '7x Growth', desc: '2K → 14K' },
             { label: 'SPRINT DURATION', val: 8, suffix: ' wks', change: 'On-time', desc: 'shipped' },
             { label: 'FUNNEL STAGES', val: 3, suffix: '', change: 'Complete', desc: 'built' },
             { label: 'OWNERSHIP', val: 100, suffix: '%', change: 'End-to-end', desc: 'shipped' },

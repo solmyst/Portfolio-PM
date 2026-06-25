@@ -32,15 +32,15 @@ const columns = [
     cards: [
       {
         id: 'AG-001',
-        title: 'Park+ Internship',
-        sub: 'Motor Insurance PM',
+        title: 'Park+ Journeys',
+        sub: '4x Product Intern',
         priority: 'P0',
-        tag: 'Growth: 180%',
+        tag: 'Growth: 7x DAU',
         tagColor: '#22c55e',
-        metric: '180% ↑',
-        chips: ['Funnel', 'WhatsApp', 'Strategy', 'UI/UX'],
-        detail: 'Product Intern at Park+ (Jun–Aug 2025). Scaled Motor Insurance from early stage to 180% user growth in 8 weeks. Owned funnel redesign, WhatsApp engagement flows, and outbound feature readiness.',
-        date: 'Jun–Aug 2025',
+        metric: '7x DAU ↑',
+        chips: ['Funnels', 'WhatsApp', 'Strategy', 'Full-stack'],
+        detail: 'Product Intern Journey (4 Internships) at Park+ (2023–2025). Scaled Motor Insurance from 2K to 14K DAU (7x) and policy sales from 5 to 60 (12x) in 8 weeks. Built Phonebook (4K+ DAU) and Test Drive reviews.',
+        date: '2023–2025',
         done: true,
       },
       {

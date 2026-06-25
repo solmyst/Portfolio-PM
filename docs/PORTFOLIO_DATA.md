@@ -11,7 +11,7 @@
 | Email       | anushgupta105@gmail.com                                               |
 | LinkedIn    | https://www.linkedin.com/in/anush-gupta105/                          |
 | GitHub      | https://github.com/solmyst                                            |
-| Resume      | https://drive.google.com/file/d/18zozP6xXi940m8i99zVl4RNjaY051mlD/view?usp=sharing |
+| Resume      | https://drive.google.com/file/d/1PntDE7PYeHvqNEJol-5Q2ub0VzHsmsWz/view?usp=sharing |
 
 ---
 

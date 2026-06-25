@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 // Product Manager Portfolio Configuration
 const projectConfig = {
   title: "Product Growth Portfolio",
-  description: "Scaling products from early stage to 180% growth through strategic product management",
+  description: "Scaling products from early stage to 7x growth through strategic product management",
   image: "/public/React App-1.png",
   buttons: [
     {

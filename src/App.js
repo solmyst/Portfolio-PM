@@ -211,7 +211,7 @@ function App() {
 
                 <div id="about" className="mb-[32px]">
                   <h2 className="text-[18px] font-bold mb-[8px]">1. About Me</h2>
-                  <p className="text-[10pt] leading-relaxed">I am Anush Gupta, a final-year B.Tech student graduating in April 2027. I'm actively looking for Product Manager internships and new-grad PM roles where I can roll up my sleeves and build. I'm incredibly proud of my work at Park+, where I owned conversion initiatives from raw database analysis to shipped WhatsApp features, and I love taking raw ideas and turning them into working products.</p>
+                  <p className="text-[10pt] leading-relaxed">I am Anush Gupta, a final-year B.Tech student graduating in April 2027. I am a Product Manager with a strong engineering background and 4 product internships at Park+ across insurance, automotive, and consumer-trust products. I am proud of scaling the Motor Insurance vertical from 2K to 14K DAU (7x) and daily policy sales from 5 to 60 (12x) in 8 weeks, and I leverage my technical depth to build full-stack/AI prototypes and collaborate seamlessly with engineering.</p>
                 </div>
 
                 <div id="summary" className="mb-[32px]">
@@ -270,41 +270,57 @@ function App() {
                   <div className="border border-[#D0D0D0] rounded-lg p-5 bg-white shadow-sm mb-4">
                     <div className="flex justify-between items-start mb-3 flex-wrap gap-2">
                       <div>
-                        <h3 className="text-[15px] font-bold text-[#202124]">Product Intern — Park+</h3>
-                        <p className="text-[10pt] text-google-blue font-medium mt-0.5">Growth & Insurance Vertical</p>
+                        <h3 className="text-[15px] font-bold text-[#202124]">Product Intern Journey — Park+</h3>
+                        <p className="text-[10pt] text-google-blue font-medium mt-0.5">Insurance, Automotive & Growth verticals</p>
                       </div>
-                      <span className="text-[9pt] font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">Jun 2025 – Aug 2025 (8 Weeks)</span>
+                      <span className="text-[9pt] font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">Jan 2023 – Aug 2025 (4 Internships)</span>
                     </div>
 
-                    <div className="mb-4">
-                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Objective</h4>
-                      <p className="text-[10pt] text-[#202124] leading-relaxed">Drive conversion optimization and acquisition growth in the high-impact Motor Insurance vertical by identifying and fixing severe drop-off stages in the acquisition funnel.</p>
-                    </div>
+                    <div className="space-y-6">
+                      <div className="border-l-2 border-google-blue pl-4 py-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="text-[12px] font-bold text-[#202124]">Product Intern — Motor Insurance</h4>
+                          <span className="text-[8.5pt] text-gray-500">Jun – Aug 2025</span>
+                        </div>
+                        <p className="text-[9.5pt] text-[#202124] mb-1.5"><strong>Actions:</strong> Conducted 60–80 daily calls (1,000+ total) to identify purchase funnel friction; redesigned vehicle verification, quotes, and comparison flows; launched a segmented WhatsApp re-engagement channel sending 49K+ targeted messages (6% open rate).</p>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <div className="p-1.5 bg-blue-50/50 border border-blue-100 rounded text-center">
+                            <div className="text-[11pt] font-bold text-google-blue">7x DAU</div>
+                            <div className="text-[7.5pt] text-gray-500">2K → 14K DAU</div>
+                          </div>
+                          <div className="p-1.5 bg-green-50/50 border border-green-100 rounded text-center">
+                            <div className="text-[11pt] font-bold text-google-green">12x Sales</div>
+                            <div className="text-[7.5pt] text-gray-500">5 → 60 Policies/Day</div>
+                          </div>
+                          <div className="p-1.5 bg-red-50/50 border border-red-100 rounded text-center">
+                            <div className="text-[11pt] font-bold text-google-red">+15 Policies</div>
+                            <div className="text-[7.5pt] text-gray-500">via internal tools/day</div>
+                          </div>
+                        </div>
+                      </div>
 
-                    <div className="mb-4">
-                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Actions Taken</h4>
-                      <ul className="list-disc ml-5 space-y-1.5 text-[10pt] text-[#202124] leading-relaxed">
-                        <li><strong>Funnel Analysis & Form Redesign:</strong> Audited user drop-off trends in Metabase & SQL. Simplified the complex multi-step Quote → Proposal flow into a streamlined single-page form, reducing user cognitive friction.</li>
-                        <li><strong>WhatsApp Re-engagement:</strong> Designed and deployed trigger-based WhatsApp notification flows that automatically reached out to users who abandoned their quotes, providing a direct one-click checkout link.</li>
-                        <li><strong>Internal Sales Dashboard:</strong> Collaborated cross-functionally to spec and ship an internal dashboard for sales support agents, enabling them to easily capture off-funnel sales and resolve quote inquiries.</li>
-                      </ul>
-                    </div>
+                      <div className="border-l-2 border-gray-300 pl-4 py-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="text-[12px] font-bold text-[#202124]">Product Intern — Execution & Growth</h4>
+                          <span className="text-[8.5pt] text-gray-500">Jun – Aug 2024</span>
+                        </div>
+                        <p className="text-[9.5pt] text-[#202124]"><strong>Actions & Impact:</strong> Identified dealer trust barriers; proposed, prototyped, and launched <em>Phonebook</em>, a social trust-discovery feature matching 1Cr+ contacts to trusted connections. Scaled to 4,000+ DAU.</p>
+                      </div>
 
-                    <div>
-                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Impact Delivered</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="p-3 bg-blue-50/50 border border-blue-100 rounded text-center">
-                          <div className="text-[16pt] font-bold text-google-blue">7x Growth</div>
-                          <div className="text-[8.5pt] text-gray-600 mt-0.5">Daily Active Users (2K → 14K)</div>
+                      <div className="border-l-2 border-gray-300 pl-4 py-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="text-[12px] font-bold text-[#202124]">Product Intern — Automotive & Discovery</h4>
+                          <span className="text-[8.5pt] text-gray-500">Jan – Mar 2024</span>
                         </div>
-                        <div className="p-3 bg-green-50/50 border border-green-100 rounded text-center">
-                          <div className="text-[16pt] font-bold text-google-green">10x Growth</div>
-                          <div className="text-[8.5pt] text-gray-600 mt-0.5">Daily Policies Sold (5 → 60)</div>
+                        <p className="text-[9.5pt] text-[#202124]"><strong>Actions & Impact:</strong> Analysed Test Drive booking flow friction and redesigned the lead funnel, doubling bookings from 50 to 100+/day. Spec'd and launched the Review ecosystem (generating 200+ dealer and 250+ vehicle reviews daily).</p>
+                      </div>
+
+                      <div className="border-l-2 border-gray-300 pl-4 py-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="text-[12px] font-bold text-[#202124]">Product Intern — Onboarding & Foundations</h4>
+                          <span className="text-[8.5pt] text-gray-500">Jan – Feb 2023</span>
                         </div>
-                        <div className="p-3 bg-red-50/50 border border-red-100 rounded text-center">
-                          <div className="text-[16pt] font-bold text-google-red">3 Features</div>
-                          <div className="text-[8.5pt] text-gray-600 mt-0.5">Shipped End-to-End</div>
-                        </div>
+                        <p className="text-[9.5pt] text-[#202124]"><strong>Actions & Impact:</strong> Built a strong foundation in PM frameworks, agile sprint rituals, and technical fundamentals by shadow-assisting product discovery and engineering delivery.</p>
                       </div>
                     </div>
                   </div>
@@ -323,20 +339,18 @@ function App() {
                   
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.1 Trip Helper <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Concept</span></h3>
+                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.1 AI Resume Tailor <span className="text-[10px] font-semibold text-google-blue bg-blue-50 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Live Project</span></h3>
+                      <p className="text-[10pt] leading-relaxed text-[#202124]">An AI-powered resume tailoring platform that improves ATS alignment through automated scoring, JD-based optimization, and RAG-driven semantic matching.</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.2 AI Interview Coach <span className="text-[10px] font-semibold text-google-blue bg-blue-50 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Live Project</span></h3>
+                      <p className="text-[10pt] leading-relaxed text-[#202124]">A local-first AI mock interview tool utilizing local inference (Ollama) so personal recordings never leave the user's device. Complete with custom recording flow, AI analysis, and critique output.</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.3 Trip Helper <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Concept</span></h3>
                       <p className="text-[10pt] leading-relaxed text-[#202124]">A route planner that returns tolls, fuel estimates, food stops, and total trip budget for a given start and destination.</p>
-                      <p className="text-[9.5pt] italic text-[#5F6368] mt-1 font-medium"><strong>Product Question:</strong> How do you make trip planning feel less like research?</p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.2 AI DevOps Knowledge Agent <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Concept</span></h3>
-                      <p className="text-[10pt] leading-relaxed text-[#202124]">An onboarding assistant that helps new engineers navigate internal documentation faster.</p>
-                      <p className="text-[9.5pt] italic text-[#5F6368] mt-1 font-medium"><strong>Product Question:</strong> Where exactly does new-hire ramp-up break down, and which of those breaks can an LLM actually fix?</p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-[14px] font-bold mb-1 text-[#202124]">8.3 Park+ Phonebook <span className="text-[10px] font-semibold text-google-blue bg-blue-50 px-2 py-0.5 rounded-full ml-1.5 uppercase font-ui">Shipped Contribution</span></h3>
-                      <p className="text-[10pt] leading-relaxed text-[#202124]">A contact synchronization and directory search feature within the core Park+ mobile app. Shipped contact sync backend in Java to allow seamless lookup of community phone numbers, bridging the trust and connectivity gap between vehicle owners and parking operators.</p>
                     </div>
                   </div>
                 </div>
@@ -357,11 +371,11 @@ function App() {
                     </li>
                     <li className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-google-red flex-shrink-0"></div>
-                      <div className="text-[10pt] font-medium text-[#202124]"><strong className="stat-counter text-google-red text-[11pt]" data-target="10" data-suffix="x">0x</strong> Growth in daily policies sold (5 → 60)</div>
+                      <div className="text-[10pt] font-medium text-[#202124]"><strong className="stat-counter text-google-red text-[11pt]" data-target="12" data-suffix="x">0x</strong> Growth in daily policies sold (5 → 60)</div>
                     </li>
                     <li className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-google-green flex-shrink-0"></div>
-                      <div className="text-[10pt] font-medium text-[#202124]"><strong className="stat-counter text-google-green text-[11pt]" data-target="3" data-suffix="">0</strong> Features shipped end-to-end, including WhatsApp re-engagement and an internal sales dashboard</div>
+                      <div className="text-[10pt] font-medium text-[#202124]"><strong className="stat-counter text-google-green text-[11pt]" data-target="4" data-suffix="">0</strong> Product internships completed at Park+ with increasing ownership and engineering depth</div>
                     </li>
                   </ul>
                 </div>
