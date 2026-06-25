@@ -66,6 +66,8 @@ function App() {
   const [statsAnimated, setStatsAnimated] = useState(false);
   const [isEditable, setIsEditable] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [fontSize, setFontSize] = useState(11);
+  const [fontFamily, setFontFamily] = useState('Arial');
   
   const statsRef = useRef(null);
   const scrollContainerRef = useRef(null);
@@ -139,7 +141,14 @@ function App() {
 
   return (
     <div className="bg-[#F0F2F5] h-screen font-ui text-doc-text flex flex-col overflow-hidden">
-      <TopNav isEditable={isEditable} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <TopNav 
+        isEditable={isEditable} 
+        onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+        fontSize={fontSize}
+        setFontSize={setFontSize}
+        fontFamily={fontFamily}
+        setFontFamily={setFontFamily}
+      />
       <VerticalRuler />
 
       <div className={`flex flex-1 overflow-hidden ${isEditable ? 'pt-[104px]' : 'pt-[64px]'} transition-all duration-300`}>
@@ -191,6 +200,10 @@ function App() {
               suppressContentEditableWarning={true}
               spellCheck="false"
               className="relative flex flex-col items-center outline-none font-doc"
+              style={{
+                '--doc-font-family': fontFamily,
+                '--doc-font-size': `${fontSize}pt`
+              }}
             >
 
               {/* PAGE 1 */}

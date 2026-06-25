@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const TopNav = ({ isEditable = true, onMenuClick }) => {
+const TopNav = ({ 
+  isEditable = true, 
+  onMenuClick,
+  fontSize,
+  setFontSize,
+  fontFamily,
+  setFontFamily
+}) => {
   const [docName, setDocName] = useState('Anush_Gupta_PRD_v2.0');
   const [isStarred, setIsStarred] = useState(false);
   const [saveStatus, setSaveStatus] = useState('All changes saved in Drive');
@@ -8,6 +15,11 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [shareEmail, setShareEmail] = useState('');
+
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [showFontMenu, setShowFontMenu] = useState(false);
+  const [showWordCountModal, setShowWordCountModal] = useState(false);
+  const [wordCountData, setWordCountData] = useState({ words: 0, chars: 0 });
 
   const resumeUrl = "/Anush_Gupta_Software_Engineering_Resume.pdf";
 
@@ -44,6 +56,93 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
     if (shareEmail) {
       alert(`PRD shared with ${shareEmail}!`);
       setShareEmail('');
+    }
+  };
+
+  const handleWordCount = () => {
+    setActiveMenu(null);
+    const docElement = document.getElementById('scroll-container');
+    const text = docElement ? docElement.innerText || docElement.textContent : '';
+    const cleanText = text.replace(/\s+/g, ' ').trim();
+    const words = cleanText ? cleanText.split(' ').length : 0;
+    const chars = text.length;
+    setWordCountData({ words, chars });
+    setShowWordCountModal(true);
+  };
+
+  const fontOptions = ['Arial', 'Roboto', 'Outfit', 'Georgia', 'Courier New', 'Times New Roman', 'Verdana'];
+
+  const renderMenuItems = (menu) => {
+    switch (menu) {
+      case 'file':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); setShowShareModal(true); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Share</button>
+            <button onClick={() => { setActiveMenu(null); window.open(resumeUrl, '_blank'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left font-semibold text-google-blue">Download PDF</button>
+            <button onClick={() => { setActiveMenu(null); window.print(); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Print</button>
+            <hr className="my-1 border-gray-200" />
+            <button onClick={() => { setActiveMenu(null); window.location.reload(); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Reload Document</button>
+          </>
+        );
+      case 'edit':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); execCommand('undo'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Undo</button>
+            <button onClick={() => { setActiveMenu(null); execCommand('redo'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Redo</button>
+            <hr className="my-1 border-gray-200" />
+            <button onClick={() => { setActiveMenu(null); execCommand('selectAll'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Select All</button>
+          </>
+        );
+      case 'view':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); alert("Outline tab is active on the left sidebar panel!"); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Show Outline</button>
+            <button onClick={() => { 
+              setActiveMenu(null); 
+              if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+              } else {
+                document.exitFullscreen().catch(() => {});
+              }
+            }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Toggle Fullscreen</button>
+          </>
+        );
+      case 'insert':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); execCommand('insertHorizontalRule'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Horizontal Line</button>
+            <button onClick={() => { setActiveMenu(null); alert("Pages are formatted dynamically based on content breaks."); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Page Break</button>
+          </>
+        );
+      case 'format':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); execCommand('bold'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left font-bold">Bold</button>
+            <button onClick={() => { setActiveMenu(null); execCommand('italic'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left italic">Italic</button>
+            <button onClick={() => { setActiveMenu(null); execCommand('underline'); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left underline">Underline</button>
+          </>
+        );
+      case 'tools':
+        return (
+          <>
+            <button onClick={handleWordCount} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Word Count</button>
+          </>
+        );
+      case 'extensions':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); alert("Antigravity AI Assistant is active and ready."); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Antigravity AI Helper</button>
+          </>
+        );
+      case 'help':
+        return (
+          <>
+            <button onClick={() => { setActiveMenu(null); alert("Welcome to Anush's Google Docs Portfolio! Feel free to edit the text, change fonts/sizes, and test all custom toolbar items."); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Portfolio Help</button>
+            <button onClick={() => { setActiveMenu(null); document.getElementById('notes')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left">Release Notes</button>
+          </>
+        );
+      default:
+        return null;
     }
   };
 
@@ -87,9 +186,24 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
                 <span className="material-symbols-outlined text-[20px] text-doc-text-secondary cursor-pointer hover:bg-gray-100 p-0.5 rounded ml-1" title="See document status">cloud_done</span>
               </div>
 
-              <div className={`items-center text-[14px] text-doc-text mt-[2px] ${!isEditable ? 'hidden' : 'flex'}`}>
+              <div className={`items-center text-[14px] text-doc-text mt-[2px] ${!isEditable ? 'hidden' : 'flex'} gap-1`}>
                 {['File', 'Edit', 'View', 'Insert', 'Format', 'Tools', 'Extensions', 'Help'].map(menu => (
-                  <div key={menu} className="px-2 py-[2px] rounded hover:bg-gray-100 cursor-pointer">{menu}</div>
+                  <div key={menu} className="relative">
+                    <button 
+                      onClick={() => setActiveMenu(activeMenu === menu.toLowerCase() ? null : menu.toLowerCase())}
+                      className={`px-2 py-[2px] rounded hover:bg-gray-100 cursor-pointer outline-none ${activeMenu === menu.toLowerCase() ? 'bg-gray-200 font-medium' : ''}`}
+                    >
+                      {menu}
+                    </button>
+                    {activeMenu === menu.toLowerCase() && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)}></div>
+                        <div className="absolute left-0 mt-1 w-[200px] bg-white rounded shadow-lg border border-gray-200 z-50 py-1 text-[13px] text-doc-text">
+                          {renderMenuItems(menu.toLowerCase())}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 ))}
                 <span className="text-[13px] text-doc-text-secondary ml-4 italic truncate max-w-[200px]">{saveStatus}</span>
               </div>
@@ -176,21 +290,53 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
             </button>
           </div>
           <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px]">
-            <button className="flex items-center justify-between px-2 h-[28px] hover:bg-black/5 rounded w-[90px] border border-transparent">
+            <button className="flex items-center justify-between px-2 h-[28px] hover:bg-black/5 rounded w-[95px] border border-transparent">
               <span className="text-[14px]">Normal text</span>
               <span className="text-[10px]">▼</span>
             </button>
           </div>
-          <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px]">
-            <button className="flex items-center justify-between px-2 h-[28px] hover:bg-black/5 rounded w-[70px] font-doc border border-transparent">
-              <span className="text-[14px]">Arial</span>
+          <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px] relative">
+            <button 
+              onClick={() => setShowFontMenu(!showFontMenu)}
+              className="flex items-center justify-between px-2 h-[28px] hover:bg-black/5 rounded w-[110px] font-doc border border-transparent"
+            >
+              <span className="text-[14px] truncate">{fontFamily}</span>
               <span className="text-[10px]">▼</span>
             </button>
+            {showFontMenu && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowFontMenu(false)}></div>
+                <div className="absolute left-0 top-[32px] w-[150px] bg-white rounded shadow-lg border border-gray-200 z-50 py-1 text-[13px]">
+                  {fontOptions.map(font => (
+                    <button
+                      key={font}
+                      onClick={() => { setFontFamily(font); setShowFontMenu(false); }}
+                      style={{ fontFamily: font }}
+                      className={`flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left ${fontFamily === font ? 'font-bold text-google-blue' : ''}`}
+                    >
+                      {font}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px]">
-            <button className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"><span className="material-symbols-outlined text-[20px]">remove</span></button>
-            <div className="w-[32px] h-[28px] border border-gray-300 rounded bg-white text-[14px] flex items-center justify-center">11</div>
-            <button className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"><span className="material-symbols-outlined text-[20px]">add</span></button>
+            <button 
+              onClick={() => setFontSize(prev => Math.max(6, prev - 1))}
+              className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"
+            >
+              <span className="material-symbols-outlined text-[20px]">remove</span>
+            </button>
+            <div className="w-[32px] h-[28px] border border-gray-300 rounded bg-white text-[14px] flex items-center justify-center font-semibold">
+              {fontSize}
+            </div>
+            <button 
+              onClick={() => setFontSize(prev => Math.min(36, prev + 1))}
+              className="w-[28px] h-[28px] flex items-center justify-center hover:bg-black/5 rounded"
+            >
+              <span className="material-symbols-outlined text-[20px]">add</span>
+            </button>
           </div>
           <div className="flex items-center gap-0.5 pr-2 mr-2 border-r border-doc-border-medium h-[20px]">
             <button onClick={() => execCommand('bold')} className={`w-[28px] h-[28px] flex items-center justify-center rounded ${activeFormats.bold ? 'bg-google-blue-light text-google-blue' : 'hover:bg-black/5'}`}><span className="material-symbols-outlined text-[20px] font-bold">format_bold</span></button>
@@ -232,6 +378,30 @@ const TopNav = ({ isEditable = true, onMenuClick }) => {
                 <span className="material-symbols-outlined text-[18px]">{linkCopied ? 'check' : 'link'}</span> {linkCopied ? 'Link copied!' : 'Copy link'}
               </button>
               <button onClick={() => setShowShareModal(false)} className="bg-google-blue hover:bg-google-blue-hover text-white px-6 py-2 rounded-full text-[14px] font-medium transition-colors">Done</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Word Count Modal */}
+      {showWordCountModal && (
+        <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center font-ui" onClick={() => setShowWordCountModal(false)}>
+          <div className="bg-white rounded-lg shadow-2xl w-full max-w-[400px] overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4 text-[#202124]">
+                <h2 className="text-[20px] font-medium">Word Count</h2>
+                <button onClick={() => setShowWordCountModal(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"><span className="material-symbols-outlined">close</span></button>
+              </div>
+              <table className="w-full text-[14px] text-[#202124] border-collapse">
+                <tbody>
+                  <tr className="border-b border-gray-200"><td className="py-2.5 font-medium">Words</td><td className="py-2.5 text-right">{wordCountData.words}</td></tr>
+                  <tr className="border-b border-gray-200"><td className="py-2.5 font-medium">Characters</td><td className="py-2.5 text-right">{wordCountData.chars}</td></tr>
+                  <tr className="border-b border-gray-200"><td className="py-2.5 font-medium">Characters (excluding spaces)</td><td className="py-2.5 text-right">{wordCountData.chars - (wordCountData.words > 0 ? wordCountData.words - 1 : 0)}</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end">
+              <button onClick={() => setShowWordCountModal(false)} className="bg-google-blue hover:bg-google-blue-hover text-white px-6 py-2 rounded-full text-[14px] font-medium transition-colors">Close</button>
             </div>
           </div>
         </div>

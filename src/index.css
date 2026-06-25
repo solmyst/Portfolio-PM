@@ -15,9 +15,8 @@
 
 /* Document Formatting System */
 .font-doc {
-  font-family: Arial, sans-serif;
-  font-size: 11pt;
-  /* 14.67px */
+  font-family: var(--doc-font-family, Arial, sans-serif);
+  font-size: var(--doc-font-size, 11pt);
   line-height: 1.5;
   color: #202124;
   overflow-wrap: break-word;
@@ -25,8 +24,16 @@
   max-width: 100%;
 }
 
+.font-doc, .font-doc * {
+  font-family: var(--doc-font-family, Arial, sans-serif) !important;
+}
+
+.font-doc p, .font-doc li, .font-doc td, .font-doc span:not(.material-symbols-outlined):not(.ruler-label), .font-doc button {
+  font-size: var(--doc-font-size, 11pt) !important;
+}
+
 .font-doc h1 {
-  font-size: 26px;
+  font-size: calc(var(--doc-font-size, 11pt) * 2.36) !important;
   font-weight: 700;
   margin-bottom: 12px;
   margin-top: 0;
@@ -34,7 +41,7 @@
 }
 
 .font-doc h2 {
-  font-size: 18px;
+  font-size: calc(var(--doc-font-size, 11pt) * 1.63) !important;
   font-weight: 700;
   margin-top: 24px;
   margin-bottom: 6px;
@@ -43,7 +50,7 @@
 }
 
 .font-doc h3 {
-  font-size: 14px;
+  font-size: calc(var(--doc-font-size, 11pt) * 1.27) !important;
   font-weight: 700;
   margin-top: 16px;
   margin-bottom: 4px;
